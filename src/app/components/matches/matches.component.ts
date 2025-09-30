@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { Match } from '../../model';
 
 @Component({
   selector: 'app-matches',
@@ -8,5 +9,5 @@ import { Component } from '@angular/core';
   styleUrl: './matches.component.scss'
 })
 export class MatchesComponent {
-
+@Input() matches: Match[] = [];
 }

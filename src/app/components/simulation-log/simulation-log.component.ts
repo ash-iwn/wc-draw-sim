@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { SimulationLogEntry } from '../../model';
 
 @Component({
   selector: 'app-simulation-log',
@@ -8,5 +9,5 @@ import { Component } from '@angular/core';
   styleUrl: './simulation-log.component.scss'
 })
 export class SimulationLogComponent {
-
+@Input() log: SimulationLogEntry[] = [];
 }

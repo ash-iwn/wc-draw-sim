@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-pots',
@@ -8,5 +8,5 @@ import { Component } from '@angular/core';
   styleUrl: './pots.component.scss'
 })
 export class PotsComponent {
-
+@Input() pots: { [key: number]: any[] } = {};
 }

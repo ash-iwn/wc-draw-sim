@@ -1,15 +1,13 @@
 <div class="container">
   <header class="header">
-    <div style="text-align: right; font-size: 0.8rem; color: #666; margin-bottom: 10px;">
-      Last Updated: September 27, 2025
-    </div>
+   
     <h1>FIFA World Cup 2026</h1>
     <h2>Group Stage Draw Simulator</h2>
-    <p style="color: var(--fifa-red); font-size: 1rem; margin: 10px 0;">
+    <!-- <p style="color: var(--fifa-red); font-size: 1rem; margin: 10px 0;">
       Based on Current
       <a href="https://en.wikipedia.org/wiki/2026_FIFA_World_Cup_qualification" target="_blank" style="color: var(--fifa-red); text-decoration: underline;">Qualification Status</a> &
       <a href="https://inside.fifa.com/fifa-world-ranking/men" target="_blank" style="color: var(--fifa-red); text-decoration: underline;">FIFA Rankings</a>
-    </p>
+    </p> -->
     <div style="display: flex; justify-content: center; gap: 20px; align-items: center; margin: 15px 0;">
       <div style="font-size: 0.9rem; color: var(--fifa-dark);">
         <span style="color: var(--fifa-green);">●</span> Qualified (18)
@@ -43,6 +41,7 @@
   </section>
 
   <section class="matches-section">
+    <h3>Matches</h3>
     <app-matches [matches]="matches"></app-matches>
   </section>
 
