@@ -1,6 +1,8 @@
-# WcDrawSim
+# World Cup 2026 Draw Simulator
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.1.0.
+
+This is an an Angular single page application to simulate draws of already qualified teams and projected qualified teams for the upcoming World Cup 2026 draw on December 5th.
 
 ## Development server
 
