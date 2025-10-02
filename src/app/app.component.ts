@@ -9,6 +9,11 @@ import { MatchesComponent } from './components/matches/matches.component';
 import { CommonModule } from '@angular/common';
 import { WikipediaService } from './http-service';
 import { DataService } from './data-service';
+import { QualifiersComponent } from "./components/qualifiers/qualifiers.component";
+import { MatButtonModule } from '@angular/material/button';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatSelectModule } from '@angular/material/select';
+import { MatOptionModule } from '@angular/material/core';
 @Component({
 	selector: 'app-root',
 	templateUrl: './app.component.html',
@@ -16,12 +21,14 @@ import { DataService } from './data-service';
 	standalone: true,
 	providers: [SimulatorService, WikipediaService],
 	imports: [
-		CommonModule,
-		PlayoffsComponent,
-		PotsComponent,
-		GroupsComponent,
-		SimulationLogComponent,
-		MatchesComponent]
+    CommonModule,
+    PlayoffsComponent,
+    PotsComponent,
+    GroupsComponent,
+    SimulationLogComponent,
+    MatchesComponent,
+    QualifiersComponent, MatButtonModule, MatFormFieldModule, MatSelectModule, MatOptionModule
+]
 })
 export class AppComponent implements OnInit {
 	pots: { [key: number]: Team[] } = {};
@@ -31,6 +38,7 @@ export class AppComponent implements OnInit {
 	simulationLog: SimulationLogEntry[] = [];
 	drawInProgress = false;
 	drawButtonText = '';
+	qualifiedTeams: Team[] = [];
 
 	constructor(private simulator: SimulatorService, private wikiService: WikipediaService, private dataService: DataService) {}
 
@@ -38,28 +46,26 @@ export class AppComponent implements OnInit {
 		this.pots = this.simulator.getPots();
 		this.groups = this.simulator.getGroups();
 		this.simulationLog = this.simulator.getSimulationLog();
-
+		this.qualifiedTeams = this.dataService.QUALIFIED_TEAMS;
 		
 		this.wikiService.getQualifiedTeams().subscribe(response => {
 			delete response[0]; // Remove header row
-			console.log(response[1]);
-			const qualifiedTeams = Object.values(response).map((row: any) => row[0]) ;
+			
+			const qTeams = Object.values(response).map((row: any) => row[0]) ;
 			
 
-			qualifiedTeams.forEach((teamName: string) => {
+			qTeams.forEach((teamName: string) => {
 				const team = this.dataService.ALL_TEAMS_DATA.find(t => t.name === teamName);
 				if(team) {
 					this.dataService.QUALIFIED_TEAMS.push(team)
 				};
 			});
+			console.log('Qualified Teams:', this.dataService.QUALIFIED_TEAMS);
 		});
 
-		console.log('Qualified Teams:', this.dataService.QUALIFIED_TEAMS);
-
-
-		console.log('Getting in contention AFC teams');
-
 		
+
+
 
 	}
 

@@ -1,0 +1,30 @@
+<form [formGroup]="qualifiersForm" (ngSubmit)="onSubmit()">
+  <div class="groups-grid">
+    <div *ngFor="let letter of groupLetters" class="group" [formGroupName]="'group' + letter">
+      <mat-form-field appearance="outline" class="group-field">
+        <mat-label>Group {{ letter }} — 1st place</mat-label>
+        <mat-select formControlName="pos1">
+          <mat-option *ngFor="let t of groupedTeams[letter]" [value]="t.name" [disabled]="qualifiersForm.get('group' + letter + '.pos2')?.value === t.name">{{ t.name }}</mat-option>
+        </mat-select>
+        <mat-error *ngIf="qualifiersForm.get('group' + letter + '.pos1')?.hasError('required') && (qualifiersForm.get('group' + letter + '.pos1')?.touched || qualifiersForm.touched)">
+          Select the 1st place team.
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="group-field">
+        <mat-label>Group {{ letter }} — 2nd place</mat-label>
+        <mat-select formControlName="pos2">
+          <mat-option *ngFor="let t of groupedTeams[letter]" [value]="t.name" [disabled]="qualifiersForm.get('group' + letter + '.pos1')?.value === t.name">{{ t.name }}</mat-option>
+        </mat-select>
+        <mat-error *ngIf="qualifiersForm.get('group' + letter)?.errors?.['positionsSame'] && (qualifiersForm.get('group' + letter + '.pos2')?.touched || qualifiersForm.touched)">
+          1st and 2nd cannot be the same team.
+        </mat-error>
+        <mat-error *ngIf="qualifiersForm.get('group' + letter + '.pos2')?.hasError('required') && (qualifiersForm.get('group' + letter + '.pos2')?.touched || qualifiersForm.touched)">
+          Select the 2nd place team.
+        </mat-error>
+      </mat-form-field>
+    </div>
+  </div>
+
+  <button mat-raised-button color="primary" type="submit" [disabled]="qualifiersForm.invalid">Save groups</button>
+</form>

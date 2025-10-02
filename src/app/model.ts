@@ -10,6 +10,7 @@ export interface Team {
   playoffWinner?: boolean;
   playoffPath?: string;
   projected?: boolean;
+  qGroup?: string;
 }
 
 export interface Confederation {

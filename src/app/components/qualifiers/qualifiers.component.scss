@@ -1,0 +1,70 @@
+.groups-grid {
+  display: grid;
+  gap: 16px;
+  align-items: start;
+
+  /* default: 4 columns */
+  grid-template-columns: repeat(4, 1fr);
+}
+
+/* larger screens: show more columns if available */
+@media (min-width: 1200px) {
+  .groups-grid {
+    grid-template-columns: repeat(6, 1fr);
+  }
+}
+
+/* medium screens: keep 3 columns if viewport too narrow for 4 */
+@media (max-width: 1000px) and (min-width: 700px) {
+  .groups-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* small screens: 2 columns */
+@media (max-width: 699px) {
+  .groups-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.group-field {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* layout: ensure at least 4 dropdowns appear horizontally on typical desktop widths */
+.groups-grid {
+  display: grid;
+  gap: 16px;
+  align-items: start;
+
+  /* default: 4 columns */
+  grid-template-columns: repeat(4, 1fr);
+}
+
+/* larger screens: show more columns if available */
+@media (min-width: 1200px) {
+  .groups-grid {
+    grid-template-columns: repeat(6, 1fr);
+  }
+}
+
+/* medium screens: keep 3 columns if viewport too narrow for 4 */
+@media (max-width: 1000px) and (min-width: 700px) {
+  .groups-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* small screens: 2 columns */
+@media (max-width: 699px) {
+  .groups-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.group-field {
+  width: 100%;
+  box-sizing: border-box;
+}
