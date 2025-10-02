@@ -78,22 +78,22 @@ ALL_TEAMS_DATA: Team[] = [{
   "name": "Japan",
   "confederation": "AFC",
   "points": 1640.47,
-  "flag": "JP"
+  "flag": "🇯🇵"
 }, {
   "name": "Iran",
   "confederation": "AFC",
   "points": 1622.61,
-  "flag": "IR"
+  "flag": "🇮🇷"
 }, {
   "name": "South Korea",
   "confederation": "AFC",
   "points": 1593.19,
-  "flag": "KR"
+  "flag": "🇰🇷"
 }, {
   "name": "Australia",
   "confederation": "AFC",
   "points": 1583.49,
-  "flag": "AU"
+  "flag": "🇦🇺"
 }, {
   "name": "Uzbekistan",
   "confederation": "AFC",
@@ -105,37 +105,41 @@ ALL_TEAMS_DATA: Team[] = [{
   "points": 1391.33,
   "flag": "🇯🇴"
 }, {
+  "name": "Saudi Arabia",
+  "confederation": "AFC",
+  "points": 1420.65,
+  "qGroup": 'B',
+  "flag": "🇸🇦"
+}, {
   "name": "Iraq",
   "confederation": "AFC",
   "points": 1422.20,
+  "qGroup": 'B',
   "flag": "🇮🇶"
+}, {
+  "name": "Indonesia",
+  "confederation": "AFC",
+  "points": 1157.94,
+  "qGroup": 'B',
+  "flag": "🇮🇩"
+}, 
+{
+  "name": "Qatar",
+  "confederation": "AFC",
+  "points": 1453.65,
+  "qGroup": 'A',
+  "flag": "🇶🇦"
 }, {
   "name": "UAE",
   "confederation": "AFC",
   "points": 1379.86,
+  "qGroup": 'A',
   "flag": "🇦🇪"
-},
-{
-  "name": "Saudi Arabia",
-  "confederation": "AFC",
-  "points": 1420.65,
-  "flag": "🇸🇦"
 }, {
   "name": "Oman",
   "confederation": "AFC",
   "points": 1320.34,
   "flag": "🇴🇲"
-},
-{
-  "name": "Qatar",
-  "confederation": "AFC",
-  "points": 1453.65,
-  "flag": "🇶🇦"
-}, {
-  "name": "Indonesia",
-  "confederation": "AFC",
-  "points": 1157.94,
-  "flag": "🇮🇩"
 }, {
   "name": "Egypt",
   "confederation": "CAF",
@@ -481,19 +485,19 @@ ALL_TEAMS_DATA: Team[] = [{
   "flag": "🇽🇰"
 },
 {
+  "name": "Sweden",
+  "confederation": "UEFA",
+  "points": 1524.62,
+   "qGroup": "B",
+  "flag": "🇸🇪"
+},
+{
   "name": "Slovenia",
   "confederation": "UEFA",
   "points": 1462.96,
    "qGroup": "B",
   "flag": "🇸🇮"
 },
-{
-  "name": "Sweden",
-  "confederation": "UEFA",
-  "points": 1524.62,
-   "qGroup": "B",
-  "flag": "🇸🇪"
-}, 
 {
   "name": "Denmark",
   "confederation": "UEFA",
@@ -796,7 +800,7 @@ ALL_TEAMS_DATA: Team[] = [{
 }];
 
 
-UEFA_PLAYOFF_TEAMS = [
+UEFA_PLAYOFF_TEAMS: Team[] = [
     // Group runners-up (12 teams)
     // { name: 'Germany', confederation: 'UEFA', points: 1704.27, flag: '🇩🇪', playoffStatus: 'Group runner-up' },
     // { name: 'Kosovo', confederation: 'UEFA', points: 1337.40, flag: '🇽🇰', playoffStatus: 'Group runner-up' },

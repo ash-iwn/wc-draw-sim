@@ -38,15 +38,15 @@ export class AppComponent implements OnInit {
 	simulationLog: SimulationLogEntry[] = [];
 	drawInProgress = false;
 	drawButtonText = '';
-	qualifiedTeams: Team[] = [];
+	
 
-	constructor(private simulator: SimulatorService, private wikiService: WikipediaService, private dataService: DataService) {}
+	constructor(private simulator: SimulatorService, private wikiService: WikipediaService, public dataService: DataService) {}
 
 	ngOnInit(): void {
 		this.pots = this.simulator.getPots();
 		this.groups = this.simulator.getGroups();
 		this.simulationLog = this.simulator.getSimulationLog();
-		this.qualifiedTeams = this.dataService.QUALIFIED_TEAMS;
+		
 		
 		this.wikiService.getQualifiedTeams().subscribe(response => {
 			delete response[0]; // Remove header row
@@ -57,10 +57,13 @@ export class AppComponent implements OnInit {
 			qTeams.forEach((teamName: string) => {
 				const team = this.dataService.ALL_TEAMS_DATA.find(t => t.name === teamName);
 				if(team) {
-					this.dataService.QUALIFIED_TEAMS.push(team)
+					this.dataService.QUALIFIED_TEAMS.push(team);
+					team.qualified = true;
 				};
 			});
-			console.log('Qualified Teams:', this.dataService.QUALIFIED_TEAMS);
+
+			console.log(this.dataService.ALL_TEAMS_DATA.filter(t => t.qualified));
+			
 		});
 
 		

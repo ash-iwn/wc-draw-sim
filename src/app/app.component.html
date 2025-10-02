@@ -10,7 +10,7 @@
     </p> -->
     <div style="display: flex; justify-content: center; gap: 20px; align-items: center; margin: 15px 0;">
       <div style="font-size: 0.9rem; color: var(--fifa-dark);">
-        <span *ngIf="qualifiedTeams" style="color: var(--fifa-green);">●</span> Qualified ({{qualifiedTeams.length}})
+        <span style="color: var(--fifa-green);">●</span> Qualified ({{dataService.QUALIFIED_TEAMS.length}})
         <!-- <span style="color: var(--fifa-light-blue);">●</span> Projected (28)
         <span style="color: var(--fifa-red);">●</span> Playoff Winners (6) -->
       </div>
