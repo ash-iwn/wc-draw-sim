@@ -139,191 +139,228 @@ ALL_TEAMS_DATA: Team[] = [{
   "name": "Oman",
   "confederation": "AFC",
   "points": 1320.34,
+  "qGroup": 'A',
   "flag": "🇴🇲"
 }, {
   "name": "Egypt",
+  "qGroup":"A",
   "confederation": "CAF",
   "points": 1519.18,
   "flag": "🇪🇬"
 }, {
   "name": "Burkina Faso",
+    "qGroup":"A",
   "confederation": "CAF",
   "points": 1385.37,
   "flag": "🇧🇫"
 }, {
   "name": "Sierra Leone",
+    "qGroup":"A",
   "confederation": "CAF",
   "points": 1150.1,
   "flag": "🇸🇱"
 }, {
   "name": "Guinea-Bissau",
+    "qGroup":"A",
   "confederation": "CAF",
   "points": 1126.81,
   "flag": "🇬🇼"
 }, {
   "name": "Senegal",
+    "qGroup":"B",
   "confederation": "CAF",
   "points": 1645.23,
   "flag": "🇸🇳"
 },
 {
   "name": "DR Congo",
+   "qGroup":"B",
   "confederation": "CAF",
   "points": 1407.6,
   "flag": "🇨🇩"
 },
 {
   "name": "Sudan",
+   "qGroup":"B",
   "confederation": "CAF",
   "points": 1163.56,
   "flag": "🇸🇩"
 },
 {
   "name": "Benin",
+   "qGroup":"C",
   "confederation": "CAF",
   "points": 1257.3,
   "flag": "🇧🇯"
 },  
 {
   "name": "South Africa",
+   "qGroup":"C",
   "confederation": "CAF",
   "points": 1448.67,
   "flag": "🇿🇦"
 }, {
   "name": "Nigeria",
+   "qGroup":"C",
   "confederation": "CAF",
   "points": 1483.86,
   "flag": "🇳🇬"
 },
 {
   "name": "Rwanda",
+   "qGroup":"C",
   "confederation": "CAF",
   "points": 1133.5,
   "flag": "RW"
 },
 {
   "name": "Lesotho",
+   "qGroup":"C",
   "confederation": "CAF",
   "points": 1034.1,
   "flag": "LS"
 },  
 {
   "name": "Cape Verde",
+   "qGroup":"D",
   "confederation": "CAF",
   "points": 1363.21,
   "flag": "🇨🇻"
 }, {
   "name": "Cameroon",
+   "qGroup":"D",
   "confederation": "CAF",
   "points": 1455.42,
   "flag": "🇨🇲"
 }, {
   "name": "Libya",
+   "qGroup":"D",
   "confederation": "CAF",
   "points": 1179.57,
   "flag": "🇱🇾"
 }, {
   "name": "Angola",
+   "qGroup":"D",
   "confederation": "CAF",
   "points": 1268.72,
   "flag": "🇱🇾"
 }, {
   "name": "Morocco",
+   "qGroup":"E",
   "confederation": "CAF",
   "points": 1706.27,
   "flag": "🇲🇦"
 },{
   "name": "Tanzania",
+   "qGroup":"E",
   "confederation": "CAF",
   "points": 1199.45,
   "flag": "🇲🇦"
 }, {
   "name": "Niger",
+   "qGroup":"E",
   "confederation": "CAF",
   "points": 1160.33,
   "flag": "🇲🇦"
 }, {
   "name": "Zambia",
+   "qGroup":"E",
   "confederation": "CAF",
   "points": 1706.27,
   "flag": "🇲🇦"
 }, {
   "name": "Ivory Coast",
+   "qGroup":"F",
   "confederation": "CAF",
   "points": 1273,
   "flag": "🇨🇮"
 }, {
   "name": "Gabon",
+   "qGroup":"F",
   "confederation": "CAF",
   "points": 1314.06,
   "flag": "🇬🇦"
 }, {
   "name": "Algeria",
+   "qGroup":"G",
   "confederation": "CAF",
   "points": 1500.74,
   "flag": "🇩🇿"
 }, {
   "name": "Uganda",
+   "qGroup":"G",
   "confederation": "CAF",
   "points": 1287.61,
   "flag": "🇺🇬"
 }, {
   "name": "Mozambique",
+   "qGroup":"G",
   "confederation": "CAF",
   "points": 1234.04,
   "flag": "🇲🇿"
 }, {
   "name": "Guinea",
+   "qGroup":"G",
   "confederation": "CAF",
   "points": 1299.49,
   "flag": "🇬🇳"
 },  {
   "name": "Botswana",
+   "qGroup":"G",
   "confederation": "CAF",
   "points": 1087.27,
   "flag": "🇧🇼"
 },{
   "name": "Tunisia",
+   "qGroup":"H",
   "confederation": "CAF",
   "points": 1483.02,
   "flag": "🇹🇳"
 }, {
   "name": "Namibia",
+   "qGroup":"H",
   "confederation": "CAF",
   "points": 1183.8,
   "flag": "🇳🇦"
 }, {
   "name": "Liberia",
+   "qGroup":"H",
   "confederation": "CAF",
   "points": 1065.62,
   "flag": "🇹🇳"
 }, {
   "name": "Malawi",
+   "qGroup":"H",
   "confederation": "CAF",
   "points": 1133.6,
   "flag": "🇲🇼"
 }, {
   "name": "Equatorial Guinea",
+   "qGroup":"H",
   "confederation": "CAF",
   "points": 1248.68,
   "flag": "🇬🇶"
 }, {
   "name": "Ghana",
+   "qGroup":"I",
   "confederation": "CAF",
   "points": 1340.84,
   "flag": "🇬🇭"
 }, {
   "name": "Madagascar",
+   "qGroup":"I",
   "confederation": "CAF",
   "points": 1187.59,
   "flag": "🇲🇬"
 }, {
   "name": "Comoros",
+   "qGroup":"I",
   "confederation": "CAF",
   "points": 1201.83,
   "flag": "🇰🇲"
 },{
   "name": "Mali",
+   "qGroup":"I",
   "confederation": "CAF",
   "points": 1445.83,
   "flag": "🇲🇱"
@@ -823,6 +860,9 @@ UEFA_PLAYOFF_TEAMS: Team[] = [
 ];
 
 
+AFC_PLAYOFF_TEAMS:Team[] = [];
+
+
 UEFA_NATIONS_LEAGUE_PRIORITY = [
   'Spain',
   'Germany',
@@ -850,7 +890,7 @@ UEFA_NATIONS_LEAGUE_PRIORITY = [
   'Israel'
 ]
 
-INTERCONTINENTAL_PLAYOFF_TEAMS = [
+INTERCONTINENTAL_PLAYOFF_TEAMS:Team[] = [
     // { name: 'DR Congo', confederation: 'CAF', points: 1407.60, flag: '🇨🇩', playoffSlot: 'CAF playoff winner' },
     // { name: 'Bolivia', confederation: 'CONMEBOL', points: 1332.24, flag: '🇧🇴', playoffSlot: 'CONMEBOL 7th place' },
     // { name: 'UAE', confederation: 'AFC', points: 1379.86, flag: '🇦🇪', playoffSlot: 'AFC playoff winner' },

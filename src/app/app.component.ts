@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { SimulatorService } from './sim-service';
 import { Team, PlayoffResults, SimulationLogEntry, Match } from './model';
 import { PlayoffsComponent } from './components/playoffs/playoffs.component';
@@ -38,9 +38,14 @@ export class AppComponent implements OnInit {
 	simulationLog: SimulationLogEntry[] = [];
 	drawInProgress = false;
 	drawButtonText = '';
+	qualifiersReady = false; 
 	
 
-	constructor(private simulator: SimulatorService, private wikiService: WikipediaService, public dataService: DataService) {}
+	constructor(
+		private simulator: SimulatorService,
+		private wikiService: WikipediaService,
+		public dataService: DataService,
+	 	private cdr: ChangeDetectorRef) {}
 
 	ngOnInit(): void {
 		this.pots = this.simulator.getPots();
@@ -48,23 +53,30 @@ export class AppComponent implements OnInit {
 		this.simulationLog = this.simulator.getSimulationLog();
 		
 		
-		this.wikiService.getQualifiedTeams().subscribe(response => {
-			delete response[0]; // Remove header row
-			
-			const qTeams = Object.values(response).map((row: any) => row[0]) ;
-			
+		this.wikiService.getQualifiedTeams().subscribe({
+      next: response => {
+    Promise.resolve().then(() => {
+      // process response and update dataService
+      delete response[0];
+      const qTeams = Object.values(response).map((row: any) => row[0]);
+      qTeams.forEach((teamName: string) => {
+        const team = this.dataService.ALL_TEAMS_DATA.find(t => t.name === teamName);
+        if (team) {
+          this.dataService.QUALIFIED_TEAMS.push(team);
+          team.qualified = true;
+        }
+      });
 
-			qTeams.forEach((teamName: string) => {
-				const team = this.dataService.ALL_TEAMS_DATA.find(t => t.name === teamName);
-				if(team) {
-					this.dataService.QUALIFIED_TEAMS.push(team);
-					team.qualified = true;
-				};
-			});
-
-			console.log(this.dataService.ALL_TEAMS_DATA.filter(t => t.qualified));
-			
-		});
+      this.qualifiersReady = true;
+      // optional: immediately run change detection
+      this.cdr.detectChanges();
+    });
+  },
+  error: err => {
+    console.error('Failed to load wiki qualifiers', err);
+    Promise.resolve().then(() => this.qualifiersReady = true);
+  }
+    });
 
 		
 
