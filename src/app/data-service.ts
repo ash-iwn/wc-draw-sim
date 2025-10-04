@@ -71,7 +71,7 @@ export class DataService {
 
   public QUALIFIED_TEAMS:Team[] = [];
 
-  PROJECTED_QUALIFIERS = [];
+  PROJECTED_QUALIFIERS:Team[] = [];
 
 
   ALL_TEAMS_DATA: Team[] = [{
@@ -382,62 +382,74 @@ export class DataService {
     "points": 1558.04,
     host: true,
     "flag": "🇨🇦"
-  }, {
-    "name": "Panama",
-    "confederation": "CONCACAF",
-    "points": 1529.71,
-    "flag": "🇵🇦"
-  },
+  }, 
   {
     "name": "Suriname",
     "confederation": "CONCACAF",
+    "qGroup": "A",
     "points": 1125.21,
     "flag": "🇸🇷"
   }, 
   {
     "name": "El Salvador",
     "confederation": "CONCACAF",
+    "qGroup": "A",
     "points": 1267.75,
     "flag": "🇵🇦"
-  }, 
+  },
   {
-    "name": "Guatamela",
+    "name": "Panama",
     "confederation": "CONCACAF",
+    "qGroup": "A",
+    "points": 1529.71,
+    "flag": "🇵🇦"
+  },
+  {
+    "name": "Guatemala",
+    "confederation": "CONCACAF",
+    "qGroup": "A",
     "points": 1230.73,
     "flag": "🇬🇹"
   }, {
     "name": "Jamaica",
     "confederation": "CONCACAF",
+    "qGroup": "B",
     "points": 1377.22,
     "flag": "🇯🇲"
   }, {
     "name": "Curacao",
+    "qGroup": "B",
     "confederation": "CONCACAF",
     "points": 1282.42,
     "flag": "🇨🇼"
   }, {
     "name": "Trinidad and Tobago",
     "confederation": "CONCACAF",
+    "qGroup": "B",
     "points": 1220.99,
     "flag": "🇹🇹"
   }, {
     "name": "Costa Rica",
     "confederation": "CONCACAF",
+    "qGroup": "C",
     "points": 1481.13,
     "flag": "🇨🇷"
   }, {
     "name": "Honduras",
     "confederation": "CONCACAF",
     "points": 1383.98,
+    "qGroup": "C",
     "flag": "🇭🇳"
   }, {
     "name": "Haiti",
     "confederation": "CONCACAF",
     "points": 1269.24,
+    "qGroup": "C",
     "flag": "🇭🇹"
   }, {
     "name": "Nicaragua",
     "confederation": "CONCACAF",
+    "qGroup": "C",
     "points": 1120.78,
     "flag": "🇳🇮"
   }, {
@@ -1029,17 +1041,17 @@ export class DataService {
 
   // remove qualified/playoff/interconf entries for a confederation
   resetConfederationQualifiedTeams(conf: string): void {
-    // remove qualified teams for this confederation
-    this.QUALIFIED_TEAMS = this.QUALIFIED_TEAMS.filter(t => t.confederation !== conf);
+    // remove qualified teams for this confederation but KEEP hosts (host === true)
+    this.PROJECTED_QUALIFIERS = this.PROJECTED_QUALIFIERS.filter(t => t.confederation !== conf);
 
-    // remove interconf entries for this confederation (but keep any truly qualified markers)
+    // remove interconf entries for this confederation but keep truly qualified markers and hosts
     this.INTERCONTINENTAL_PLAYOFF_TEAMS = this.INTERCONTINENTAL_PLAYOFF_TEAMS
-      .filter(t => t.confederation !== conf || (t as any).qualified === true);
-
-    // special-case UEFA playoff list
-    if (conf === 'UEFA') {
-      this.UEFA_PLAYOFF_TEAMS = [];
-    }
-    // add other conf-specific resets here if needed
-  }
+      .filter(t => t.confederation !== conf || (t as any).qualified === true || (t as any).host === true);
+ 
+     // special-case UEFA playoff list
+     if (conf === 'UEFA') {
+       this.UEFA_PLAYOFF_TEAMS = [];
+     }
+     // add other conf-specific resets here if needed
+   }
 }

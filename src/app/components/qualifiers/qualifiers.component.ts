@@ -13,25 +13,31 @@ import { Team } from '../../model';
   standalone: true,
   imports: [ReactiveFormsModule, CommonModule, MatButtonModule, MatFormFieldModule, MatSelectModule, MatOptionModule],
   templateUrl: './qualifiers.component.html',
-  styleUrl: './qualifiers.component.scss'
+  styleUrls: ['./qualifiers.component.scss']
 })
-export class QualifiersComponent implements OnInit {
+export class QualifiersComponent implements OnInit, OnDestroy {
   private subs = new Subscription();
   private initializing = true; // <-- new guard
   UefaQualifiersForm!: FormGroup;
   AfcQualifiersForm!: FormGroup;
   CafQualifiersForm!: FormGroup;
+  ConcacafQualifiersForm!: FormGroup;
   
   UefaGroupLetters = 'ABCDEFGHIJKL'.split(''); 
   AfcGroupLetters = 'AB'.split('');
-  CafGroupLetters = 'ABCDEFGHI'.split(''); 
+  CafGroupLetters = 'ABCDEFGHI'.split('');
+  ConcacafGroupLetters = 'ABC'.split('');
   
   UefaTeamNames: Team[] = [];
   AfcTeamNames: Team[] = [];
   CafTeamNames: Team[] = [];
+  ConcacafTeamNames: Team[] = [];
 
   selectedAfcRunner: Team | null = null;
   selectedCafRunners: Team[] | null = null;
+
+  // new: array bound to the multi-select (keeps selection order)
+  selectedConcacafRunners: Team[] = [];
   cafPlayoffForm!: FormGroup;
 
   CafIcTeam: Team | null = null;        // selected Team object for IC select
@@ -40,9 +46,12 @@ export class QualifiersComponent implements OnInit {
   UefaGroupedTeams: Record<string, Team[]> = {};
   AfcGroupedTeams: Record<string, Team[]> = {};
   CafGroupedTeams: Record<string, Team[]> = {};
+  ConcacafGroupedTeams: Record<string, Team[]> = {};
 
   // add this map to remember which positions should be locked
   private lockedCafPositions: Record<string, { pos1: boolean; pos2: boolean }> = {};
+  private lockedConcacafPositions: Record<string, { pos1: boolean; pos2: boolean }> = {};
+
 
   constructor(private fb: FormBuilder, private dataService: DataService, private cdr: ChangeDetectorRef) { }
 
@@ -58,6 +67,10 @@ export class QualifiersComponent implements OnInit {
     this.CafTeamNames = this.dataService.ALL_TEAMS_DATA
       .filter(val => val.confederation === 'CAF');
 
+    this.ConcacafTeamNames = this.dataService.ALL_TEAMS_DATA
+      .filter(val => val.confederation === 'CONCACAF' && val.host !== true);
+
+   
     this.UefaGroupLetters.forEach(letter => {
       this.UefaGroupedTeams[letter] = this.UefaTeamNames.filter(t => t.qGroup === letter);
     });
@@ -70,11 +83,17 @@ export class QualifiersComponent implements OnInit {
       this.CafGroupedTeams[letter] = this.CafTeamNames.filter(t => t.qGroup === letter);
     });
 
+     this.ConcacafGroupLetters.forEach(letter => {
+      this.ConcacafGroupedTeams[letter] = this.ConcacafTeamNames.filter(t => t.qGroup === letter);
+    });
+
+
 
     // build a FormGroup per letter with pos1 & pos2 controls
     const UefaControls: Record<string, any> = {};
     const AfcControls: Record<string, any> = {};
     const CafControls: Record<string, any> = {};
+    const ConcacafControls: Record<string, any> = {};
     
     this.UefaGroupLetters.forEach(letter => {
       const options = this.UefaGroupedTeams[letter] || [];
@@ -96,7 +115,6 @@ export class QualifiersComponent implements OnInit {
       }, { validators: [this.positionsDistinctValidator()] });
     });
     
-
     this.CafGroupLetters.forEach(letter => {
       const options = this.CafGroupedTeams[letter] || [];
       // match qualified teams by name (QUALIFIED_TEAMS may not have qGroup set yet)
@@ -132,10 +150,47 @@ export class QualifiersComponent implements OnInit {
       // remember locks to apply after the form is created
       this.lockedCafPositions['group' + letter] = { pos1: lockPos1, pos2: lockPos2 };
     });
+
+    this.ConcacafGroupLetters.forEach(letter => {
+      const options = this.ConcacafGroupedTeams[letter] || [];
+      // match qualified teams by name (QUALIFIED_TEAMS may not have qGroup set yet)
+      const qualifiedNames = this.dataService.QUALIFIED_TEAMS
+        .filter(t => t.confederation === 'CONCACAF' && t.host !== true)
+        .map(t => t.name);
+      const qualifiedInGroup = options.filter(o => qualifiedNames.includes(o.name));
+ 
+      // default slots
+      let first = options[0]?.name ?? '';
+      let second = options[1]?.name ?? '';
+      let lockPos1 = false;
+      let lockPos2 = false;
+ 
+      if (qualifiedInGroup.length >= 2) {
+        first = qualifiedInGroup[0].name;
+        second = qualifiedInGroup[1].name;
+        lockPos1 = true;
+        lockPos2 = true;
+      } else if (qualifiedInGroup.length === 1) {
+        // ensure the qualified team is included (as pos1) and pick another available for pos2
+        first = qualifiedInGroup[0].name;
+        const other = options.find(o => o.name !== first)?.name ?? '';
+        second = other;
+        lockPos1 = true;
+      }
+ 
+      ConcacafControls['group' + letter] = this.fb.group({
+        pos1: [first, Validators.required],
+        pos2: [second, Validators.required]
+      }, { validators: [this.positionsDistinctValidator()] });
+
+      // remember locks to apply after the form is created
+      this.lockedConcacafPositions['group' + letter] = { pos1: lockPos1, pos2: lockPos2 };
+    });
  
     this.UefaQualifiersForm = this.fb.group(UefaControls);
     this.AfcQualifiersForm = this.fb.group(AfcControls);
     this.CafQualifiersForm = this.fb.group(CafControls);
+    this.ConcacafQualifiersForm = this.fb.group(ConcacafControls);
  
     // apply the disabled state for any locked CAF positions so they cannot be changed
     Object.keys(this.lockedCafPositions).forEach(groupName => {
@@ -148,6 +203,19 @@ export class QualifiersComponent implements OnInit {
     // make sure locks/defaults re-apply if QUALIFIED_TEAMS was updated earlier/later
     // (call once now to ensure any late-populated QUALIFIED_TEAMS are enforced)
     this.applyCafLocks();
+
+
+    // apply the disabled state for any locked CAF positions so they cannot be changed
+    Object.keys(this.lockedConcacafPositions).forEach(groupName => {
+      const locks = this.lockedConcacafPositions[groupName];
+      const group = this.ConcacafQualifiersForm.get(groupName) as FormGroup | null;
+      if (!group) { return; }
+      if (locks.pos1) { group.get('pos1')?.disable({ emitEvent: false }); }
+      if (locks.pos2) { group.get('pos2')?.disable({ emitEvent: false }); }
+    });
+    // make sure locks/defaults re-apply if QUALIFIED_TEAMS was updated earlier/later
+    // (call once now to ensure any late-populated QUALIFIED_TEAMS are enforced)
+    this.applyConcacafLocks();
 
     const wireUpPair = (form: FormGroup, letters: string[], grouped: Record<string, Team[]>) => {
       letters.forEach(letter => {
@@ -189,6 +257,7 @@ export class QualifiersComponent implements OnInit {
     wireUpPair(this.UefaQualifiersForm, this.UefaGroupLetters, this.UefaGroupedTeams);
     wireUpPair(this.AfcQualifiersForm, this.AfcGroupLetters, this.AfcGroupedTeams);
     wireUpPair(this.CafQualifiersForm, this.CafGroupLetters, this.CafGroupedTeams);
+    wireUpPair(this.ConcacafQualifiersForm, this.ConcacafGroupLetters, this.ConcacafGroupedTeams)
 
     const defaults = this.cafPos2List.map(t => t.name).filter(Boolean).slice(0, 4);
     while (defaults.length < 4) { defaults.push(''); }
@@ -200,11 +269,7 @@ export class QualifiersComponent implements OnInit {
       runner3: [defaults[3], Validators.required],
     }, { validators: [this.uniqueRunnersValidator()] });
 
-    // remove synchronous duplicate refresh calls here (we'll run them once, in the microtask below)
-
-    this.subs.add(this.cafPlayoffForm.valueChanges.subscribe(() => {
-      // if validator fails you can show messages or auto-correct here
-    }));
+   
 
     if (this.UefaQualifiersForm.valid) {
       this.processUefaSelections(this.UefaQualifiersForm.value);
@@ -217,8 +282,21 @@ export class QualifiersComponent implements OnInit {
       this.processAfcSelections(this.AfcQualifiersForm.value);
     }
 
-    const initialCafPos2 = this.cafPos2List;
-    // don't call processCafSelections here synchronously; defer to the single microtask below
+    const initialConcacafPos2 = this.concacafPos2List;
+    if (this.ConcacafQualifiersForm.valid) {
+      // default selectedConcacafRunners to first two available pos2 teams
+      this.selectedConcacafRunners = [initialConcacafPos2[0], initialConcacafPos2[1]].filter(Boolean) as Team[];
+      // ensure interconf list and any downstream processing run with the defaults
+      const a = this.selectedConcacafRunners[0] ?? null;
+      const b = this.selectedConcacafRunners[1] ?? null;
+      this.setInterconfTeamForConcacaf(a, b);
+      // run concacaf processing if desired (use processConcacafSelections if implemented)
+      if (typeof this.processConcacafSelections === 'function') {
+        this.processConcacafSelections(this.ConcacafQualifiersForm.value);
+      }
+    }
+
+   
 
    
     Promise.resolve().then(() => {
@@ -427,134 +505,59 @@ export class QualifiersComponent implements OnInit {
     else teams.push(entry);
   }
 
-  // -------------------------
-  // CAF methods
-  // -------------------------
-  get cafPos2List(): Team[] {
-    if (!this.CafQualifiersForm) { return []; }
-    const teamNames = this.CafGroupLetters
-      .map(letter => this.CafQualifiersForm.get('group' + letter + '.pos2')?.value)
-      .filter((n): n is string => !!n);
-    return teamNames
-     .map(name => this.dataService.ALL_TEAMS_DATA.find(t => t.name === name))
-     .filter((t): t is Team => !!t);
-  }
 
-  get CafPlayoffTeamList(): Team[] {
-    if (!this.cafPlayoffForm) { return []; }
-
-    const list = Object.values(this.cafPlayoffForm.value || {});
-    return (list as string[])
-      .map(name => this.dataService.ALL_TEAMS_DATA.find(t => t.name === name))
-      .filter((t): t is Team => !!t);
-
-  }
-
-  uniqueRunnersValidator(): ValidatorFn {
-    return (group: AbstractControl) => {
-      const vals = Object.values(group.value || {}).filter(v => !!v);
-      const set = new Set(vals);
-      return set.size === vals.length ? null : { duplicates: true };
-    };
-  }
-
-  isCafOptionDisabled(name: string, index: number): boolean {
-    if (!this.cafPlayoffForm) { return false; }
-
-    const values = Object.values(this.cafPlayoffForm.value || {});
-    return values.some((v, i) => i !== index && v === name);
-  }
-
-  get cafPlayoffSelections(): string[] {
-    return this.cafPlayoffForm ? Object.values(this.cafPlayoffForm.value) as string[] : [];
-  }
-
-
-  private processCafSelections(res: any): void {
-    // clear previous CAF entries
-    this.dataService.resetConfederationQualifiedTeams('CAF');
-
-    // add group winners (pos1) as qualified
-    Object.keys(res).forEach(key => {
-      const teams = res[key];
-      const found = this.dataService.ALL_TEAMS_DATA.find(t => t.name === teams.pos1);
-      if (found) {
-        this.addQualifiedTeam(found);
-      }
-    });
-
-    // ensure INTERCONTINENTAL_PLAYOFF_TEAMS reflects the current CAF IC selection
-    this.setInterconfTeamForCAF(this.CafIcTeam);
-  }
-
-  // ensure Interconfederation select default follows a refreshed playoff list
-  private refreshCafPlayoff(): void {
-     if (!this.cafPlayoffForm) { return; }
-     const names = this.cafPos2List.map(t => t.name).filter(Boolean).slice(0, 4);
-     while (names.length < 4) { names.push(''); }
-     // update values without emitting events to avoid loops
-     this.cafPlayoffForm.setValue({
-       runner0: names[0],
-       runner1: names[1],
-       runner2: names[2],
-       runner3: names[3],
-     }, { emitEvent: false });
-
-     // ensure CafIcTeam default follows the refreshed playoff list and update view
-     this.refreshCafIcSelection();
-    };
-
-  // called from the template when the user changes the IC dropdown
-  onCafIcChange(selected?: Team | null): void {
-    // update local selection
-    this.CafIcTeam = selected ?? null;
-    // ensure INTERCONTINENTAL_PLAYOFF_TEAMS reflects the new selection
-    this.setInterconfTeamForCAF(this.CafIcTeam);
-    // run the same CAF processing logic so state is consistent
-    if (this.CafQualifiersForm) {
-      this.processCafSelections(this.CafQualifiersForm.value);
-    }
-  }
-
-  // ensure Interconfederation select defaults to the first available playoff team
   private refreshCafIcSelection(): void {
     const list = this.CafPlayoffTeamList;
-    // if there is no available playoff team, clear selection
+    // no options -> clear selection and interconf entry
     if (!list || list.length === 0) {
       this.CafIcTeam = null;
+      this.setInterconfTeamForCAF(undefined);
       this.cdr.detectChanges();
       return;
     }
 
-    // set after current CD cycle so mat-select sees the options
+    // defer until after change detection so mat-select options exist
     Promise.resolve().then(() => {
       const first = list[0];
+      // avoid redundant work if already set to the same team
+      if (this.CafIcTeam && this.CafIcTeam.name === first.name) {
+        return;
+      }
+
       this.CafIcTeam = first;
-      this.cdr.detectChanges();
-      // make sure the interconf list is up-to-date for initial state
+      // keep INTERCONTINENTAL_PLAYOFF_TEAMS in sync
       this.setInterconfTeamForCAF(this.CafIcTeam);
-      // now that the IC selection exists, process CAF selections
-      this.processCafSelections(this.CafQualifiersForm.value);
+
+      // now that IC selection is set, process CAF selections to update projected qualifiers
+      if (this.CafQualifiersForm) {
+        this.processCafSelections(this.CafQualifiersForm.value);
+      }
+
+      this.cdr.detectChanges();
     });
   }
 
-  // Re-apply CAF defaults & locks based on current dataService.QUALIFIED_TEAMS
+  // -------------------------
+  // CAF methods
+  // -------------------------
+
   public applyCafLocks(): void {
     if (!this.CafQualifiersForm) { return; }
 
-    // get qualified CAF team names (exit early if none)
     const qualifiedNames = this.dataService.QUALIFIED_TEAMS
       .filter(t => t.confederation === 'CAF')
       .map(t => t.name);
 
     if (!qualifiedNames || qualifiedNames.length === 0) {
-      // ensure all controls are enabled if nothing qualified
+      // enable all controls if nothing qualified
       this.CafGroupLetters.forEach(letter => {
         const group = this.CafQualifiersForm.get('group' + letter) as FormGroup | null;
         if (!group) { return; }
         group.get('pos1')?.enable({ emitEvent: false });
         group.get('pos2')?.enable({ emitEvent: false });
       });
+      // ensure playoff picks reflect current pos2 values
+      this.refreshCafPlayoff();
       return;
     }
 
@@ -601,60 +604,308 @@ export class QualifiersComponent implements OnInit {
     });
 
     // refresh dependent state (playoff picks / ic selection)
-    if (typeof this.refreshCafPlayoff === 'function') {
-      this.refreshCafPlayoff();
-    } else {
-      // if you used the inline function name earlier, call the method you have
-      // this.refreshCafPlayoff();
+    this.refreshCafPlayoff();
+    this.cdr.detectChanges();
+  }
+
+
+  private refreshCafPlayoff(): void {
+    if (!this.cafPlayoffForm) { return; }
+
+    // ensure runner controls are enabled so we can set values
+    ['runner0','runner1','runner2','runner3'].forEach(k => {
+      const ctrl = this.cafPlayoffForm.get(k);
+      if (ctrl && ctrl.disabled) { ctrl.enable({ emitEvent: false }); }
+    });
+
+    // take first 4 pos2 names (pad with empty strings)
+    const names = this.cafPos2List.map(t => t.name).filter(Boolean).slice(0, 4);
+    while (names.length < 4) { names.push(''); }
+
+    // set values without emitting to avoid subscription loops; we'll update dependent state explicitly
+    this.cafPlayoffForm.setValue({
+      runner0: names[0],
+      runner1: names[1],
+      runner2: names[2],
+      runner3: names[3],
+    }, { emitEvent: false });
+
+    // update IC selection and any dependent state
+    this.refreshCafIcSelection();
+  }
+
+  
+  isCafOptionDisabled(name: string, index: number): boolean {
+    if (!this.cafPlayoffForm) { return false; }
+    const values = Object.values(this.cafPlayoffForm.value || {});
+    return values.some((v, i) => i !== index && v === name);
+  }
+ 
+  get cafPos2List(): Team[] {
+    if (!this.CafQualifiersForm) { return []; }
+    const teamNames = this.CafGroupLetters
+      .map(letter => this.CafQualifiersForm.get('group' + letter + '.pos2')?.value)
+      .filter((n): n is string => !!n);
+    return teamNames
+     .map(name => this.dataService.ALL_TEAMS_DATA.find(t => t.name === name))
+     .filter((t): t is Team => !!t);
+  }
+
+  get CafPlayoffTeamList(): Team[] {
+    if (!this.cafPlayoffForm) { return []; }
+
+    const list = Object.values(this.cafPlayoffForm.value || {});
+    return (list as string[])
+      .map(name => this.dataService.ALL_TEAMS_DATA.find(t => t.name === name))
+      .filter((t): t is Team => !!t);
+
+  }
+
+  uniqueRunnersValidator(): ValidatorFn {
+    return (group: AbstractControl) => {
+      const vals = Object.values(group.value || {}).filter(v => !!v);
+      const set = new Set(vals);
+      return set.size === vals.length ? null : { duplicates: true };
+    };
+  }
+
+  onCafIcChange(selected?: Team | null): void {
+    this.CafIcTeam = selected ?? null;
+    this.setInterconfTeamForCAF(this.CafIcTeam);
+    if (this.CafQualifiersForm) {
+      this.processCafSelections(this.CafQualifiersForm.value);
     }
   }
 
-  // idempotent: ensure a single CAF interconf team exists and only update when it actually changes
-  private setInterconfTeamForCAF(t?: Team | null) {
+  
+  private setInterconfTeamForCAF(t?: Team | null): void {
     const teams = this.dataService.INTERCONTINENTAL_PLAYOFF_TEAMS;
-    const existingIndex = teams.findIndex(team => team.confederation === 'CAF' && team.qualified !== true);
+    const existingIndex = teams.findIndex(team => team.confederation === 'CAF' && !(team as any).qualified);
     const existing = existingIndex >= 0 ? teams[existingIndex] : undefined;
 
-    // If no new team provided -> remove existing CAF interconf entry if present
+    // remove existing if no new team provided
     if (!t || !t.name) {
-      if (existingIndex >= 0) {
-        teams.splice(existingIndex, 1);
-      }
+      if (existingIndex >= 0) { teams.splice(existingIndex, 1); }
       return;
     }
 
-    // If existing entry already matches the requested team, do nothing
-    if (existing && existing.name === t.name) {
-      return;
-    }
+    // no change needed
+    if (existing && existing.name === t.name) { return; }
 
-    // Prepare an entry to insert/replace
     const entry: Team = { ...t, playoffSlot: 'CAF playoff winner' };
-
     if (existingIndex >= 0) {
-      // replace the existing CAF entry
       teams.splice(existingIndex, 1, entry);
     } else {
-      // add new CAF entry
       teams.push(entry);
     }
   }
 
-  // -------------------------
-  // common helpers
-  // -------------------------
-  // safe: ignore falsy or unmatched teams
-  addQualifiedTeam(t?: Team | null) {
-    if (!t || !t.name) { return; }
-    const exists = this.dataService.QUALIFIED_TEAMS.find(team => team.name === t.name);
-    if (!exists) {
-      this.dataService.QUALIFIED_TEAMS.push(t);
-    }
+  
+  private processCafSelections(res: any): void {
+    // clear previous CAF entries
+    this.dataService.resetConfederationQualifiedTeams('CAF');
+
+    // add group winners (pos1) as projected qualifiers
+    Object.keys(res || {}).forEach(key => {
+      const teams = res[key];
+      const found = this.dataService.ALL_TEAMS_DATA.find(t => t.name === teams.pos1);
+      if (found) { this.addQualifiedTeam(found); }
+    });
+
+    // ensure INTERCONTINENTAL_PLAYOFF_TEAMS reflects the current CAF IC selection
+    this.setInterconfTeamForCAF(this.CafIcTeam);
   }
 
-  compareTeams = (t1: Team | null, t2: Team | null): boolean => {
-    if (t1 === t2) { return true; }
-    if (!t1 || !t2) { return false; }
-    return t1.name === t2.name;
+  // -------------------------
+  // CONCACAF methods
+  // -------------------------
+
+  public applyConcacafLocks(): void {
+    if (!this.ConcacafQualifiersForm) { return; }
+
+    // get qualified CAF team names (exit early if none)
+    const qualifiedNames = this.dataService.QUALIFIED_TEAMS
+      .filter(t => t.confederation === 'CONCACAF' && t.host !== true)
+      .map(t => t.name);
+
+    if (!qualifiedNames || qualifiedNames.length === 0) {
+      // ensure all controls are enabled if nothing qualified
+      this.ConcacafGroupLetters.forEach(letter => {
+        const group = this.ConcacafQualifiersForm.get('group' + letter) as FormGroup | null;
+        if (!group) { return; }
+        group.get('pos1')?.enable({ emitEvent: false });
+        group.get('pos2')?.enable({ emitEvent: false });
+      });
+      return;
+    }
+
+    // For every group: enable controls first, then apply locks only for matching qualified names
+    this.ConcacafGroupLetters.forEach(letter => {
+      const groupName = 'group' + letter;
+      const group = this.ConcacafQualifiersForm.get(groupName) as FormGroup | null;
+      if (!group) { return; }
+
+      const options = this.ConcacafGroupedTeams[letter] || [];
+      const qualInThisGroup = options
+        .filter(o => qualifiedNames.includes(o.name))
+        .map(o => o.name);
+
+      // ensure controls are enabled before evaluation (so we can set values)
+      const p1 = group.get('pos1');
+      const p2 = group.get('pos2');
+      p1?.enable({ emitEvent: false });
+      p2?.enable({ emitEvent: false });
+
+      // If there are qualified teams for this group, ensure they're placed and locked
+      if (qualInThisGroup.length > 0) {
+        qualInThisGroup.forEach(qname => {
+          const v1 = p1?.value;
+          const v2 = p2?.value;
+          // if qualified team not already in pos1/pos2, put it into the first available slot
+          if (v1 !== qname && v2 !== qname) {
+            if (!p1?.disabled) {
+              p1?.setValue(qname, { emitEvent: false });
+            } else if (!p2?.disabled) {
+              p2?.setValue(qname, { emitEvent: false });
+            }
+          }
+        });
+
+        // disable only the control(s) that actually contain a qualified team
+        if (p1 && qualInThisGroup.includes(p1.value)) { p1.disable({ emitEvent: false }); }
+        if (p2 && qualInThisGroup.includes(p2.value)) { p2.disable({ emitEvent: false }); }
+      } else {
+        // nothing qualified for this group — leave both enabled
+        p1?.enable({ emitEvent: false });
+        p2?.enable({ emitEvent: false });
+      }
+    });
+
+   
   }
+
+  get concacafPos2List(): Team[] {
+    if (!this.ConcacafQualifiersForm) { return []; }
+
+    let teamNames:string[] = this.ConcacafGroupLetters
+      .map(letter => this.ConcacafQualifiersForm.get('group' + letter + '.pos2')?.value);
+
+    let res:Team[] = [];
+
+    teamNames.forEach(team => {
+      res.push(this.dataService.ALL_TEAMS_DATA.find(t=> t.name === team) as Team);
+    })
+
+    // do not mutate selection from getter; refreshConcacafPlayoff will set defaults
+    return res;
+  }
+
+ 
+  
+  private processConcacafSelections(res: any): void {
+    this.dataService.resetConfederationQualifiedTeams('CONCACAF');
+
+    Object.keys(res || {}).forEach(key => {
+      const teams = res[key];
+      const found = this.dataService.ALL_TEAMS_DATA.find(t => t.name === teams.pos1);
+      if (found) { this.addQualifiedTeam(found); }
+    });
+
+    // use the multi-select array for interconf slots (up to 2)
+    const a = this.selectedConcacafRunners[0] ?? null;
+    const b = this.selectedConcacafRunners[1] ?? null;
+    this.setInterconfTeamForConcacaf(a, b);
+
+    console.log(this.dataService.QUALIFIED_TEAMS);
+    console.log(this.dataService.PROJECTED_QUALIFIERS);
+    console.log(this.dataService.INTERCONTINENTAL_PLAYOFF_TEAMS);
+  }
+
+    // idempotent setter for two CONCACAF interconf playoff entries (keeps 2 slots)
+  private setInterconfTeamForConcacaf(a?: Team | null, b?: Team | null): void {
+    const teams = this.dataService.INTERCONTINENTAL_PLAYOFF_TEAMS;
+    // remove any non-qualified CONCACAF entries first
+    for (let i = teams.length - 1; i >= 0; i--) {
+      if (teams[i].confederation === 'CONCACAF' && !(teams[i] as any).qualified) {
+        teams.splice(i, 1);
+      }
+    }
+
+    const upsert = (t?: Team | null, slot?: string) => {
+      if (!t || !t.name) { return; }
+      const existing = teams.find(x => x.confederation === 'CONCACAF' && x.name === t.name);
+      if (existing) {
+        // keep slot updated if needed
+        (existing as any).playoffSlot = slot;
+        return;
+      }
+      teams.push({ ...t, playoffSlot: slot });
+    };
+
+    upsert(a, 'CONCACAF playoff slot 1');
+    upsert(b, 'CONCACAF playoff slot 2');
+  }
+
+ 
+  
+
+  // called from template when user changes the multi-select for CONCACAF runners
+  onConcacafRunnersChange(selected?: Team[] | null): void {
+    // accept up to two selections
+    this.selectedConcacafRunners = (selected || []).slice(0, 2);
+
+    // ensure uniqueness: if duplicate names selected, pick an alternate for the second slot
+    if (this.selectedConcacafRunners.length === 2 &&
+        this.selectedConcacafRunners[0]?.name === this.selectedConcacafRunners[1]?.name) {
+      const alt = this.concacafPos2List.find(t => t.name !== this.selectedConcacafRunners[0].name) ?? null;
+      if (alt) {
+        this.selectedConcacafRunners[1] = alt;
+      } else {
+        // Remove the second runner if no valid alternate found
+        this.selectedConcacafRunners = [this.selectedConcacafRunners[0]];
+      }
+      this.selectedConcacafRunners = this.selectedConcacafRunners.filter(Boolean) as Team[];
+    }
+
+    const a = this.selectedConcacafRunners[0] ?? null;
+    const b = this.selectedConcacafRunners[1] ?? null;
+    this.setInterconfTeamForConcacaf(a, b);
+
+    if (this.ConcacafQualifiersForm) {
+      if (typeof this.processConcacafSelections === 'function') {
+        this.processConcacafSelections(this.ConcacafQualifiersForm.value);
+      }
+    }
+  }
+ 
+
+  // minimal refresh for CONCACAF runner picks: pick first two pos2 teams and sync interconf list
+  private refreshConcacafPlayoff(): void {
+    if (!this.ConcacafQualifiersForm) { return; }
+    const opts = this.concacafPos2List;
+    const first = opts[0] ?? null;
+    const second = opts[1] ?? null;
+    this.selectedConcacafRunners = [first, second].filter(Boolean) as Team[];
+    const a = this.selectedConcacafRunners[0] ?? null;
+    const b = this.selectedConcacafRunners[1] ?? null;
+    this.setInterconfTeamForConcacaf(a, b);
+  }
+ 
+   // -------------------------
+   // common helpers
+   // -------------------------
+   // safe: ignore falsy or unmatched teams
+   addQualifiedTeam(t?: Team | null) {
+     if (!t || !t.name) { return; }
+     const exists = this.dataService.PROJECTED_QUALIFIERS.find(team => team.name === t.name);
+     if (!exists) {
+       this.dataService.PROJECTED_QUALIFIERS.push(t);
+     }
+   }
+ 
+   compareTeams = (t1: Team | null, t2: Team | null): boolean => {
+     if (t1 === t2) { return true; }
+     if (!t1 || !t2) { return false; }
+     return t1.name === t2.name;
+   }
 }
