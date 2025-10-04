@@ -24,7 +24,7 @@
   </header>
 
   <section  class="qualifiers-section">
-    <app-qualifiers></app-qualifiers>
+    <app-qualifiers *ngIf="qualifiersReady"></app-qualifiers>
   </section>
 
   <section class="playoffs-section" *ngIf="playoffResults">

@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ChangeDetectorRef } from '@angular/core';
 import { SimulatorService } from './sim-service';
 import { Team, PlayoffResults, SimulationLogEntry, Match } from './model';
 import { PlayoffsComponent } from './components/playoffs/playoffs.component';
@@ -9,7 +9,7 @@ import { MatchesComponent } from './components/matches/matches.component';
 import { CommonModule } from '@angular/common';
 import { WikipediaService } from './http-service';
 import { DataService } from './data-service';
-import { QualifiersComponent } from "./components/qualifiers/qualifiers.component";
+import { QualifiersComponent } from './components/qualifiers/qualifiers.component'; // adjust path if needed
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
@@ -31,6 +31,8 @@ import { MatOptionModule } from '@angular/material/core';
 ]
 })
 export class AppComponent implements OnInit {
+	@ViewChild(QualifiersComponent) qualifiersComp!: QualifiersComponent;
+
 	pots: { [key: number]: Team[] } = {};
 	groups: { [key: string]: Team[] } = {};
 	matches: Match[] = [];
@@ -55,27 +57,34 @@ export class AppComponent implements OnInit {
 		
 		this.wikiService.getQualifiedTeams().subscribe({
       next: response => {
-    Promise.resolve().then(() => {
-      // process response and update dataService
-      delete response[0];
-      const qTeams = Object.values(response).map((row: any) => row[0]);
-      qTeams.forEach((teamName: string) => {
-        const team = this.dataService.ALL_TEAMS_DATA.find(t => t.name === teamName);
-        if (team) {
-          this.dataService.QUALIFIED_TEAMS.push(team);
-          team.qualified = true;
-        }
-      });
+        Promise.resolve().then(() => {
+          // process response and update dataService
+          delete response[0];
+          const qTeams = Object.values(response).map((row: any) => row[0]);
+          qTeams.forEach((teamName: string) => {
+            const team = this.dataService.ALL_TEAMS_DATA.find(t => t.name === teamName);
+            if (team) {
+              this.dataService.QUALIFIED_TEAMS.push(team);
+              team.qualified = true;
+            }
+          });
 
-      this.qualifiersReady = true;
-      // optional: immediately run change detection
-      this.cdr.detectChanges();
-    });
-  },
-  error: err => {
-    console.error('Failed to load wiki qualifiers', err);
-    Promise.resolve().then(() => this.qualifiersReady = true);
-  }
+          this.qualifiersReady = true;
+		  console.log('WIKI SERVICE FINISHED', this.dataService.QUALIFIED_TEAMS);
+          // optional: immediately run change detection
+		   if (this.qualifiersComp && typeof this.qualifiersComp.applyCafLocks === 'function') {
+            this.qualifiersComp.applyCafLocks();
+            
+	        }
+
+			this.cdr.detectChanges();
+  
+        });
+      },
+      error: err => {
+        console.error('Failed to load wiki qualifiers', err);
+        //Promise.resolve().then(() => this.qualifiersReady = true);
+      }
     });
 
 		

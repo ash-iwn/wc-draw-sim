@@ -11,6 +11,7 @@ export interface Team {
   playoffPath?: string;
   projected?: boolean;
   qGroup?: string;
+  playoffSlot?: string;
 }
 
 export interface Confederation {
