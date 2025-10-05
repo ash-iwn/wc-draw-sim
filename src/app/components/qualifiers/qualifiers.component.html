@@ -1,271 +1,232 @@
-<section>
-  <h3>UEFA Qualifying - In Progress</h3>
-
-  <span>Current standings as of the September qualifying window. Use the dropdowns to test other scenarios</span>
-
-  <br>
-  <br>
-  <form [formGroup]="UefaQualifiersForm">
-    <div class="groups-grid">
-      <div *ngFor="let letter of UefaGroupLetters" class="group" [formGroupName]="'group' + letter">
-        <mat-form-field appearance="outline" class="group-field">
-          <mat-label>Group {{ letter }} — 1st place</mat-label>
-          <mat-select formControlName="pos1">
-            <!-- UEFA pos1 -->
-            <mat-option *ngFor="let t of UefaGroupedTeams[letter]"
-                        [value]="t.name"
-                        [disabled]="(UefaGroupedTeams[letter].length) > 2 && UefaQualifiersForm.get('group' + letter + '.pos2')?.value === t.name">
-              {{ t.name }}
-            </mat-option>
-          </mat-select>
-          <mat-error *ngIf="UefaQualifiersForm.get('group' + letter + '.pos1')?.hasError('required') && (UefaQualifiersForm.get('group' + letter + '.pos1')?.touched || UefaQualifiersForm.touched)">
-            Select the 1st place team.
-          </mat-error>
-        </mat-form-field>
-
-        <mat-form-field appearance="outline" class="group-field">
-          <mat-label>Group {{ letter }} — 2nd place</mat-label>
-          <mat-select formControlName="pos2">
-            <!-- UEFA pos2 -->
-            <mat-option *ngFor="let t of UefaGroupedTeams[letter]"
-                        [value]="t.name"
-                        [disabled]="(UefaGroupedTeams[letter].length) > 2 && UefaQualifiersForm.get('group' + letter + '.pos1')?.value === t.name">
-              {{ t.name }}
-            </mat-option>
-          </mat-select>
-          <mat-error *ngIf="UefaQualifiersForm.get('group' + letter + '.pos2')?.hasError('required') && (UefaQualifiersForm.get('group' + letter + '.pos2')?.touched || UefaQualifiersForm.touched)">
-            Select the 2nd place team.
-          </mat-error>
-          <mat-error *ngIf="UefaQualifiersForm.get('group' + letter)?.errors?.['positionsSame'] && (UefaQualifiersForm.get('group' + letter + '.pos2')?.touched || UefaQualifiersForm.touched)">
-            1st and 2nd cannot be the same team.
-          </mat-error>
-        </mat-form-field>
+<mat-accordion>
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title>UEFA Qualifying - In Progress</mat-panel-title>
+    </mat-expansion-panel-header>
+    <span>Current standings as of the September qualifying window. Use the dropdowns to test other scenarios</span>
+    <form [formGroup]="UefaQualifiersForm">
+      <div class="groups-grid">
+        <div *ngFor="let letter of UefaGroupLetters" class="group" [formGroupName]="'group' + letter">
+          <mat-form-field appearance="outline" class="group-field">
+            <mat-label>Group {{ letter }} — 1st place</mat-label>
+            <mat-select formControlName="pos1">
+              <mat-option *ngFor="let t of UefaGroupedTeams[letter]"
+                          [value]="t.name"
+                          [disabled]="(UefaGroupedTeams[letter].length) > 2 && UefaQualifiersForm.get('group' + letter + '.pos2')?.value === t.name">
+                {{ t.name }}
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="UefaQualifiersForm.get('group' + letter + '.pos1')?.hasError('required') && (UefaQualifiersForm.get('group' + letter + '.pos1')?.touched || UefaQualifiersForm.touched)">
+              Select the 1st place team.
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field appearance="outline" class="group-field">
+            <mat-label>Group {{ letter }} — 2nd place</mat-label>
+            <mat-select formControlName="pos2">
+              <mat-option *ngFor="let t of UefaGroupedTeams[letter]"
+                          [value]="t.name"
+                          [disabled]="(UefaGroupedTeams[letter].length) > 2 && UefaQualifiersForm.get('group' + letter + '.pos1')?.value === t.name">
+                {{ t.name }}
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="UefaQualifiersForm.get('group' + letter + '.pos2')?.hasError('required') && (UefaQualifiersForm.get('group' + letter + '.pos2')?.touched || UefaQualifiersForm.touched)">
+              Select the 2nd place team.
+            </mat-error>
+            <mat-error *ngIf="UefaQualifiersForm.get('group' + letter)?.errors?.['positionsSame'] && (UefaQualifiersForm.get('group' + letter + '.pos2')?.touched || UefaQualifiersForm.touched)">
+              1st and 2nd cannot be the same team.
+            </mat-error>
+          </mat-form-field>
+        </div>
       </div>
-    </div>
+    </form>
+  </mat-expansion-panel>
 
-    <!-- <button mat-raised-button color="primary" type="submit" [disabled]="UefaQualifiersForm.invalid">Update UEFA groups</button> -->
-  </form>
-</section>
-<br>
-
-
-<section>
-  <form [formGroup]="AfcQualifiersForm">
-    <h3>AFC Qualifiying - In Progress</h3>
-    <span>Curent Standings as of September. Use the dropdowns to test other scenarios</span>
-    <br>
-    <br>
-    <div class="groups-grid">
-      <div *ngFor="let letter of AfcGroupLetters" class="group" [formGroupName]="'group' + letter">
-        <mat-form-field appearance="outline" class="group-field">
-          <mat-label>Group {{ letter }} — 1st place</mat-label>
-          <mat-select formControlName="pos1">
-            <!-- AFC pos1 -->
-            <mat-option *ngFor="let t of AfcGroupedTeams[letter]"
-                        [value]="t.name"
-                        [disabled]="(AfcGroupedTeams[letter].length) > 2 && AfcQualifiersForm.get('group' + letter + '.pos2')?.value === t.name">
-              {{ t.name }}
-            </mat-option>
-          </mat-select>
-          <mat-error *ngIf="AfcQualifiersForm.get('group' + letter + '.pos1')?.hasError('required') && (AfcQualifiersForm.get('group' + letter + '.pos1')?.touched || AfcQualifiersForm.touched)">
-            Select the 1st place team.
-          </mat-error>
-        </mat-form-field>
-
-        <mat-form-field appearance="outline" class="group-field">
-          <mat-label>Group {{ letter }} — 2nd place</mat-label>
-          <mat-select formControlName="pos2">
-            <!-- AFC pos2 -->
-            <mat-option *ngFor="let t of AfcGroupedTeams[letter]"
-                        [value]="t.name"
-                        [disabled]="(AfcGroupedTeams[letter].length) > 2 && AfcQualifiersForm.get('group' + letter + '.pos1')?.value === t.name">
-              {{ t.name }}
-            </mat-option>
-          </mat-select>
-          <mat-error *ngIf="AfcQualifiersForm.get('group' + letter + '.pos2')?.hasError('required') && (AfcQualifiersForm.get('group' + letter + '.pos2')?.touched || AfcQualifiersForm.touched)">
-            Select the 2nd place team.
-          </mat-error>
-          <mat-error *ngIf="AfcQualifiersForm.get('group' + letter)?.errors?.['positionsSame'] && (AfcQualifiersForm.get('group' + letter + '.pos2')?.touched || AfcQualifiersForm.touched)">
-            1st and 2nd cannot be the same team.
-          </mat-error>
-        </mat-form-field>
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title>AFC Qualifying - In Progress</mat-panel-title>
+    </mat-expansion-panel-header>
+    <form [formGroup]="AfcQualifiersForm">
+      <span>Curent Standings as of September. Use the dropdowns to test other scenarios</span>
+      <div class="groups-grid">
+        <div *ngFor="let letter of AfcGroupLetters" class="group" [formGroupName]="'group' + letter">
+          <mat-form-field appearance="outline" class="group-field">
+            <mat-label>Group {{ letter }} — 1st place</mat-label>
+            <mat-select formControlName="pos1">
+              <mat-option *ngFor="let t of AfcGroupedTeams[letter]"
+                          [value]="t.name"
+                          [disabled]="(AfcGroupedTeams[letter].length) > 2 && AfcQualifiersForm.get('group' + letter + '.pos2')?.value === t.name">
+                {{ t.name }}
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="AfcQualifiersForm.get('group' + letter + '.pos1')?.hasError('required') && (AfcQualifiersForm.get('group' + letter + '.pos1')?.touched || AfcQualifiersForm.touched)">
+              Select the 1st place team.
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field appearance="outline" class="group-field">
+            <mat-label>Group {{ letter }} — 2nd place</mat-label>
+            <mat-select formControlName="pos2">
+              <mat-option *ngFor="let t of AfcGroupedTeams[letter]"
+                          [value]="t.name"
+                          [disabled]="(AfcGroupedTeams[letter].length) > 2 && AfcQualifiersForm.get('group' + letter + '.pos1')?.value === t.name">
+                {{ t.name }}
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="AfcQualifiersForm.get('group' + letter + '.pos2')?.hasError('required') && (AfcQualifiersForm.get('group' + letter + '.pos2')?.touched || AfcQualifiersForm.touched)">
+              Select the 2nd place team.
+            </mat-error>
+            <mat-error *ngIf="AfcQualifiersForm.get('group' + letter)?.errors?.['positionsSame'] && (AfcQualifiersForm.get('group' + letter + '.pos2')?.touched || AfcQualifiersForm.touched)">
+              1st and 2nd cannot be the same team.
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div class="afc-playoff-choice">
+          <mat-form-field appearance="outline" class="group-field">
+            <mat-label>Inter-confederation Play-off</mat-label>
+            <mat-select [value]="selectedAfcRunner" [compareWith]="compareTeams" (selectionChange)="onAfcRunnerChange($event.value)">
+              <mat-option *ngFor="let t of afcPos2List" [value]="t">{{ t.name }}</mat-option>
+            </mat-select>
+            <mat-hint>Select one of the two runners-up</mat-hint>
+          </mat-form-field>
+        </div>
       </div>
-      <br>
-      <div class="afc-playoff-choice">
-        <mat-form-field appearance="outline" class="group-field">
-          <mat-label>Inter-confederation Play-off</mat-label>
-          <mat-select [value]="selectedAfcRunner" [compareWith]="compareTeams" (selectionChange)="onAfcRunnerChange($event.value)">
-            <mat-option *ngFor="let t of afcPos2List" [value]="t">{{ t.name }}</mat-option>
-          </mat-select>
-          <mat-hint>Select one of the two runners-up</mat-hint>
-        </mat-form-field>
+    </form>
+  </mat-expansion-panel>
+
+  <mat-expansion-panel *ngIf="CafQualifiersForm">
+    <mat-expansion-panel-header>
+      <mat-panel-title>CAF Qualifying - In Progress</mat-panel-title>
+    </mat-expansion-panel-header>
+    <form [formGroup]="CafQualifiersForm">
+      <span>Curent Standings as of September. Use the dropdowns to test other scenarios</span>
+      <div class="groups-grid">
+        <div *ngFor="let letter of CafGroupLetters" class="group" [formGroupName]="'group' + letter">
+          <mat-form-field appearance="outline" class="group-field">
+            <mat-label>Group {{ letter }} — 1st place</mat-label>
+            <mat-select formControlName="pos1">
+              <mat-option *ngFor="let t of CafGroupedTeams[letter]"
+                          [value]="t.name"
+                          [disabled]="(CafGroupedTeams[letter].length) > 2 && CafQualifiersForm.get('group' + letter + '.pos2')?.value === t.name">
+                {{ t.name }}
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="CafQualifiersForm.get('group' + letter + '.pos1')?.hasError('required') && (CafQualifiersForm.get('group' + letter + '.pos1')?.touched || CafQualifiersForm.touched)">
+              Select the 1st place team.
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field appearance="outline" class="group-field">
+            <mat-label>Group {{ letter }} — 2nd place</mat-label>
+            <mat-select formControlName="pos2">
+              <mat-option *ngFor="let t of CafGroupedTeams[letter]"
+                          [value]="t.name"
+                          [disabled]="(CafGroupedTeams[letter].length) > 2 && CafQualifiersForm.get('group' + letter + '.pos1')?.value === t.name">
+                {{ t.name }}
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="CafQualifiersForm.get('group' + letter + '.pos2')?.hasError('required') && (CafQualifiersForm.get('group' + letter + '.pos2')?.touched || CafQualifiersForm.touched)">
+              Select the 2nd place team.
+            </mat-error>
+            <mat-error *ngIf="CafQualifiersForm.get('group' + letter)?.errors?.['positionsSame'] && (CafQualifiersForm.get('group' + letter + '.pos2')?.touched || CafQualifiersForm.touched)">
+              1st and 2nd cannot be the same team.
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div *ngIf="cafPlayoffForm" [formGroup]="cafPlayoffForm" class="caf-playoff-choice">
+          <mat-form-field appearance="outline" class="group-field">
+            <mat-label>CAF Playoff Team 1</mat-label>
+            <mat-select formControlName="runner0">
+              <mat-option *ngFor="let t of cafPos2List" [value]="t.name" [disabled]="isCafOptionDisabled(t.name, 0)">
+                {{ t.name }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-form-field appearance="outline" class="group-field">
+            <mat-label>CAF Playoff Team 2</mat-label>
+            <mat-select formControlName="runner1">
+              <mat-option *ngFor="let t of cafPos2List" [value]="t.name" [disabled]="isCafOptionDisabled(t.name, 1)">
+                {{ t.name }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-form-field appearance="outline" class="group-field">
+            <mat-label>CAF Playoff Team 3</mat-label>
+            <mat-select formControlName="runner2">
+              <mat-option *ngFor="let t of cafPos2List" [value]="t.name" [disabled]="isCafOptionDisabled(t.name, 2)">
+                {{ t.name }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-form-field appearance="outline" class="group-field">
+            <mat-label>CAF Playoff Team 4</mat-label>
+            <mat-select formControlName="runner3">
+              <mat-option *ngFor="let t of cafPos2List" [value]="t.name" [disabled]="isCafOptionDisabled(t.name, 3)">
+                {{ t.name }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div *ngIf="cafPlayoffForm">
+          <mat-form-field appearance="outline" class="group-field">
+            <mat-label>Inter-confederation Play-off</mat-label>
+            <mat-select [(value)]="CafIcTeam" [compareWith]="compareTeams" (selectionChange)="onCafIcChange($event.value)">
+              <mat-option *ngFor="let t of CafPlayoffTeamList" [value]="t">{{ t.name }}</mat-option>
+            </mat-select>
+            <mat-hint>Select one of the four playoff teams</mat-hint>
+          </mat-form-field>
+        </div>
       </div>
+    </form>
+  </mat-expansion-panel>
 
-    
-    </div>
-
-    <!-- <button mat-raised-button color="primary" type="submit" [disabled]="AfcQualifiersForm.invalid">Update AFC Groups</button> -->
-  </form>
-</section>
-
-
-
-<section *ngIf="CafQualifiersForm">
-  <form [formGroup]="CafQualifiersForm" >
-    <h3>CAF Qualifiying - In Progress</h3>
-    <span>Curent Standings as of September. Use the dropdowns to test other scenarios</span>
-    <br>
-    <br>
-    <div class="groups-grid">
-      <div *ngFor="let letter of CafGroupLetters" class="group" [formGroupName]="'group' + letter">
-        <mat-form-field appearance="outline" class="group-field">
-          <mat-label>Group {{ letter }} — 1st place</mat-label>
-          <mat-select formControlName="pos1">
-            <!-- CAF pos1 -->
-            <mat-option *ngFor="let t of CafGroupedTeams[letter]"
-                        [value]="t.name"
-                        [disabled]="(CafGroupedTeams[letter].length) > 2 && CafQualifiersForm.get('group' + letter + '.pos2')?.value === t.name">
-              {{ t.name }}
-            </mat-option>
-          </mat-select>
-          <mat-error *ngIf="CafQualifiersForm.get('group' + letter + '.pos1')?.hasError('required') && (CafQualifiersForm.get('group' + letter + '.pos1')?.touched || CafQualifiersForm.touched)">
-            Select the 1st place team.
-          </mat-error>
-        </mat-form-field>
-
-        <mat-form-field appearance="outline" class="group-field">
-          <mat-label>Group {{ letter }} — 2nd place</mat-label>
-          <mat-select formControlName="pos2">
-            <!-- CAF pos2 -->
-            <mat-option *ngFor="let t of CafGroupedTeams[letter]"
-                        [value]="t.name"
-                        [disabled]="(CafGroupedTeams[letter].length) > 2 && CafQualifiersForm.get('group' + letter + '.pos1')?.value === t.name">
-              {{ t.name }}
-            </mat-option>
-          </mat-select>
-          <mat-error *ngIf="CafQualifiersForm.get('group' + letter + '.pos2')?.hasError('required') && (CafQualifiersForm.get('group' + letter + '.pos2')?.touched || CafQualifiersForm.touched)">
-            Select the 2nd place team.
-          </mat-error>
-          <mat-error *ngIf="CafQualifiersForm.get('group' + letter)?.errors?.['positionsSame'] && (CafQualifiersForm.get('group' + letter + '.pos2')?.touched || CafQualifiersForm.touched)">
-            1st and 2nd cannot be the same team.
-          </mat-error>
-        </mat-form-field>
+  <mat-expansion-panel *ngIf="ConcacafQualifiersForm">
+    <mat-expansion-panel-header>
+      <mat-panel-title>CONCACAF Qualifying - In Progress</mat-panel-title>
+    </mat-expansion-panel-header>
+    <form [formGroup]="ConcacafQualifiersForm">
+      <span>Curent Standings as of September. Use the dropdowns to test other scenarios</span>
+      <div class="groups-grid">
+        <div *ngFor="let letter of ConcacafGroupLetters" class="group" [formGroupName]="'group' + letter">
+          <mat-form-field appearance="outline" class="group-field">
+            <mat-label>Group {{ letter }} — 1st place</mat-label>
+            <mat-select formControlName="pos1">
+              <mat-option *ngFor="let t of ConcacafGroupedTeams[letter]"
+                          [value]="t.name"
+                          [disabled]="(ConcacafGroupedTeams[letter].length) > 2 && ConcacafQualifiersForm.get('group' + letter + '.pos2')?.value === t.name">
+                {{ t.name }}
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="ConcacafQualifiersForm.get('group' + letter + '.pos1')?.hasError('required') && (ConcacafQualifiersForm.get('group' + letter + '.pos1')?.touched || ConcacafQualifiersForm.touched)">
+              Select the 1st place team.
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field appearance="outline" class="group-field">
+            <mat-label>Group {{ letter }} — 2nd place</mat-label>
+            <mat-select formControlName="pos2">
+              <mat-option *ngFor="let t of ConcacafGroupedTeams[letter]"
+                          [value]="t.name"
+                          [disabled]="(ConcacafGroupedTeams[letter].length) > 2 && ConcacafQualifiersForm.get('group' + letter + '.pos1')?.value === t.name">
+                {{ t.name }}
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="ConcacafQualifiersForm.get('group' + letter + '.pos2')?.hasError('required') && (ConcacafQualifiersForm.get('group' + letter + '.pos2')?.touched || ConcacafQualifiersForm.touched)">
+              Select the 2nd place team.
+            </mat-error>
+            <mat-error *ngIf="ConcacafQualifiersForm.get('group' + letter)?.errors?.['positionsSame'] && (ConcacafQualifiersForm.get('group' + letter + '.pos2')?.touched || ConcacafQualifiersForm.touched)">
+              1st and 2nd cannot be the same team.
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div class="concacaf-playoff-choice">
+          <mat-form-field appearance="outline" class="group-field">
+            <mat-label>2 Inter-confederation Play-off </mat-label>
+            <mat-select [value]="selectedConcacafRunners" multiple [compareWith]="compareTeams" (selectionChange)="onConcacafRunnersChange($event.value)">
+              <mat-option *ngFor="let t of concacafPos2List" [value]="t">{{ t.name }}</mat-option>
+            </mat-select>
+            <mat-hint>Select up to two distinct runners-up</mat-hint>
+          </mat-form-field>
+        </div>
       </div>
-      <br>
-     
-      
-      <div *ngIf="cafPlayoffForm" [formGroup]="cafPlayoffForm" class="caf-playoff-choice">
-        <mat-form-field appearance="outline" class="group-field">
-          <mat-label>CAF Playoff Team 1</mat-label>
-          <mat-select formControlName="runner0">
-            <mat-option *ngFor="let t of cafPos2List" [value]="t.name" [disabled]="isCafOptionDisabled(t.name, 0)">
-              {{ t.name }}
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
-
-        <mat-form-field appearance="outline" class="group-field">
-          <mat-label>CAF Playoff Team 2</mat-label>
-          <mat-select formControlName="runner1">
-            <mat-option *ngFor="let t of cafPos2List" [value]="t.name" [disabled]="isCafOptionDisabled(t.name, 1)">
-              {{ t.name }}
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
-
-        <mat-form-field appearance="outline" class="group-field">
-          <mat-label>CAF Playoff Team 3</mat-label>
-          <mat-select formControlName="runner2">
-            <mat-option *ngFor="let t of cafPos2List" [value]="t.name" [disabled]="isCafOptionDisabled(t.name, 2)">
-              {{ t.name }}
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
-
-        <mat-form-field appearance="outline" class="group-field">
-          <mat-label>CAF Playoff Team 4</mat-label>
-          <mat-select formControlName="runner3">
-            <mat-option *ngFor="let t of cafPos2List" [value]="t.name" [disabled]="isCafOptionDisabled(t.name, 3)">
-              {{ t.name }}
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
-
-        
-      </div>
-
-      <div *ngIf="cafPlayoffForm" >
-        <mat-form-field appearance="outline" class="group-field">
-          <mat-label>Inter-confederation Play-off</mat-label>
-          <mat-select [(value)]="CafIcTeam" [compareWith]="compareTeams" (selectionChange)="onCafIcChange($event.value)">
-            <mat-option *ngFor="let t of CafPlayoffTeamList" [value]="t">{{ t.name }}</mat-option>
-          </mat-select>
-          <mat-hint>Select one of the four playoff teams</mat-hint>
-        </mat-form-field>
-      </div>
-    </div>
-  </form>
-</section>
-
-
-<section *ngIf="ConcacafQualifiersForm">
-
-  <form [formGroup]="ConcacafQualifiersForm" >
-    <h3>CONCACAF Qualifiying - In Progress</h3>
-    <span>Curent Standings as of September. Use the dropdowns to test other scenarios</span>
-    <br>
-    <br>
-    <div class="groups-grid">
-      <div *ngFor="let letter of ConcacafGroupLetters" class="group" [formGroupName]="'group' + letter">
-        <mat-form-field appearance="outline" class="group-field">
-          <mat-label>Group {{ letter }} — 1st place</mat-label>
-          <mat-select formControlName="pos1">
-            <!-- CONCACAF pos1 -->
-            <mat-option *ngFor="let t of ConcacafGroupedTeams[letter]"
-                        [value]="t.name"
-                        [disabled]="(ConcacafGroupedTeams[letter].length) > 2 && ConcacafQualifiersForm.get('group' + letter + '.pos2')?.value === t.name">
-              {{ t.name }}
-            </mat-option>
-          </mat-select>
-          <mat-error *ngIf="ConcacafQualifiersForm.get('group' + letter + '.pos1')?.hasError('required') && (ConcacafQualifiersForm.get('group' + letter + '.pos1')?.touched || ConcacafQualifiersForm.touched)">
-            Select the 1st place team.
-          </mat-error>
-        </mat-form-field>
-
-        <mat-form-field appearance="outline" class="group-field">
-          <mat-label>Group {{ letter }} — 2nd place</mat-label>
-          <mat-select formControlName="pos2">
-            <!-- CONCACAF pos2 -->
-            <mat-option *ngFor="let t of ConcacafGroupedTeams[letter]"
-                        [value]="t.name"
-                        [disabled]="(ConcacafGroupedTeams[letter].length) > 2 && ConcacafQualifiersForm.get('group' + letter + '.pos1')?.value === t.name">
-              {{ t.name }}
-            </mat-option>
-          </mat-select>
-          <mat-error *ngIf="ConcacafQualifiersForm.get('group' + letter + '.pos2')?.hasError('required') && (ConcacafQualifiersForm.get('group' + letter + '.pos2')?.touched || ConcacafQualifiersForm.touched)">
-            Select the 2nd place team.
-          </mat-error>
-          <mat-error *ngIf="ConcacafQualifiersForm.get('group' + letter)?.errors?.['positionsSame'] && (ConcacafQualifiersForm.get('group' + letter + '.pos2')?.touched || ConcacafQualifiersForm.touched)">
-            1st and 2nd cannot be the same team.
-          </mat-error>
-        </mat-form-field>
-      </div>
-      <br>
-     
-      <div class="concacaf-playoff-choice">
-        <mat-form-field appearance="outline" class="group-field">
-          <mat-label>2 Inter-confederation Play-off </mat-label>
-          <mat-select [value]="selectedConcacafRunners" multiple [compareWith]="compareTeams" (selectionChange)="onConcacafRunnersChange($event.value)">
-            <mat-option *ngFor="let t of concacafPos2List" [value]="t">{{ t.name }}</mat-option>
-          </mat-select>
-          <mat-hint>Select up to two distinct runners-up</mat-hint>
-        </mat-form-field>
-      </div>
-      
-     
-      
-    </div>
-  </form>
-</section>
+    </form>
+  </mat-expansion-panel>
+</mat-accordion>
 
 

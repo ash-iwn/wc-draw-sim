@@ -8,10 +8,19 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { MatOptionModule } from '@angular/material/core';
 import { Team } from '../../model';
+import { MatExpansionModule } from '@angular/material/expansion';
+// Add MatExpansionModule to your imports array or standalone imports
 @Component({
   selector: 'app-qualifiers',
   standalone: true,
-  imports: [ReactiveFormsModule, CommonModule, MatButtonModule, MatFormFieldModule, MatSelectModule, MatOptionModule],
+  imports: [
+    ReactiveFormsModule,
+    CommonModule,
+    MatButtonModule,
+    MatFormFieldModule,
+    MatSelectModule,
+    MatOptionModule,
+    MatExpansionModule],
   templateUrl: './qualifiers.component.html',
   styleUrls: ['./qualifiers.component.scss']
 })
@@ -53,7 +62,7 @@ export class QualifiersComponent implements OnInit, OnDestroy {
   private lockedConcacafPositions: Record<string, { pos1: boolean; pos2: boolean }> = {};
 
 
-  constructor(private fb: FormBuilder, private dataService: DataService, private cdr: ChangeDetectorRef) { }
+  constructor(private fb: FormBuilder, public dataService: DataService, private cdr: ChangeDetectorRef) { }
 
   ngOnInit(): void {
     this.initializing = true; // start guarded init
@@ -395,7 +404,7 @@ export class QualifiersComponent implements OnInit, OnDestroy {
     while (count < 4 && index < this.dataService.UEFA_NATIONS_LEAGUE_PRIORITY.length) {
       let team = this.dataService.UEFA_NATIONS_LEAGUE_PRIORITY[index];
 
-      if (team && (!this.dataService.UEFA_PLAYOFF_TEAMS.find(t => t.name === team) || this.dataService.UEFA_PLAYOFF_TEAMS.length > 0) && !this.dataService.QUALIFIED_TEAMS.find(qt => qt.name === team)) {
+      if (team && (!this.dataService.UEFA_PLAYOFF_TEAMS.find(t => t.name === team) || this.dataService.UEFA_PLAYOFF_TEAMS.length > 0) && !this.dataService.PROJECTED_QUALIFIERS.find(qt => qt.name === team)) {
         this.dataService.UEFA_PLAYOFF_TEAMS.push(this.dataService.ALL_TEAMS_DATA.find(at => at.name === team) as Team);
         count++;
       }

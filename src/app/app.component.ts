@@ -5,6 +5,7 @@ import { PlayoffsComponent } from './components/playoffs/playoffs.component';
 import { PotsComponent } from './components/pots/pots.component';
 import { GroupsComponent } from './components/groups/groups.component';
 import { SimulationLogComponent } from './components/simulation-log/simulation-log.component';
+import { FormBuilder, FormGroup, ValidatorFn, AbstractControl, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatchesComponent } from './components/matches/matches.component';
 import { CommonModule } from '@angular/common';
 import { WikipediaService } from './http-service';
@@ -14,6 +15,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { MatOptionModule } from '@angular/material/core';
+import { MatExpansionModule } from '@angular/material/expansion';
+
 @Component({
 	selector: 'app-root',
 	templateUrl: './app.component.html',
@@ -21,13 +24,24 @@ import { MatOptionModule } from '@angular/material/core';
 	standalone: true,
 	providers: [SimulatorService, WikipediaService],
 	imports: [
+	ReactiveFormsModule,
+	CommonModule,
+	MatButtonModule,
+	MatFormFieldModule,
+	MatSelectModule,
+	MatOptionModule,
+	MatButtonModule,
+	MatFormFieldModule,
+	MatSelectModule,
+	MatOptionModule,
+	MatExpansionModule,
     CommonModule,
     PlayoffsComponent,
     PotsComponent,
     GroupsComponent,
     SimulationLogComponent,
     MatchesComponent,
-    QualifiersComponent, MatButtonModule, MatFormFieldModule, MatSelectModule, MatOptionModule
+    QualifiersComponent, 
 ]
 })
 export class AppComponent implements OnInit {
