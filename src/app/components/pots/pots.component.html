@@ -1,39 +1,47 @@
-<!-- <div class="pots-container">
+<div class="pots-container">
   <ng-container *ngIf="hasPots(); else noPots">
-    <mat-accordion>
-      <mat-expansion-panel *ngFor="let potNumber of [1,2,3,4]">
-        <mat-expansion-panel-header>
-          <mat-panel-title>
+    <div class="pots-grid">
+      <mat-card class="pot-column" *ngFor="let potNumber of [1,2,3,4]">
+        <mat-card-header>
+          <mat-card-title>
             Pot {{ potNumber }}
-          </mat-panel-title>
-        </mat-expansion-panel-header>
-        <div *ngFor="let team of pots[potNumber]" class="pot-team"
-             [ngClass]="{
-               'host-team': team.host,
-               'placeholder-team': team.placeholder,
-               'playoff-winner-team': team.playoffWinner,
-               'projected-team': team.projected,
-               'qualified-team': team.qualified
-             }">
-          <span class="team-flag">{{ team.flag }}</span>
-          <div class="team-info">
-            <div class="team-name">
-              {{ team.name }}
-              <span *ngIf="team.playoffWinner && team.playoffPath">({{ team.playoffPath }})</span>
-              <span *ngIf="team.playoffWinner && !team.playoffPath">(Playoff Winner)</span>
-              <span *ngIf="team.host"> (Host)</span>
-              <span *ngIf="team.qualified && !team.host"> (Qualified)</span>
-              <span *ngIf="team.projected && !team.qualified && !team.host"> (Projected)</span>
-            </div>
-            <div class="team-confederation">
-              <span>{{ team.confederation }}</span>
-            </div>
-            <div class="team-points" *ngIf="team.points && team.points !== 'TBD'">{{ team.points }} pts</div>
-            <div class="team-points placeholder-points" *ngIf="team.points === 'TBD'">March 2026</div>
+          </mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <div class="pot-teams-list">
+            <mat-card class="pot-team-card"
+              *ngFor="let team of pots[potNumber]"
+              [ngClass]="{
+                'host-team': team.host,
+                'placeholder-team': team.placeholder,
+                'playoff-winner-team': team.playoffWinner,
+                'projected-team': team.projected,
+                'qualified-team': team.qualified
+              }">
+              <mat-card-header>
+                <mat-card-title>
+                  <span class="team-flag">{{ team.flag }}</span>
+                  <span class="team-name">
+                    {{ team.name }}
+                    <span *ngIf="team.playoffWinner && team.playoffPath">({{ team.playoffPath }})</span>
+                    <span *ngIf="team.playoffWinner && !team.playoffPath">(Playoff Winner)</span>
+                    <span *ngIf="team.host"> (Host)</span>
+                            
+                  </span>
+                </mat-card-title>
+              </mat-card-header>
+              <mat-card-content>
+                <div class="team-confederation">
+                  {{ team.confederation }}
+                </div>
+                <div class="team-points" *ngIf="team.points && team.points !== 'TBD'">{{ team.points }} pts</div>
+                <div class="team-points placeholder-points" *ngIf="team.points === 'TBD'">March 2026</div>
+              </mat-card-content>
+            </mat-card>
           </div>
-        </div>
-      </mat-expansion-panel>
-    </mat-accordion>
+        </mat-card-content>
+      </mat-card>
+    </div>
   </ng-container>
   <ng-template #noPots>
     <mat-card class="playoff-note">
@@ -46,4 +54,4 @@
       </mat-card-content>
     </mat-card>
   </ng-template>
-</div> -->
+</div>

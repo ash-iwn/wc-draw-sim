@@ -2,12 +2,47 @@
   <!-- UEFA Section -->
   <mat-expansion-panel>
     <mat-expansion-panel-header>
-      <mat-panel-title>UEFA Qualifying - In Progress</mat-panel-title>
+      <mat-panel-title>UEFA Qualifying</mat-panel-title>
     </mat-expansion-panel-header>
+    <section>
+       <div>
+      The 12 group winners qualify directly to the World Cup.
+      <br>
+      16 teams advance to the playoffs to compete for the final 4 UEFA spots in the group stages:
+      12 group runners-up, and the 4 best Nations League performers who didnt finish in the top two of their qualifying group.
+      <button mat-icon-button matTooltipClass="multiline-tooltip"
+        matTooltip="Nations League ranking:
+        1. Spain
+        2. Germany
+        3. Portugal
+        4. France 
+        5. England
+        6. Norway
+        7. Wales
+        8. Czechia
+        9. Romania
+        10. Sweden
+        11. North Macedonia
+        12. Northern Ireland
+        13. Moldova
+        14. San Marino
+        15. Italy
+        16. Netherlands
+        17. Denmark
+        18. Croatia
+        19. Scotland
+        20. Serbia
+        21. Hungary
+        22. Belgium
+        23. Poland
+        24. Israel" aria-label="Help">
+        <mat-icon color="primary">help_outline</mat-icon>
+      </button>
+    </div>
+    <br><br>
     <form [formGroup]="UefaQualifiersForm">
       <div class="groups-grid">
         <div *ngFor="let letter of UefaGroupLetters" class="group" [formGroupName]="'group' + letter">
-          <!-- ...group fields as before... -->
           <mat-form-field appearance="outline" class="group-field">
             <mat-label>Group {{ letter }} — 1st place</mat-label>
             <mat-select formControlName="pos1">
@@ -39,22 +74,26 @@
           </mat-form-field>
         </div>
       </div>
-      <!-- Playoff dropdowns always below main grid -->
       <div class="groups-grid playoff-grid">
         <!-- Add any UEFA playoff dropdowns here if needed -->
       </div>
     </form>
+    </section>
+   
   </mat-expansion-panel>
 
   <!-- AFC Section -->
   <mat-expansion-panel>
     <mat-expansion-panel-header>
-      <mat-panel-title>AFC Qualifying - In Progress</mat-panel-title>
+      <mat-panel-title>AFC Qualifying</mat-panel-title>
     </mat-expansion-panel-header>
+    <div>
+      AFC Playoffs are underway. Group Winners Qualify directly to the World Cup, and the two runners-up face off for a spot in the inter-confederation playoff.
+    </div>
+    <br><br>
     <form [formGroup]="AfcQualifiersForm">
       <div class="groups-grid">
         <div *ngFor="let letter of AfcGroupLetters" class="group" [formGroupName]="'group' + letter">
-          <!-- ...group fields as before... -->
           <mat-form-field appearance="outline" class="group-field">
             <mat-label>Group {{ letter }} — 1st place</mat-label>
             <mat-select formControlName="pos1">
@@ -86,15 +125,17 @@
           </mat-form-field>
         </div>
       </div>
-      <!-- Playoff dropdowns always below main grid -->
       <div class="groups-grid playoff-grid">
-        <div class="interconf-playoff-choice">
+        <div class="interconf-playoff-choice mat-elevation-z2">
           <mat-form-field appearance="outline" class="group-field">
-            <mat-label>Inter-confederation Play-off</mat-label>
+            <mat-label>
+              Inter-confederation Play-off
+              
+            </mat-label>
             <mat-select [value]="selectedAfcRunner" [compareWith]="compareTeams" (selectionChange)="onAfcRunnerChange($event.value)">
               <mat-option *ngFor="let t of afcPos2List" [value]="t">{{ t.name }}</mat-option>
             </mat-select>
-            <mat-hint>Select one of the two runners-up</mat-hint>
+           
           </mat-form-field>
         </div>
       </div>
@@ -104,12 +145,15 @@
   <!-- CAF Section -->
   <mat-expansion-panel *ngIf="CafQualifiersForm">
     <mat-expansion-panel-header>
-      <mat-panel-title>CAF Qualifying - In Progress</mat-panel-title>
+      <mat-panel-title>CAF Qualifying</mat-panel-title>
     </mat-expansion-panel-header>
+    <div>
+      9 group winners qualify directly. The 4 best runners-up advance to the playoffs, where only one of them will make it to the inter-confederation playoff.
+    </div>
+    <br><br>
     <form [formGroup]="CafQualifiersForm">
       <div class="groups-grid">
         <div *ngFor="let letter of CafGroupLetters" class="group" [formGroupName]="'group' + letter">
-          <!-- ...group fields as before... -->
           <mat-form-field appearance="outline" class="group-field">
             <mat-label>Group {{ letter }} — 1st place</mat-label>
             <mat-select formControlName="pos1">
@@ -141,10 +185,8 @@
           </mat-form-field>
         </div>
       </div>
-      <!-- Playoff dropdowns always below main grid -->
       <div class="groups-grid playoff-grid">
         <div *ngIf="cafPlayoffForm" [formGroup]="cafPlayoffForm" class="caf-playoff-choice">
-          <!-- CAF Playoff Team dropdowns -->
           <mat-form-field appearance="outline" class="group-field" *ngFor="let idx of [0,1,2,3]">
             <mat-label>CAF Playoff Team {{ idx + 1 }}</mat-label>
             <mat-select [formControlName]="'runner' + idx">
@@ -153,14 +195,16 @@
               </mat-option>
             </mat-select>
           </mat-form-field>
-          <!-- Inter-confederation Playoff dropdown -->
-          <div class="interconf-playoff-choice">
+          <div class="interconf-playoff-choice mat-elevation-z2">
             <mat-form-field appearance="outline" class="group-field">
-              <mat-label>Inter-confederation Play-off</mat-label>
+              <mat-label>
+                Inter-confederation Play-off
+               
+              </mat-label>
               <mat-select [(value)]="CafIcTeam" [compareWith]="compareTeams" (selectionChange)="onCafIcChange($event.value)">
                 <mat-option *ngFor="let t of CafPlayoffTeamList" [value]="t">{{ t.name }}</mat-option>
               </mat-select>
-              <mat-hint>Select one of the four playoff teams</mat-hint>
+              
             </mat-form-field>
           </div>
         </div>
@@ -171,12 +215,15 @@
   <!-- CONCACAF Section -->
   <mat-expansion-panel *ngIf="ConcacafQualifiersForm">
     <mat-expansion-panel-header>
-      <mat-panel-title>CONCACAF Qualifying - In Progress</mat-panel-title>
+      <mat-panel-title>CONCACAF Qualifying</mat-panel-title>
     </mat-expansion-panel-header>
+    <div>
+      3 group winners qualify directly. The 2 best runners-up advance to the inter-confederation playoffs.
+    </div>
+    <br><br>
     <form [formGroup]="ConcacafQualifiersForm">
       <div class="groups-grid">
         <div *ngFor="let letter of ConcacafGroupLetters" class="group" [formGroupName]="'group' + letter">
-          <!-- ...group fields as before... -->
           <mat-form-field appearance="outline" class="group-field">
             <mat-label>Group {{ letter }} — 1st place</mat-label>
             <mat-select formControlName="pos1">
@@ -208,11 +255,13 @@
           </mat-form-field>
         </div>
       </div>
-      <!-- Playoff dropdowns always below main grid -->
       <div class="groups-grid playoff-grid">
-        <div class="interconf-playoff-choice">
+        <div class="interconf-playoff-choice mat-elevation-z2">
           <mat-form-field appearance="outline" class="group-field">
-            <mat-label>Inter-confederation Play-off </mat-label>
+            <mat-label>
+              Inter-confederation Play-off
+              
+            </mat-label>
             <mat-select [value]="selectedConcacafRunners" multiple [compareWith]="compareTeams" (selectionChange)="onConcacafRunnersChange($event.value)">
               <mat-option *ngFor="let t of concacafPos2List" [value]="t">{{ t.name }}</mat-option>
             </mat-select>

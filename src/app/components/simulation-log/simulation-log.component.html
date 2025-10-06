@@ -1,1 +1,24 @@
-<p>simulation-log works!</p>
+<mat-expansion-panel [expanded]="expanded">
+  <mat-expansion-panel-header>
+    <mat-panel-title>
+      Simulation Log
+    </mat-panel-title>
+    <mat-panel-description>
+      <button mat-button (click)="toggleLog()" color="primary" type="button">
+        {{ expanded ? 'Hide Log' : 'Show Log' }}
+      </button>
+    </mat-panel-description>
+  </mat-expansion-panel-header>
+
+  <div *ngIf="log && log.length > 0; else noLog">
+    <div *ngFor="let entry of log" class="log-entry" [ngClass]="entry.type">
+      <span class="log-timestamp">{{ entry.timestamp }}</span>
+      <span class="log-message">{{ entry.message }}</span>
+    </div>
+  </div>
+  <ng-template #noLog>
+    <div class="log-empty" style="padding: 16px; color: #888;">
+      No simulation log available. Run the draw to see details.
+    </div>
+  </ng-template>
+</mat-expansion-panel>

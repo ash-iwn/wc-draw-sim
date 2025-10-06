@@ -10,6 +10,8 @@ import { MatOptionModule } from '@angular/material/core';
 import { Team } from '../../model';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatIconModule } from '@angular/material/icon';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { FooterComponent } from "../footer/footer.component";
 // Add MatExpansionModule to your imports array or standalone imports
 @Component({
   selector: 'app-qualifiers',
@@ -22,7 +24,10 @@ import { MatIconModule } from '@angular/material/icon';
     MatSelectModule,
     MatOptionModule,
     MatExpansionModule,
-    MatIconModule],
+    MatIconModule,
+    MatTooltipModule,
+],
+
   templateUrl: './qualifiers.component.html',
   styleUrls: ['./qualifiers.component.scss']
 })
@@ -407,8 +412,6 @@ export class QualifiersComponent implements OnInit, OnDestroy {
       let team = this.dataService.UEFA_NATIONS_LEAGUE_PRIORITY[index];
 
       if (team && (!this.dataService.QUALIFIED_TEAMS.find(t => t.name === team) && !this.dataService.UEFA_PLAYOFF_TEAMS.find(t => t.name === team) && !this.dataService.PROJECTED_QUALIFIERS.find(qt => qt.name === team))) {
-        
-        console.log('pushing', team);
         this.dataService.UEFA_PLAYOFF_TEAMS.push(this.dataService.ALL_TEAMS_DATA.find(at => at.name === team) as Team);
         count++;
       }
@@ -657,9 +660,9 @@ export class QualifiersComponent implements OnInit, OnDestroy {
     const b = this.selectedConcacafRunners[1] ?? null;
     this.setInterconfTeamForConcacaf(a, b);
 
-    console.log(this.dataService.QUALIFIED_TEAMS);
-    console.log(this.dataService.PROJECTED_QUALIFIERS);
-    console.log(this.dataService.INTERCONTINENTAL_PLAYOFF_TEAMS);
+    console.log('Projected Qualifiers', this.dataService.PROJECTED_QUALIFIERS);
+    console.log('Projected UEFA Playoff Teams', this.dataService.UEFA_PLAYOFF_TEAMS);
+    console.log('Projected Interconfederation Playoff teams', this.dataService.INTERCONTINENTAL_PLAYOFF_TEAMS);
   }
 
     // idempotent setter for two CONCACAF interconf playoff entries (keeps 2 slots)

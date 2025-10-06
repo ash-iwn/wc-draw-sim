@@ -13,6 +13,8 @@ import { MatOptionModule } from '@angular/material/core';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { PlayoffsComponent } from './components/playoffs/playoffs.component';
 import { PotsComponent } from './components/pots/pots.component';
+import { MatDivider } from "@angular/material/divider";
+import { SimulationLogComponent } from './components/simulation-log/simulation-log.component';
 
 @Component({
 	selector: 'app-root',
@@ -21,21 +23,21 @@ import { PotsComponent } from './components/pots/pots.component';
 	standalone: true,
 	providers: [SimulatorService, WikipediaService],
 	imports: [
-	ReactiveFormsModule,
-	CommonModule,
-	MatButtonModule,
-	MatFormFieldModule,
-	MatSelectModule,
-	MatOptionModule,
-	MatButtonModule,
-	MatFormFieldModule,
-	MatSelectModule,
-	MatOptionModule,
-	MatExpansionModule,
+    ReactiveFormsModule,
+    CommonModule,
+    MatButtonModule,
+    MatFormFieldModule,
+    MatSelectModule,
+    MatOptionModule,
+    MatButtonModule,
+    MatFormFieldModule,
+    MatSelectModule,
+    MatOptionModule,
+    MatExpansionModule,
     CommonModule,
     QualifiersComponent,
-	PlayoffsComponent,
-	PotsComponent
+    PlayoffsComponent,
+    PotsComponent,
 ]
 })
 export class AppComponent implements OnInit {
@@ -82,7 +84,7 @@ export class AppComponent implements OnInit {
           this.dataService.QUALIFIED_TEAMS = this.dataService.QUALIFIED_TEAMS.filter(t => !!t);
 
           this.qualifiersReady = true;
-          console.log('WIKI SERVICE FINISHED', this.dataService.QUALIFIED_TEAMS);
+          console.log('Qualified Teams pulled from Wiki API', this.dataService.QUALIFIED_TEAMS);
           // optional: immediately run change detection
           if (this.qualifiersComp && typeof this.qualifiersComp.applyCafLocks === 'function') {
             this.qualifiersComp.applyCafLocks();
@@ -104,13 +106,24 @@ export class AppComponent implements OnInit {
 	}
 
 	performCompleteDraw(): void {
-		//this.drawInProgress = true;
+		this.pots = {};
 		//this.drawButtonText = 'Simulating Playoffs...';
+		this.drawInProgress = true;
+		setTimeout(()=> {
+			
+			this.playoffResults = this.simulator.simulatePlayoffs();
+			this.pots = this.simulator.getPots();
+			this.simulator.simulateDraw();
+			this.simulator.generateMatches();
 
-		this.playoffResults = this.simulator.simulatePlayoffs();
+			this.drawInProgress = false;
+		}, 1000);
 
-		console.log(this.playoffResults);
-		console.log(this.simulator.getPots());
+
+		
+
+		
+		
 
 		// setTimeout(() => {
 		// 	this.playoffResults = this.simulator.simulatePlayoffs();
@@ -126,5 +139,14 @@ export class AppComponent implements OnInit {
 		// 		this.drawButtonText = '';
 		// 	}, 2000);
 		// }, 3000);
+	}
+
+
+	getQualifiedTeamsForConf(conf:string) {
+		return this.dataService.QUALIFIED_TEAMS.filter(t => t.confederation === conf);
+	}
+
+	getProjectedTeamsForConf(conf:string) {
+		return this.dataService.PROJECTED_QUALIFIERS.filter(t => t.confederation === conf);
 	}
 }

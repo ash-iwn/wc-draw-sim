@@ -1,0 +1,26 @@
+.log-entry {
+  padding: 6px 0;
+  border-bottom: 1px solid #eee;
+  font-size: 0.95rem;
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+.log-entry.normal { color: #333; }
+.log-entry.pot-start { color: #1976d2; }
+.log-entry.validation { color: #388e3c; }
+.log-entry.success { color: #388e3c; font-weight: bold; }
+.log-entry.error { color: #d32f2f; font-weight: bold; }
+.log-entry.constraint { color: #fbc02d; }
+.log-entry.team-drawn { color: #0288d1; }
+.log-timestamp {
+  font-size: 0.85em;
+  color: #888;
+  min-width: 80px;
+}
+.log-message {
+  flex: 1;
+}
+.log-empty {
+  text-align: center;
+}

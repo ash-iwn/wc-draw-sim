@@ -4,7 +4,8 @@ import {
     PlayoffResults,
     PlayoffMatchResult,
     PlayoffPath,
-    IntercontinentalPlayoffResults
+    IntercontinentalPlayoffResults,
+    SimulationLogEntry
 } from './model';
 import { DataService } from './data-service';
 
@@ -16,9 +17,26 @@ export class PlayoffSimulatorService {
   private intercontinentalWinners: Team[] = [];
   private logger: ((message: string, type?: string) => void) | null = null;
 
+  private simulationLog: SimulationLogEntry[] = [];
+
   constructor(private dataService:DataService) {}
   setLogger(loggerFunction: (message: string, type?: string) => void): void {
     this.logger = loggerFunction;
+  }
+
+   logEntry(
+    message: string,
+    type: 'normal' | 'pot-start' | 'validation' | 'success' | 'error' | 'constraint' | 'team-drawn' = 'normal'
+  ): void {
+    this.simulationLog.push({
+      message,
+      type,
+      timestamp: new Date().toLocaleTimeString()
+    });
+  }
+
+  getSimulationLog(): SimulationLogEntry[] {
+    return this.simulationLog;
   }
 
   private log(message: string, type: string = 'normal'): void {
@@ -42,7 +60,6 @@ export class PlayoffSimulatorService {
   }
 
   private simulateMatch(team1: Team, team2: Team): PlayoffMatchResult & { winner: Team; loser: Team } {
-    console.log('simulating ', team1.name , ' vs ', team2.name);
     const probs = this.calculateWinProbability(team1.points, team2.points);
     const winner = team1.points >= team2.points ? team1 : team2;
     const loser = winner === team1 ? team2 : team1;

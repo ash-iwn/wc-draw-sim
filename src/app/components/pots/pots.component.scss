@@ -1,0 +1,84 @@
+.pots-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+  margin: 24px 0;
+  width: 100%;
+}
+
+.pot-column {
+  min-width: 0;
+}
+
+.pot-teams-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.pot-team-card {
+  min-width: 0;
+  border-radius: 8px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.07);
+  padding: 0;
+}
+
+.team-flag {
+  font-size: 1.5rem;
+  margin-right: 8px;
+  vertical-align: middle;
+}
+
+.team-name {
+  font-weight: 500;
+  word-break: break-word;
+  vertical-align: middle;
+}
+
+.team-confederation {
+  font-size: 0.95em;
+  opacity: 0.8;
+}
+
+.team-points {
+  font-size: 0.9em;
+  opacity: 0.7;
+}
+
+.placeholder-points {
+  font-style: italic;
+}
+
+.host-team .team-name {
+  color: var(--mat-md-sys-color-primary, #00bcd4);
+}
+
+.playoff-winner-team .team-name {
+  color: var(--mat-md-sys-color-error, #ff7043);
+}
+
+.projected-team .team-name {
+  opacity: 0.7;
+}
+
+.qualified-team .team-name {
+  color: var(--mat-md-sys-color-secondary, #ffc107);
+}
+
+@media (max-width: 900px) {
+  .pots-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+}
+
+@media (max-width: 600px) {
+  .pots-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .pot-column {
+    padding: 10px;
+  }
+}

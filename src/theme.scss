@@ -1,0 +1,56 @@
+@use '@angular/material' as mat;
+@include mat.core();
+
+$primary: mat.m2-define-palette(mat.$m2-brown-palette);
+$accent: mat.m2-define-palette(mat.$m2-amber-palette);
+$warn: mat.m2-define-palette(mat.$m2-deep-orange-palette);
+
+$theme: mat.m2-define-dark-theme((
+  color: (
+    primary: $primary,
+    accent: $accent,
+    warn: $warn,
+  ),
+  typography: mat.m2-define-typography-config(),
+  density: 0,
+));
+
+
+@include mat.all-component-themes($theme);
+
+html, body, .mat-app-background {
+  background: #262b36;
+  color: #e0e0e0;
+}
+
+// Section color grading classes
+.qualifiers-section, .pots-section, .playoffs-section{
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 16px;
+  display: flex;
+  flex-direction: column;
+  background: mat.m2-get-color-from-palette($primary, 500);
+}
+.section-uefa {
+  background: mat.m2-get-color-from-palette($primary, 100);
+}
+.section-afc {
+  background: mat.m2-get-color-from-palette($accent, 100);
+}
+.section-caf {
+  background: mat.m2-get-color-from-palette($warn, 100);
+}
+.section-concacaf {
+  background: mat.m2-get-color-from-palette($primary, 300);
+}
+
+.section-uefa,
+.section-afc,
+.section-caf,
+.section-concacaf {
+  border-radius: 12px;
+  margin-bottom: 24px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  padding: 24px;
+}
