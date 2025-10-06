@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Team, PlayoffResults, SimulationLogEntry, Venue} from './model';
 
-import { PlayoffSimulatorService } from './playoff-sim-service';
+import { PlayoffSimulatorService } from './playoff-simulator.service';
 import { DataService } from './data-service';
 
 

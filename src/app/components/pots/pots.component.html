@@ -1,1 +1,49 @@
-<p>pots works!</p>
+<!-- <div class="pots-container">
+  <ng-container *ngIf="hasPots(); else noPots">
+    <mat-accordion>
+      <mat-expansion-panel *ngFor="let potNumber of [1,2,3,4]">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Pot {{ potNumber }}
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <div *ngFor="let team of pots[potNumber]" class="pot-team"
+             [ngClass]="{
+               'host-team': team.host,
+               'placeholder-team': team.placeholder,
+               'playoff-winner-team': team.playoffWinner,
+               'projected-team': team.projected,
+               'qualified-team': team.qualified
+             }">
+          <span class="team-flag">{{ team.flag }}</span>
+          <div class="team-info">
+            <div class="team-name">
+              {{ team.name }}
+              <span *ngIf="team.playoffWinner && team.playoffPath">({{ team.playoffPath }})</span>
+              <span *ngIf="team.playoffWinner && !team.playoffPath">(Playoff Winner)</span>
+              <span *ngIf="team.host"> (Host)</span>
+              <span *ngIf="team.qualified && !team.host"> (Qualified)</span>
+              <span *ngIf="team.projected && !team.qualified && !team.host"> (Projected)</span>
+            </div>
+            <div class="team-confederation">
+              <span>{{ team.confederation }}</span>
+            </div>
+            <div class="team-points" *ngIf="team.points && team.points !== 'TBD'">{{ team.points }} pts</div>
+            <div class="team-points placeholder-points" *ngIf="team.points === 'TBD'">March 2026</div>
+          </div>
+        </div>
+      </mat-expansion-panel>
+    </mat-accordion>
+  </ng-container>
+  <ng-template #noPots>
+    <mat-card class="playoff-note">
+      <mat-card-content>
+        <strong>6 Playoff Winners</strong> will be added to Pots after March 2026 playoffs
+        <span class="playoff-note-details">(4 UEFA + 2 Inter-confederation)</span>
+        <div class="playoff-reminder-content" style="margin-top: 8px;">
+          ⚡ Click "Simulate Complete Draw" to run playoffs and see final pots
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </ng-template>
+</div> -->

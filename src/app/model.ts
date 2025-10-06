@@ -1,7 +1,7 @@
 export interface Team {
   name: string;
   confederation: string;
-  points: number | string;
+  points: number;
   qualified?: boolean;
   host?: boolean;
   flag: string;
@@ -19,7 +19,7 @@ export interface Confederation {
   fullName: string;
   color: string;
   maxPerGroup: number;
-  logo?: string; // Optional, since you may drop emojis
+  logo?: string;
 }
 
 export interface Pot {
@@ -51,31 +51,53 @@ export interface Venue {
   capacity?: number;
 }
 
+export interface PlayoffMatchResult {
+  result: string;
+  matchup: string;
+  probability?: number
+}
+
+// Consistent playoff path for both UEFA and Intercontinental brackets
 export interface PlayoffPath {
   pathName: string;
-  semifinal: PlayoffMatchResult;
+  semiFinals: PlayoffMatchResult[]; // Always an array for consistency
   final: PlayoffMatchResult;
   winner: Team;
 }
 
-export interface PlayoffMatchResult {
-  matchup: string;
-  result: string;
-  probability: number;
-}
-
+// Main playoff results structure
 export interface PlayoffResults {
   uefa: PlayoffPath[];
-  intercontinental: {
-    participants: Team[];
-    bracket1: PlayoffPath;
-    bracket2: PlayoffPath;
-  };
+  intercontinental: IntercontinentalPlayoffResults;
   allWinners: Team[];
 }
 
+// Intercontinental playoff results structure
+export interface IntercontinentalPlayoffResults {
+  participants: Team[];
+  bracket1: PlayoffPath; // Uses PlayoffPath for consistency
+  bracket2: PlayoffPath;
+}
+
+// For simulation log
 export interface SimulationLogEntry {
   message: string;
   type: 'normal' | 'pot-start' | 'validation' | 'success' | 'error' | 'constraint' | 'team-drawn';
   timestamp: string;
 }
+
+// For legacy or alternate playoff path result
+export interface PlayoffPathResult {
+  path: string;
+  teams: string[];
+  pots: {
+    pot1: string;
+    pot2: string;
+    pot3: string;
+    pot4: string;
+  };
+  semiFinals: PlayoffMatchResult[];
+  final: PlayoffMatchResult;
+  winner: Team;
+}
+

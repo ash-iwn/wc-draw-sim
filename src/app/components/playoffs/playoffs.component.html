@@ -1,4 +1,80 @@
- <div class="playoff-note-content">
-    🏆 <strong>6 Playoff Winners</strong> will be added to Pots after March 2026 playoffs
-    <span class="playoff-note-details">(4 UEFA + 2 Inter-confederation)</span>
-</div>
+<!-- <div>
+  <button mat-raised-button color="primary" (click)="simulatePlayoffs()" [disabled]="loading">
+    <mat-spinner *ngIf="loading" diameter="24"></mat-spinner>
+    <span *ngIf="!loading">Simulate Playoffs</span>
+    <span *ngIf="loading">Simulating...</span>
+  </button>
+</div> -->
+
+<mat-accordion *ngIf="playoffResults">
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title>UEFA Playoffs (4 Winners)</mat-panel-title>
+    </mat-expansion-panel-header>
+    <div *ngFor="let path of playoffResults.uefa">
+      <h4>Path {{ path.pathName }}</h4>
+      <div>
+        <strong>SF1:</strong> {{ path.semiFinals[0].result }}<br>
+        <small>{{ path.semiFinals[0].matchup }}</small>
+      </div>
+      <div>
+        <strong>SF2:</strong> {{ path.semiFinals[1].result }}<br>
+        <small>{{ path.semiFinals[1].matchup }}</small>
+      </div>
+      <div>
+        <strong>Final:</strong> {{ path.final.result }}<br>
+        <small>{{ path.final.matchup }}</small>
+      </div>
+      <div>
+        <strong>Winner:</strong> <span>{{ path.winner.flag }}</span> {{ path.winner.name }}
+      </div>
+      <mat-divider></mat-divider>
+    </div>
+  </mat-expansion-panel>
+
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title>Inter-confederation Playoffs (2 Winners)</mat-panel-title>
+    </mat-expansion-panel-header>
+    <div>
+      <h4>Participants</h4>
+      <div *ngFor="let team of playoffResults.intercontinental.participants">
+        <span>{{ team.flag }}</span> {{ team.name }}
+      </div>
+      <mat-divider></mat-divider>
+      <div style="margin-top: 8px;">
+        <h4>Bracket 1</h4>
+        <div *ngFor="let sf of playoffResults.intercontinental.bracket1.semiFinals; let i = index">
+          <strong>SF{{ i + 1 }}:</strong> {{ sf.result }}<br>
+          <small>{{ sf.matchup }}</small>
+        </div>
+        <div>
+          <strong>Final:</strong> {{ playoffResults.intercontinental.bracket1.final.result }}<br>
+          <small>{{ playoffResults.intercontinental.bracket1.final.matchup }}</small>
+        </div>
+        <div>
+          <strong>Winner:</strong> <span>{{ playoffResults.intercontinental.bracket1.winner.flag }}</span> {{ playoffResults.intercontinental.bracket1.winner.name }}
+        </div>
+      </div>
+      <mat-divider></mat-divider>
+      <div style="margin-top: 8px;">
+        <h4>Bracket 2</h4>
+        <div>
+          <strong>SF1:</strong> {{ playoffResults.intercontinental.bracket2.semiFinals[0].result }}<br>
+          <small>{{ playoffResults.intercontinental.bracket2.semiFinals[0].matchup }}</small>
+        </div>
+        <div>
+          <strong>SF2:</strong> {{ playoffResults.intercontinental.bracket2.semiFinals[1].result }}<br>
+          <small>{{ playoffResults.intercontinental.bracket2.semiFinals[1].matchup }}</small>
+        </div>
+        <div>
+          <strong>Final:</strong> {{ playoffResults.intercontinental.bracket2.final.result }}<br>
+          <small>{{ playoffResults.intercontinental.bracket2.final.matchup }}</small>
+        </div>
+        <div>
+          <strong>Winner:</strong> <span>{{ playoffResults.intercontinental.bracket2.winner.flag }}</span> {{ playoffResults.intercontinental.bracket2.winner.name }}
+        </div>
+      </div>
+    </div>
+  </mat-expansion-panel>
+</mat-accordion>

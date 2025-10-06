@@ -417,7 +417,7 @@ export class DataService {
     "points": 1377.22,
     "flag": "🇯🇲"
   }, {
-    "name": "Curacao",
+    "name": "Curaçao",
     "qGroup": "B",
     "confederation": "CONCACAF",
     "points": 1282.42,
@@ -427,6 +427,13 @@ export class DataService {
     "confederation": "CONCACAF",
     "qGroup": "B",
     "points": 1220.99,
+    "flag": "🇹🇹"
+  },
+  {
+    "name": "Bermuda",
+    "confederation": "CONCACAF",
+    "qGroup": "B",
+    "points": 988.72,
     "flag": "🇹🇹"
   }, {
     "name": "Costa Rica",
@@ -885,7 +892,7 @@ export class DataService {
     'Czechia',
     'Romania',
     'Sweden',
-    'NortMacedonia',
+    'North Macedonia',
     'Northern Ireland',
     'Moldova',
     'San Marino',

@@ -9,6 +9,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatOptionModule } from '@angular/material/core';
 import { Team } from '../../model';
 import { MatExpansionModule } from '@angular/material/expansion';
+import { MatIconModule } from '@angular/material/icon';
 // Add MatExpansionModule to your imports array or standalone imports
 @Component({
   selector: 'app-qualifiers',
@@ -20,7 +21,8 @@ import { MatExpansionModule } from '@angular/material/expansion';
     MatFormFieldModule,
     MatSelectModule,
     MatOptionModule,
-    MatExpansionModule],
+    MatExpansionModule,
+    MatIconModule],
   templateUrl: './qualifiers.component.html',
   styleUrls: ['./qualifiers.component.scss']
 })
@@ -395,7 +397,7 @@ export class QualifiersComponent implements OnInit, OnDestroy {
     Object.keys(res).forEach(key => {
       const teams = res[key];
       this.addQualifiedTeam(this.dataService.ALL_TEAMS_DATA.find(t => t.name === teams.pos1) as Team);
-      this.dataService.UEFA_PLAYOFF_TEAMS.push(this.dataService.ALL_TEAMS_DATA.find(t => t.name === teams.pos2) as Team);
+      this.addPlayoffTeam(this.dataService.ALL_TEAMS_DATA.find(t => t.name === teams.pos2) as Team);
     });
 
     // add nations league playoff teams if not already qualified or in playoffs.
@@ -404,7 +406,9 @@ export class QualifiersComponent implements OnInit, OnDestroy {
     while (count < 4 && index < this.dataService.UEFA_NATIONS_LEAGUE_PRIORITY.length) {
       let team = this.dataService.UEFA_NATIONS_LEAGUE_PRIORITY[index];
 
-      if (team && (!this.dataService.UEFA_PLAYOFF_TEAMS.find(t => t.name === team) || this.dataService.UEFA_PLAYOFF_TEAMS.length > 0) && !this.dataService.PROJECTED_QUALIFIERS.find(qt => qt.name === team)) {
+      if (team && (!this.dataService.QUALIFIED_TEAMS.find(t => t.name === team) && !this.dataService.UEFA_PLAYOFF_TEAMS.find(t => t.name === team) && !this.dataService.PROJECTED_QUALIFIERS.find(qt => qt.name === team))) {
+        
+        console.log('pushing', team);
         this.dataService.UEFA_PLAYOFF_TEAMS.push(this.dataService.ALL_TEAMS_DATA.find(at => at.name === team) as Team);
         count++;
       }
@@ -760,6 +764,15 @@ export class QualifiersComponent implements OnInit, OnDestroy {
       this.dataService.PROJECTED_QUALIFIERS.push(t);
     }
   }
+
+
+  addPlayoffTeam(t?: Team | null) {
+  if (!t || !t.name) { return; }
+  const exists = this.dataService.UEFA_PLAYOFF_TEAMS.find(team => team.name === t.name);
+  if (!exists) {
+    this.dataService.UEFA_PLAYOFF_TEAMS.push(t);
+  }
+}
 
   // compare function for mat-select compareWith
   compareTeams = (t1: Team | null, t2: Team | null): boolean => {

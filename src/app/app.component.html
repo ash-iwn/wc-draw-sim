@@ -1,110 +1,103 @@
-<div class="container">
-  <header class="header">
-   
-    <h1>FIFA World Cup 2026 - Group Stage Draw Simulator</h1>
-    <h2>Group Stage Draw Simulator</h2>
+<div class="container" style="background: linear-gradient(135deg, #e3f2fd 0%, #fff 100%); min-height: 100vh; padding-bottom: 40px;">
+  <header class="header" style="text-align: center; padding: 40px 0 20px 0; background: #1565c0; color: #fff;">
+    <h1 class="main-heading" style="margin-bottom: 10px; font-size: 2.5rem; letter-spacing: 2px;">FIFA World Cup 2026</h1>
+    <h2 class="sub-heading" style="font-weight: 400; font-size: 1.5rem; color: #bbdefb;">Group Stage Draw Simulator</h2>
   </header>
 
-  <section  class="qualifiers-section">
-    
-    48 teams will compete in the FIFA World cup, split into 12 groups of 4.
-    The teams that qualify for the group stage will be drawn from 4 pots, based on FIFA rankings and confederation rules.
-
-
-    Qualification for some confederations is still ongoing, so far {{this.dataService.QUALIFIED_TEAMS.length}} teams have qualified.
-
-    This application allows you to project the remaining teams that will qualify, and simulate the World Cup draw.
-
-    The app has pre-filled projected qualifiers based on current qualification status and FIFA rankings, but you can modify these to test different scenarios.
-
-
-    <mat-accordion>
-       <mat-expansion-panel>
-      <mat-expansion-panel-header>
-        <mat-panel-title>
-          Click to View Currently Qualified Teams, Projected Qualifiers, and Playoff Contenders
-        </mat-panel-title>
-      </mat-expansion-panel-header>
-     
-      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin: 20px 0; text-align: left;">
-          <div style="background: var(--fifa-gray); padding: 15px; border-radius: 8px;">
-              <strong>✅ Qualified ({{ dataService.QUALIFIED_TEAMS.length }})</strong><br>
-              <div *ngFor="let team of dataService.QUALIFIED_TEAMS">{{ team.name }}</div>
-          </div>
-          <div style="background: var(--fifa-gray); padding: 15px; border-radius: 8px;">
-              <strong>🔮 Projected (28)</strong><br>
-            <div *ngFor="let team of dataService.PROJECTED_QUALIFIERS">{{ team.name }}</div>
-          </div>
-          <div style="background: var(--fifa-gray); padding: 15px; border-radius: 8px;">
-              <strong>🏳️ Playoff Contenders ({{ dataService.UEFA_PLAYOFF_TEAMS.length + dataService.INTERCONTINENTAL_PLAYOFF_TEAMS.length }})</strong><br>
-              
-              <strong>Projected UEFA Playoff Teams</strong>
-              <div *ngFor="let team of dataService.UEFA_PLAYOFF_TEAMS">{{ team.name }}</div>
-
-              <strong>Projected Intercontinental Playoff Teams</strong>
-              <div *ngFor="let team of dataService.INTERCONTINENTAL_PLAYOFF_TEAMS">{{ team.name }}</div>
-          </div>
+  <div class="main-content">
+    <section class="qualifiers-section" style="max-width: 900px; margin: 0 auto; padding: 32px 24px 24px 24px; background: #fff; border-radius: 18px; box-shadow: 0 2px 16px rgba(21,101,192,0.08);">
+      <div class="intro-text" style="font-size: 1.1rem; color: #1565c0; margin-bottom: 18px;">
+        48 teams will compete in the FIFA World cup, split into 12 groups of 4.<br>
+        Qualifying Teams, based on FIFA rankings and confederation rules.<br>
+        <strong *ngIf="qualifiersReady">{{this.dataService.QUALIFIED_TEAMS.length}}</strong> teams have qualified so far.
       </div>
 
-      *Final list of qualified teams will be determined as more games are played.
-        
-      
-      
-    </mat-expansion-panel>
-    </mat-accordion>
+      <div class="qualified-count" style="margin-bottom: 10px; color: #1976d2;">
+        Qualification for some confederations is still ongoing, so far <strong>{{this.dataService.QUALIFIED_TEAMS.length}}</strong> teams have qualified.
+      </div>
 
-    <br>
-    48 teams will compete: The 3 hosts (Canada, Mexico, USA), 39 through confederation qualification, 4 through UEFA playoffs, and 2 through intercontinental playoffs.<br>
+      <div class="app-description" style="margin-bottom: 18px; color: #333;">
+        This application allows you to project the remaining teams that will qualify, and simulate the World Cup draw.
+        <br>
+        The app has pre-filled projected qualifiers based on current qualification status and FIFA rankings, but you can modify these to test different scenarios.
+      </div>
 
-    Expand the following sections for each confederation to modify which teams you want to project as qualifiers or playoff contenders.
+      <mat-accordion>
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              Click to View Currently Qualified Teams, Projected Qualifiers, and Playoff Contenders
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <div class="status-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 18px; margin: 20px 0; text-align: left;">
+            <div class="qualified-teams" style="background: #e3f2fd; padding: 15px; border-radius: 8px; border: 1px solid #90caf9;">
+              <strong style="color: #388e3c;">✅ Qualified ({{ dataService.QUALIFIED_TEAMS.length }})</strong><br>
+              <div *ngFor="let team of dataService.QUALIFIED_TEAMS">
+                <ng-container *ngIf="team">
+                  {{ team.name }}
+                </ng-container>
+              </div>
+            </div>
+            <div class="projected-teams" style="background: #fffde7; padding: 15px; border-radius: 8px; border: 1px solid #ffe082;">
+              <strong style="color: #fbc02d;">🔮 Projected (28)</strong><br>
+              <div *ngFor="let team of dataService.PROJECTED_QUALIFIERS">
+                <ng-container *ngIf="team">
+                  {{ team.name }}
+                </ng-container>
+              </div>
+            </div>
+            <div class="playoff-teams" style="background: #f3e5f5; padding: 15px; border-radius: 8px; border: 1px solid #ce93d8;">
+              <strong style="color: #6a1b9a;">🏳️ Playoff Contenders ({{ dataService.UEFA_PLAYOFF_TEAMS.length + dataService.INTERCONTINENTAL_PLAYOFF_TEAMS.length }})</strong><br>
+              <strong>Projected UEFA Playoff Teams</strong>
+              <div *ngFor="let team of dataService.UEFA_PLAYOFF_TEAMS">
+                <ng-container *ngIf="team">
+                  {{ team.name }}
+                </ng-container>
+              </div>
+              <strong>Projected Intercontinental Playoff Teams</strong>
+              <div *ngFor="let team of dataService.INTERCONTINENTAL_PLAYOFF_TEAMS">
+                <ng-container *ngIf="team">
+                  {{ team.name }}
+                </ng-container>
+              </div>
+            </div>
+          </div>
+          <div class="status-note" style="font-size: 0.95rem; color: #666; margin-top: 10px;">
+            *Final list of qualified teams will be determined as more games are played.
+          </div>
+        </mat-expansion-panel>
+      </mat-accordion>
 
-    <span>Once ready, click <strong> "Simulate Complete Draw"</strong> to run the playoffs and the World Cup draw!</span>
+      <div class="competition-info" style="margin: 24px 0 12px 0; color: #1976d2;">
+        48 teams will compete: The 3 hosts (Canada, Mexico, USA), 39 through confederation qualification, 4 through UEFA playoffs, and 2 through intercontinental playoffs.<br>
+        Expand the following sections for each confederation to modify which teams you want to project as qualifiers or playoff contenders.
+      </div>
+
+      <span class="simulate-instruction" style="font-size: 1.1rem; color: #1565c0;">Once ready, click <strong> "Simulate Complete Draw"</strong> to run the playoffs and the World Cup draw!</span>
+      <br><br>
+
+      <div class="draw-button-row" style="display: flex; justify-content: center; align-items: center; margin: 24px 0;">
+        <button mat-raised-button color="primary" (click)="performCompleteDraw()" [disabled]="drawInProgress" class="draw-button" style="font-size: 1.1rem; padding: 10px 32px;">
+          <span *ngIf="drawInProgress" class="loading"></span>
+          {{ drawInProgress ? drawButtonText : 'Simulate Complete Draw' }}
+        </button>
+      </div>
+
+      <app-qualifiers *ngIf="qualifiersReady"></app-qualifiers>
+    </section>
+
+    <section class="playoffs-section" *ngIf="playoffResults" style="max-width: 900px; margin: 32px auto 0 auto;">
+      <app-playoffs [results]="playoffResults"></app-playoffs>
+    </section>
+
+    <section class="pots-section" style="max-width: 900px; margin: 32px auto 0 auto;">
+      <app-pots [pots]="pots"></app-pots>
+    </section>
+  </div>
   
-    ️<br><br> 
 
-    
-      <button mat-raised-button color="primary" (click)="performCompleteDraw()" [disabled]="drawInProgress">
-        <span *ngIf="drawInProgress" class="loading"></span>
-        {{ drawInProgress ? drawButtonText : 'Simulate Complete Draw' }}
-      </button>
-   
-    <br><br>
-
-    
-    ️<br><br>
-    <app-qualifiers *ngIf="qualifiersReady"></app-qualifiers>
-  </section>
-
-
-  <section>
-      
-  </section>
- 
-
-  <section class="playoffs-section" *ngIf="playoffResults">
-    <app-playoffs [results]="playoffResults"></app-playoffs>
-  </section>
-
-  <section class="pots-section">
-    <app-pots [pots]="pots"></app-pots>
-  </section>
-
-  <section class="groups-section">
-    <h3>Groups</h3>
-    <app-groups *ngIf="qualifiersReady" [groups]="groups"></app-groups>
-  </section>
-
-  <section class="simulation-log-section" *ngIf="simulationLog && simulationLog.length">
-    <app-simulation-log [log]="simulationLog"></app-simulation-log>
-  </section>
-
-  <section class="matches-section">
-    <h3>Matches</h3>
-    <app-matches [matches]="matches"></app-matches>
-  </section>
-
-  <footer style="text-align: center; padding: 20px 0; margin-top: 30px; border-top: 1px solid rgba(255,255,255,0.2);">
-    <div style="font-size: 0.8rem; color: rgba(255,255,255,0.7);">
+  <footer class="footer" style="text-align: center; padding: 20px 0; margin-top: 30px; border-top: 1px solid rgba(21,101,192,0.2); background: #1565c0;">
+    <div class="footer-text" style="font-size: 0.9rem; color: #bbdefb;">
       Educational simulation for entertainment purposes
     </div>
   </footer>

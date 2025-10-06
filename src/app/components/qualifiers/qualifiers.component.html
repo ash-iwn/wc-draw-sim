@@ -1,12 +1,13 @@
 <mat-accordion>
+  <!-- UEFA Section -->
   <mat-expansion-panel>
     <mat-expansion-panel-header>
       <mat-panel-title>UEFA Qualifying - In Progress</mat-panel-title>
     </mat-expansion-panel-header>
-    <span>Current standings as of the September qualifying window. Use the dropdowns to test other scenarios</span>
     <form [formGroup]="UefaQualifiersForm">
       <div class="groups-grid">
         <div *ngFor="let letter of UefaGroupLetters" class="group" [formGroupName]="'group' + letter">
+          <!-- ...group fields as before... -->
           <mat-form-field appearance="outline" class="group-field">
             <mat-label>Group {{ letter }} — 1st place</mat-label>
             <mat-select formControlName="pos1">
@@ -38,17 +39,22 @@
           </mat-form-field>
         </div>
       </div>
+      <!-- Playoff dropdowns always below main grid -->
+      <div class="groups-grid playoff-grid">
+        <!-- Add any UEFA playoff dropdowns here if needed -->
+      </div>
     </form>
   </mat-expansion-panel>
 
+  <!-- AFC Section -->
   <mat-expansion-panel>
     <mat-expansion-panel-header>
       <mat-panel-title>AFC Qualifying - In Progress</mat-panel-title>
     </mat-expansion-panel-header>
     <form [formGroup]="AfcQualifiersForm">
-      <span>Curent Standings as of September. Use the dropdowns to test other scenarios</span>
       <div class="groups-grid">
         <div *ngFor="let letter of AfcGroupLetters" class="group" [formGroupName]="'group' + letter">
+          <!-- ...group fields as before... -->
           <mat-form-field appearance="outline" class="group-field">
             <mat-label>Group {{ letter }} — 1st place</mat-label>
             <mat-select formControlName="pos1">
@@ -79,7 +85,10 @@
             </mat-error>
           </mat-form-field>
         </div>
-        <div class="afc-playoff-choice">
+      </div>
+      <!-- Playoff dropdowns always below main grid -->
+      <div class="groups-grid playoff-grid">
+        <div class="interconf-playoff-choice">
           <mat-form-field appearance="outline" class="group-field">
             <mat-label>Inter-confederation Play-off</mat-label>
             <mat-select [value]="selectedAfcRunner" [compareWith]="compareTeams" (selectionChange)="onAfcRunnerChange($event.value)">
@@ -92,14 +101,15 @@
     </form>
   </mat-expansion-panel>
 
+  <!-- CAF Section -->
   <mat-expansion-panel *ngIf="CafQualifiersForm">
     <mat-expansion-panel-header>
       <mat-panel-title>CAF Qualifying - In Progress</mat-panel-title>
     </mat-expansion-panel-header>
     <form [formGroup]="CafQualifiersForm">
-      <span>Curent Standings as of September. Use the dropdowns to test other scenarios</span>
       <div class="groups-grid">
         <div *ngFor="let letter of CafGroupLetters" class="group" [formGroupName]="'group' + letter">
+          <!-- ...group fields as before... -->
           <mat-form-field appearance="outline" class="group-field">
             <mat-label>Group {{ letter }} — 1st place</mat-label>
             <mat-select formControlName="pos1">
@@ -130,61 +140,43 @@
             </mat-error>
           </mat-form-field>
         </div>
+      </div>
+      <!-- Playoff dropdowns always below main grid -->
+      <div class="groups-grid playoff-grid">
         <div *ngIf="cafPlayoffForm" [formGroup]="cafPlayoffForm" class="caf-playoff-choice">
-          <mat-form-field appearance="outline" class="group-field">
-            <mat-label>CAF Playoff Team 1</mat-label>
-            <mat-select formControlName="runner0">
-              <mat-option *ngFor="let t of cafPos2List" [value]="t.name" [disabled]="isCafOptionDisabled(t.name, 0)">
+          <!-- CAF Playoff Team dropdowns -->
+          <mat-form-field appearance="outline" class="group-field" *ngFor="let idx of [0,1,2,3]">
+            <mat-label>CAF Playoff Team {{ idx + 1 }}</mat-label>
+            <mat-select [formControlName]="'runner' + idx">
+              <mat-option *ngFor="let t of cafPos2List" [value]="t.name" [disabled]="isCafOptionDisabled(t.name, idx)">
                 {{ t.name }}
               </mat-option>
             </mat-select>
           </mat-form-field>
-          <mat-form-field appearance="outline" class="group-field">
-            <mat-label>CAF Playoff Team 2</mat-label>
-            <mat-select formControlName="runner1">
-              <mat-option *ngFor="let t of cafPos2List" [value]="t.name" [disabled]="isCafOptionDisabled(t.name, 1)">
-                {{ t.name }}
-              </mat-option>
-            </mat-select>
-          </mat-form-field>
-          <mat-form-field appearance="outline" class="group-field">
-            <mat-label>CAF Playoff Team 3</mat-label>
-            <mat-select formControlName="runner2">
-              <mat-option *ngFor="let t of cafPos2List" [value]="t.name" [disabled]="isCafOptionDisabled(t.name, 2)">
-                {{ t.name }}
-              </mat-option>
-            </mat-select>
-          </mat-form-field>
-          <mat-form-field appearance="outline" class="group-field">
-            <mat-label>CAF Playoff Team 4</mat-label>
-            <mat-select formControlName="runner3">
-              <mat-option *ngFor="let t of cafPos2List" [value]="t.name" [disabled]="isCafOptionDisabled(t.name, 3)">
-                {{ t.name }}
-              </mat-option>
-            </mat-select>
-          </mat-form-field>
-        </div>
-        <div *ngIf="cafPlayoffForm">
-          <mat-form-field appearance="outline" class="group-field">
-            <mat-label>Inter-confederation Play-off</mat-label>
-            <mat-select [(value)]="CafIcTeam" [compareWith]="compareTeams" (selectionChange)="onCafIcChange($event.value)">
-              <mat-option *ngFor="let t of CafPlayoffTeamList" [value]="t">{{ t.name }}</mat-option>
-            </mat-select>
-            <mat-hint>Select one of the four playoff teams</mat-hint>
-          </mat-form-field>
+          <!-- Inter-confederation Playoff dropdown -->
+          <div class="interconf-playoff-choice">
+            <mat-form-field appearance="outline" class="group-field">
+              <mat-label>Inter-confederation Play-off</mat-label>
+              <mat-select [(value)]="CafIcTeam" [compareWith]="compareTeams" (selectionChange)="onCafIcChange($event.value)">
+                <mat-option *ngFor="let t of CafPlayoffTeamList" [value]="t">{{ t.name }}</mat-option>
+              </mat-select>
+              <mat-hint>Select one of the four playoff teams</mat-hint>
+            </mat-form-field>
+          </div>
         </div>
       </div>
     </form>
   </mat-expansion-panel>
 
+  <!-- CONCACAF Section -->
   <mat-expansion-panel *ngIf="ConcacafQualifiersForm">
     <mat-expansion-panel-header>
       <mat-panel-title>CONCACAF Qualifying - In Progress</mat-panel-title>
     </mat-expansion-panel-header>
     <form [formGroup]="ConcacafQualifiersForm">
-      <span>Curent Standings as of September. Use the dropdowns to test other scenarios</span>
       <div class="groups-grid">
         <div *ngFor="let letter of ConcacafGroupLetters" class="group" [formGroupName]="'group' + letter">
+          <!-- ...group fields as before... -->
           <mat-form-field appearance="outline" class="group-field">
             <mat-label>Group {{ letter }} — 1st place</mat-label>
             <mat-select formControlName="pos1">
@@ -215,9 +207,12 @@
             </mat-error>
           </mat-form-field>
         </div>
-        <div class="concacaf-playoff-choice">
+      </div>
+      <!-- Playoff dropdowns always below main grid -->
+      <div class="groups-grid playoff-grid">
+        <div class="interconf-playoff-choice">
           <mat-form-field appearance="outline" class="group-field">
-            <mat-label>2 Inter-confederation Play-off </mat-label>
+            <mat-label>Inter-confederation Play-off </mat-label>
             <mat-select [value]="selectedConcacafRunners" multiple [compareWith]="compareTeams" (selectionChange)="onConcacafRunnersChange($event.value)">
               <mat-option *ngFor="let t of concacafPos2List" [value]="t">{{ t.name }}</mat-option>
             </mat-select>

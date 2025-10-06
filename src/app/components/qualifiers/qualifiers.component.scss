@@ -2,69 +2,181 @@
   display: grid;
   gap: 16px;
   align-items: start;
-
-  /* default: 4 columns */
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(3, 1fr);
+  width: 100%;
+ 
+  padding-bottom: 8px;   // Space for scrollbar
 }
 
 /* larger screens: show more columns if available */
 @media (min-width: 1200px) {
   .groups-grid {
-    grid-template-columns: repeat(6, 1fr);
+    grid-template-columns: repeat(3, 1fr);
   }
 }
 
 /* medium screens: keep 3 columns if viewport too narrow for 4 */
 @media (max-width: 1000px) and (min-width: 700px) {
   .groups-grid {
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(2, 1fr);
   }
 }
 
 /* small screens: 2 columns */
 @media (max-width: 699px) {
   .groups-grid {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(1, 1fr);
+    max-height: 50vh;    // Reduce height for smaller screens
   }
 }
 
-.group-field {
+@media (max-width: 500px) {
+  .groups-grid {
+    grid-template-columns: 1fr;
+    gap: 10px;
+    max-height: 40vh;
+  }
+}
+
+.group {
+  background: #e3f2fd;
+  border-radius: 10px;
+  padding: 12px 8px;
+  box-shadow: 0 1px 6px rgba(21, 101, 192, 0.05);
+  font-size: clamp(0.95rem, 2vw, 1.1rem);
+}
+
+.group-field,
+.mat-form-field {
   width: 100%;
-  box-sizing: border-box;
+  min-width: 0;
+  font-size: clamp(0.95rem, 2vw, 1.1rem);
+  /* Ensure dropdown overlays are not clipped */
+  overflow: visible;
 }
 
-/* layout: ensure at least 4 dropdowns appear horizontally on typical desktop widths */
-.groups-grid {
-  display: grid;
-  gap: 16px;
-  align-items: start;
-
-  /* default: 4 columns */
-  grid-template-columns: repeat(4, 1fr);
+.mat-form-field-flex {
+  overflow: visible !important;
 }
 
-/* larger screens: show more columns if available */
-@media (min-width: 1200px) {
-  .groups-grid {
-    grid-template-columns: repeat(6, 1fr);
-  }
+.mat-select-panel {
+  max-width: 90vw !important;
+  min-width: 180px;
+  /* This ensures the dropdown panel itself is wide enough on small screens */
 }
 
-/* medium screens: keep 3 columns if viewport too narrow for 4 */
-@media (max-width: 1000px) and (min-width: 700px) {
-  .groups-grid {
-    grid-template-columns: repeat(3, 1fr);
-  }
+.mat-select {
+  min-width: 120px;
+  max-width: 100%;
+  font-size: clamp(0.95rem, 2vw, 1.1rem);
 }
 
-/* small screens: 2 columns */
-@media (max-width: 699px) {
-  .groups-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
+.mat-option {
+  font-size: clamp(0.95rem, 2vw, 1.1rem);
 }
 
-.group-field {
+.mat-hint,
+.mat-error {
+  font-size: clamp(0.85rem, 1.5vw, 1rem);
+}
+
+.afc-playoff-choice,
+.caf-playoff-choice,
+.concacaf-playoff-choice {
+  margin-top: 16px;
+  background: #fffde7;
+  border-radius: 8px;
+  padding: 12px 8px;
+  font-size: clamp(0.95rem, 2vw, 1.1rem);
+}
+
+.interconf-playoff-choice {
+  background: linear-gradient(90deg, #e1f5fe 0%, #fffde7 100%);
+  border: 2px dashed #0288d1;
+  border-radius: 10px;
+  padding: 16px 12px;
+  margin-top: 18px;
+  box-shadow: 0 2px 8px rgba(2,136,209,0.08);
+  font-size: clamp(1rem, 2vw, 1.15rem);
+  color: #0277bd;
+}
+
+.interconf-playoff-choice .mat-form-field {
+  background: #fff;
+  border-radius: 6px;
+}
+
+.interconf-playoff-choice .mat-label {
+  color: #0288d1;
+  font-weight: 600;
+}
+
+.interconf-playoff-choice .mat-select-panel {
+  background: #e1f5fe;
+}
+
+.interconf-playoff-choice .mat-hint {
+  color: #0288d1;
+  font-size: clamp(0.9rem, 1.5vw, 1rem);
+}
+
+.qualifiers-panel {
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 2px 12px rgba(21, 101, 192, 0.08);
+  padding: 24px 18px;
+  margin-bottom: 24px;
   width: 100%;
-  box-sizing: border-box;
+}
+
+.mat-expansion-panel-header,
+.mat-panel-title {
+  font-size: clamp(1.1rem, 2vw, 1.4rem);
+  color: #1565c0;
+  font-weight: 500;
+}
+
+@media (max-width: 600px) {
+  .qualifiers-panel {
+    padding: 12px 4px;
+    border-radius: 8px;
+  }
+  .group {
+    padding: 8px 4px;
+    font-size: 0.95rem;
+  }
+  .afc-playoff-choice,
+  .caf-playoff-choice,
+  .concacaf-playoff-choice {
+    padding: 8px 4px;
+    font-size: 0.95rem;
+  }
+}
+
+@media (max-width: 400px) {
+  .mat-expansion-panel-header,
+  .mat-panel-title {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .mat-select-panel {
+    max-width: 98vw !important;
+    min-width: 120px;
+  }
+  .mat-form-field,
+  .group-field {
+    min-width: 0;
+    width: 100%;
+  }
+}
+
+.selected-team {
+  display: inline-flex;
+  align-items: center;
+  margin-top: 6px;
+  font-weight: 500;
+  color: #1976d2;
+  font-size: 1.05em;
 }
