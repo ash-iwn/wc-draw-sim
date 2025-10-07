@@ -1,0 +1,73 @@
+mat-list-item {
+  margin-bottom: 1.125rem;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+}
+
+mat-list-item:last-child {
+  margin-bottom: 0;
+}
+
+mat-tab-group, mat-tab-body {
+  width: 100%;
+  min-height: 100%;
+  height: auto;
+  display: block;
+}
+
+mat-tab-body {
+  box-sizing: border-box;
+  padding-bottom: 1.5rem;
+}
+
+.match-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.125rem;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+.match-number,
+.match-date,
+.team-with-flag,
+.vs-text,
+.match-venue {
+  flex: 0 1 auto;
+  min-width: 0;
+}
+
+.vs-text {
+  font-weight: 600;
+  font-size: 1.1em;
+  opacity: 0.8;
+}
+
+.match-venue {
+  text-align: right;
+  font-size: 0.95em;
+  opacity: 0.8;
+  flex: 1 1 11.25rem;
+  word-break: break-word;
+}
+
+@media (max-width: 43.75rem) {
+  .match-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.375rem;
+  }
+  .match-venue {
+    text-align: left;
+    flex: 1 1 100%;
+  }
+}
+
+.match-teams-row {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  justify-content: center;
+  margin: 0.5rem 0;
+}

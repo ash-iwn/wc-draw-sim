@@ -16,6 +16,7 @@ export class PlayoffSimulatorService {
   private uefaWinners: Team[] = [];
   private intercontinentalWinners: Team[] = [];
   private logger: ((message: string, type?: string) => void) | null = null;
+  pots: { [key: number]: any[] } = {};
 
   private simulationLog: SimulationLogEntry[] = [];
 
@@ -24,7 +25,7 @@ export class PlayoffSimulatorService {
     this.logger = loggerFunction;
   }
 
-   logEntry(
+  logEntry(
     message: string,
     type: 'normal' | 'pot-start' | 'validation' | 'success' | 'error' | 'constraint' | 'team-drawn' = 'normal'
   ): void {
@@ -44,6 +45,7 @@ export class PlayoffSimulatorService {
       this.logger(message, type);
     }
   }
+
 
   private calculateWinProbability(team1Points: number, team2Points: number): { team1: number; team2: number } {
     const pointsDiff = team1Points - team2Points;

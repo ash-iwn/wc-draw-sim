@@ -1,17 +1,13 @@
-<mat-accordion>
+<mat-accordion class="custom-accordion">
   <!-- UEFA Section -->
   <mat-expansion-panel>
     <mat-expansion-panel-header>
-      <mat-panel-title>UEFA Qualifying</mat-panel-title>
-    </mat-expansion-panel-header>
-    <section>
-       <div>
-      The 12 group winners qualify directly to the World Cup.
-      <br>
-      16 teams advance to the playoffs to compete for the final 4 UEFA spots in the group stages:
-      12 group runners-up, and the 4 best Nations League performers who didnt finish in the top two of their qualifying group.
-      <button mat-icon-button matTooltipClass="multiline-tooltip"
-        matTooltip="Nations League ranking:
+      <mat-panel-title>UEFA Qualifying <button mat-icon-button disabled disabledInteractive matTooltipClass="multiline-tooltip"
+        matTooltip="The 12 group winners qualify directly to the World Cup.
+        
+        The 12 group runners-up and 4 other teams who didnt finish top 2 but are ranked highest in Nations League performance, proceed to the UEFA playoffs.
+     
+        Nations League ranking:
         1. Spain
         2. Germany
         3. Portugal
@@ -37,8 +33,9 @@
         23. Poland
         24. Israel" aria-label="Help">
         <mat-icon color="primary">help_outline</mat-icon>
-      </button>
-    </div>
+      </button> </mat-panel-title>
+    </mat-expansion-panel-header>
+    <section>
     <br><br>
     <form [formGroup]="UefaQualifiersForm">
       <div class="groups-grid">
@@ -85,11 +82,11 @@
   <!-- AFC Section -->
   <mat-expansion-panel>
     <mat-expansion-panel-header>
-      <mat-panel-title>AFC Qualifying</mat-panel-title>
+      <mat-panel-title>AFC Qualifying <br> <button mat-icon-button disabled disabledInteractive matTooltipClass="multiline-tooltip"
+      matTooltip="Group Winners Qualify directly to the World Cup, and the two runners-up face off for a spot in the inter-confederation playoff.">
+        <mat-icon color="primary">help_outline</mat-icon></button>
+      </mat-panel-title>
     </mat-expansion-panel-header>
-    <div>
-      AFC Playoffs are underway. Group Winners Qualify directly to the World Cup, and the two runners-up face off for a spot in the inter-confederation playoff.
-    </div>
     <br><br>
     <form [formGroup]="AfcQualifiersForm">
       <div class="groups-grid">
@@ -145,11 +142,13 @@
   <!-- CAF Section -->
   <mat-expansion-panel *ngIf="CafQualifiersForm">
     <mat-expansion-panel-header>
-      <mat-panel-title>CAF Qualifying</mat-panel-title>
+      <mat-panel-title>
+        CAF Qualifying  <br>
+        <button mat-icon-button disabled disabledInteractive matTooltipClass="multiline-tooltip"
+        matTooltip="9 group winners qualify directly. The 4 best runners-up advance to the playoffs, where only one of them will make it to the inter-confederation playoff.">
+        <mat-icon color="primary">help_outline</mat-icon></button>
+      </mat-panel-title>
     </mat-expansion-panel-header>
-    <div>
-      9 group winners qualify directly. The 4 best runners-up advance to the playoffs, where only one of them will make it to the inter-confederation playoff.
-    </div>
     <br><br>
     <form [formGroup]="CafQualifiersForm">
       <div class="groups-grid">
@@ -215,11 +214,14 @@
   <!-- CONCACAF Section -->
   <mat-expansion-panel *ngIf="ConcacafQualifiersForm">
     <mat-expansion-panel-header>
-      <mat-panel-title>CONCACAF Qualifying</mat-panel-title>
+      <mat-panel-title>
+        CONCACAF Qualifying <br>
+        <button mat-icon-button disabled disabledInteractive matTooltipClass="multiline-tooltip"
+        matTooltip="3 group winners qualify directly. The 2 best runners-up advance to the inter-confederation playoffs.">
+        <mat-icon color="primary">help_outline</mat-icon></button>
+      </mat-panel-title>`
     </mat-expansion-panel-header>
-    <div>
-      3 group winners qualify directly. The 2 best runners-up advance to the inter-confederation playoffs.
-    </div>
+  
     <br><br>
     <form [formGroup]="ConcacafQualifiersForm">
       <div class="groups-grid">
@@ -265,7 +267,7 @@
             <mat-select [value]="selectedConcacafRunners" multiple [compareWith]="compareTeams" (selectionChange)="onConcacafRunnersChange($event.value)">
               <mat-option *ngFor="let t of concacafPos2List" [value]="t">{{ t.name }}</mat-option>
             </mat-select>
-            <mat-hint>Select up to two distinct runners-up</mat-hint>
+            <mat-hint>Select two 2nd place teams to progress</mat-hint>
           </mat-form-field>
         </div>
       </div>

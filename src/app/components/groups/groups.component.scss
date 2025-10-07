@@ -1,0 +1,162 @@
+.groups-grid {
+  display: grid;
+  gap: 1rem;
+  align-items: start;
+  grid-template-columns: repeat(3, 1fr);
+  width: 100%;
+  padding-bottom: 0.5rem;
+}
+
+@media (min-width: 75rem) {
+  .groups-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 62.5rem) and (min-width: 43.75rem) {
+  .groups-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 43.75rem) {
+  .groups-grid {
+    grid-template-columns: repeat(1, 1fr);
+    max-height: 50vh;
+  }
+}
+
+@media (max-width: 31.25rem) {
+  .groups-grid {
+    grid-template-columns: 1fr;
+    gap: 0.625rem;
+    max-height: 40vh;
+  }
+}
+
+.group {
+  border-radius: 0.625rem;
+  padding: 0.75rem 0.5rem;
+  box-shadow: 0 0.0625rem 0.375rem rgba(21, 101, 192, 0.05);
+  font-size: clamp(0.95rem, 2vw, 1.1rem);
+}
+
+.group-field,
+.mat-form-field {
+  width: 100%;
+  min-width: 0;
+  font-size: clamp(0.95rem, 2vw, 1.1rem);
+  overflow: visible;
+}
+
+.mat-form-field-flex {
+  overflow: visible !important;
+}
+
+.mat-select-panel {
+  max-width: 90vw !important;
+  min-width: 11.25rem;
+}
+
+.mat-select {
+  min-width: 7.5rem;
+  max-width: 100%;
+  font-size: clamp(0.95rem, 2vw, 1.1rem);
+}
+
+.mat-option {
+  font-size: clamp(0.95rem, 2vw, 1.1rem);
+}
+
+.mat-hint,
+.mat-error {
+  font-size: clamp(0.85rem, 1.5vw, 1rem);
+}
+
+.afc-playoff-choice,
+.caf-playoff-choice,
+.concacaf-playoff-choice {
+  margin-top: 1rem;
+  border-radius: 0.5rem;
+  padding: 0.75rem 0.5rem;
+  font-size: clamp(0.95rem, 2vw, 1.1rem);
+}
+
+.interconf-playoff-choice {
+  border: 0.125rem dashed;
+  border-radius: 0.625rem;
+  padding: 1rem 0.75rem;
+  margin-top: 1.125rem;
+  box-shadow: 0 0.125rem 0.5rem rgba(2,136,209,0.08);
+  font-size: clamp(1rem, 2vw, 1.15rem);
+}
+
+.interconf-playoff-choice .mat-form-field {
+  border-radius: 0.375rem;
+}
+
+.interconf-playoff-choice .mat-label {
+  font-weight: 600;
+}
+
+.interconf-playoff-choice .mat-hint {
+  font-size: clamp(0.9rem, 1.5vw, 1rem);
+}
+
+.qualifiers-panel {
+  border-radius: 1rem;
+  box-shadow: 0 0.125rem 0.75rem rgba(21, 101, 192, 0.08);
+  padding: 1.5rem 1.125rem;
+  margin-bottom: 1.5rem;
+  width: 100%;
+}
+
+.mat-expansion-panel-header,
+.mat-panel-title {
+  font-size: clamp(1.1rem, 2vw, 1.4rem);
+  font-weight: 500;
+}
+
+@media (max-width: 37.5rem) {
+  .qualifiers-panel {
+    padding: 0.75rem 0.25rem;
+    border-radius: 0.5rem;
+  }
+  .group {
+    padding: 0.5rem 0.25rem;
+    font-size: 0.95rem;
+  }
+  .afc-playoff-choice,
+  .caf-playoff-choice,
+  .concacaf-playoff-choice {
+    padding: 0.5rem 0.25rem;
+    font-size: 0.95rem;
+  }
+}
+
+@media (max-width: 25rem) {
+  .mat-expansion-panel-header,
+  .mat-panel-title {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 37.5rem) {
+  .mat-select-panel {
+    max-width: 98vw !important;
+    min-width: 7.5rem;
+  }
+  .mat-form-field,
+  .group-field {
+    min-width: 0;
+    width: 100%;
+  }
+}
+
+.selected-team {
+  display: inline-flex;
+  align-items: center;
+  margin-top: 0.375rem;
+  font-weight: 500;
+  font-size: 1.05em;
+}

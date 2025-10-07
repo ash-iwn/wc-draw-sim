@@ -1,0 +1,15 @@
+.playoffs-container {
+  max-width: 56.25rem;
+  margin: 0 auto;
+  padding: 1.5rem 1rem;
+  border-radius: 1rem;
+  box-shadow: 0 0.125rem 1rem rgba(21,101,192,0.08);
+  background: var(--mat-md-sys-color-surface-variant, #23272f);
+}
+
+@media (max-width: 37.5rem) {
+  .playoffs-container {
+    padding: 1rem 0.5rem;
+    border-radius: 0.625rem;
+  }
+}

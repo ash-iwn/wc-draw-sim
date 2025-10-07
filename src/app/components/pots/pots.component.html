@@ -1,5 +1,6 @@
-<div class="pots-container">
-  <ng-container *ngIf="hasPots(); else noPots">
+
+  <h2 >Pots</h2>
+  <ng-container *ngIf="simService.hasPots(); else noPots">
     <div class="pots-grid">
       <mat-card class="pot-column" *ngFor="let potNumber of [1,2,3,4]">
         <mat-card-header>
@@ -21,21 +22,29 @@
               <mat-card-header>
                 <mat-card-title>
                   <span class="team-flag">{{ team.flag }}</span>
+                  <!-- <lib-angular-flagpack
+                    code="{{ team.flag }}"
+                    size="m"
+                    gradient="top-down"
+                    [hasDropShadow]="true"
+                    [hasBorder]="true"
+                    [hasBorderRadius]="true">
+                  </lib-angular-flagpack> -->
                   <span class="team-name">
                     {{ team.name }}
-                    <span *ngIf="team.playoffWinner && team.playoffPath">({{ team.playoffPath }})</span>
-                    <span *ngIf="team.playoffWinner && !team.playoffPath">(Playoff Winner)</span>
                     <span *ngIf="team.host"> (Host)</span>
                             
                   </span>
                 </mat-card-title>
               </mat-card-header>
               <mat-card-content>
-                <div class="team-confederation">
+                <div *ngIf="!team.playoffWinner" class="team-confederation">
                   {{ team.confederation }}
                 </div>
-                <div class="team-points" *ngIf="team.points && team.points !== 'TBD'">{{ team.points }} pts</div>
-                <div class="team-points placeholder-points" *ngIf="team.points === 'TBD'">March 2026</div>
+                <div *ngIf="team.playoffWinner" class="team-confederation">
+                  {{ team.playoffPath }}
+                </div>
+                <div class="team-points" *ngIf="team.points">{{ team.points }} pts</div>
               </mat-card-content>
             </mat-card>
           </div>
@@ -54,4 +63,4 @@
       </mat-card-content>
     </mat-card>
   </ng-template>
-</div>
+

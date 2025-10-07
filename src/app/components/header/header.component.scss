@@ -1,0 +1,13 @@
+.header {
+  text-align: center;
+  padding: 1.5rem 0;
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+@media (max-width: 37.5rem) {
+  .header {
+    font-size: 1.125rem;
+    padding: 1rem 0;
+  }
+}

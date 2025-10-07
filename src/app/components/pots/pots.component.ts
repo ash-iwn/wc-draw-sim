@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 
-
+import { AngularFlagpackModule } from 'angular-flagpack';
 
 import { DataService } from '../../data-service';
 import { CommonModule } from '@angular/common';
@@ -11,6 +11,9 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import {MatCardModule} from '@angular/material/card';
+import { SimulatorService } from '../../sim-service';
+import { MatIconModule } from '@angular/material/icon'; // Import MatIconModule
+
 
 @Component({
   selector: 'app-pots',
@@ -26,19 +29,20 @@ import {MatCardModule} from '@angular/material/card';
     MatFormFieldModule,
     MatSelectModule,
     MatOptionModule,
+    MatIconModule,
     MatExpansionModule,
     MatCardModule,
     CommonModule,
+    AngularFlagpackModule
   ],
   templateUrl: './pots.component.html',
   styleUrl: './pots.component.scss'
 })
 export class PotsComponent {
  
-  @Input() pots: { [key: number]: any[] } = {};
-
-  constructor(private dataService:DataService) {
-
+  pots: { [key: number]: any[] } = {};
+  constructor(private dataService:DataService, public simService: SimulatorService) {
+    this.pots = this.simService.getPots();
   }
 
 
@@ -46,6 +50,7 @@ export class PotsComponent {
 
 
   hasPots(): boolean {
+
     return this.pots && Object.keys(this.pots).length > 0;
   }
 }

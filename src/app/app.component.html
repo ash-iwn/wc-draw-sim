@@ -35,7 +35,7 @@
         </ul>
       </div>
 
-      <mat-accordion>
+      <mat-accordion class="custom-accordion">
         <mat-expansion-panel>
           <mat-expansion-panel-header>
             <mat-panel-title>
@@ -45,93 +45,97 @@
           <div class="status-grid">
             <div class="qualified-teams">
               <strong>✅ Qualified ({{ dataService.QUALIFIED_TEAMS.length }})</strong><br>
+              <br>
               <strong>AFC {{ getQualifiedTeamsForConf('AFC').length }}/8 </strong>
               <div *ngFor="let team of getQualifiedTeamsForConf('AFC')">
                 <ng-container *ngIf="team">
-                  {{ team.name }}
+                <li>{{ team.name }}</li>
                 </ng-container>
               </div>
               <br>
               <strong>CAF {{ getQualifiedTeamsForConf('CAF').length }}/9 </strong>
               <div *ngFor="let team of getQualifiedTeamsForConf('CAF')">
                 <ng-container *ngIf="team">
-                  {{ team.name }}
+                <li>{{ team.name }}</li>
                 </ng-container>
               </div>
               <br>
               <strong>CONCACAF 3 Hosts + {{ getQualifiedTeamsForConf('CONCACAF').length - 3 }}/3</strong>
               <div *ngFor="let team of getQualifiedTeamsForConf('CONCACAF')">
                 <ng-container *ngIf="team">
-                  {{ team.name }}
+                <li>{{ team.name }}</li>
                 </ng-container>
               </div>
               <br>
               <strong>CONMEBOL {{ getQualifiedTeamsForConf('CONMEBOL').length }}/6 </strong>
               <div *ngFor="let team of getQualifiedTeamsForConf('CONMEBOL')">
                 <ng-container *ngIf="team">
-                  {{ team.name }}
+                 <li>{{ team.name }}</li>
                 </ng-container>
               </div>
               <br>
               <strong>OFC {{ getQualifiedTeamsForConf('OFC').length }}/1</strong>
               <div *ngFor="let team of getQualifiedTeamsForConf('OFC')">
                 <ng-container *ngIf="team">
-                  {{ team.name }}
+                <li>{{ team.name }}</li>
                 </ng-container>
               </div>
               <br>
               <strong>UEFA {{ getQualifiedTeamsForConf('UEFA').length }}/12 </strong>
               <div *ngFor="let team of getQualifiedTeamsForConf('UEFA')">
                 <ng-container *ngIf="team">
-                  {{ team.name }}
+                <li>{{ team.name }}</li>
                 </ng-container>
               </div>
               <br>
             </div>
             <div class="projected-teams">
-              <strong>🔮 Projected (28)</strong><br>
+              <strong>🔮 Projected (28)</strong>
+              <br><br>
               <strong *ngIf="getProjectedTeamsForConf('AFC').length > 0">AFC</strong>
               <div *ngFor="let team of getProjectedTeamsForConf('AFC')">
                 <ng-container *ngIf="team">
-                  {{ team.name }}
+                 <li>{{ team.name }}</li>
                 </ng-container>
               </div>
               <br>
               <strong *ngIf="getProjectedTeamsForConf('CAF').length>0">CAF</strong>
               <div *ngFor="let team of getProjectedTeamsForConf('CAF')">
                 <ng-container *ngIf="team">
-                  {{ team.name }}
+                 <li>{{ team.name }}</li>
                 </ng-container>
               </div>
               <br>
               <strong *ngIf="getProjectedTeamsForConf('CONCACAF').length > 0">CONCACAF</strong>
               <div *ngFor="let team of getProjectedTeamsForConf('CONCACAF')">
                 <ng-container *ngIf="team">
-                  {{ team.name }}
+                 <li>{{ team.name }}</li>
                 </ng-container>
               </div>
               <br>
               <strong *ngIf="getProjectedTeamsForConf('UEFA').length > 0">UEFA</strong>
               <div *ngFor="let team of getProjectedTeamsForConf('UEFA')">
                 <ng-container *ngIf="team">
-                  {{ team.name }}
+                 <li>{{ team.name }}</li>
                 </ng-container>
               </div>
               <br>
             </div>
             <div class="playoff-teams">
-              <strong>🏳️ Projected Playoffs ({{ dataService.UEFA_PLAYOFF_TEAMS.length + dataService.INTERCONTINENTAL_PLAYOFF_TEAMS.length }})</strong><br>
+              <strong>🏳️ Projected Playoffs ({{ dataService.UEFA_PLAYOFF_TEAMS.length + dataService.INTERCONTINENTAL_PLAYOFF_TEAMS.length }})</strong>
+              <br>
+              <br>
               <strong>UEFA Playoffs</strong>
               <div *ngFor="let team of dataService.UEFA_PLAYOFF_TEAMS">
                 <ng-container *ngIf="team">
-                  {{ team.name }}
+                  <li>{{ team.name }}</li>
                 </ng-container>
               </div>
               <br>
               <strong>Intercontinental Playoff Teams</strong>
               <div *ngFor="let team of dataService.INTERCONTINENTAL_PLAYOFF_TEAMS">
                 <ng-container *ngIf="team">
-                  {{ team.name }}
+                 <li>{{ team.name }}</li>
                 </ng-container>
               </div>
             </div>
@@ -172,12 +176,16 @@
       </div>
     </section>
 
-    <section *ngIf="!drawInProgress && playoffResults" class="playoffs-section">
-      <app-playoffs [results]="playoffResults"></app-playoffs>
+    <section *ngIf="!drawInProgress && simulator.playoffResults" class="playoffs-section">
+      <app-playoffs [results]="simulator.playoffResults"></app-playoffs>
     </section>
 
-    <section *ngIf="!drawInProgress && pots" class="pots-section">
-      <app-pots  [pots]="pots"></app-pots>
+    <section *ngIf="!drawInProgress" class="pots-section">
+      <app-pots ></app-pots>
+    </section>
+
+    <section *ngIf="!drawInProgress" class="matches-section">
+      <app-matches ></app-matches>
     </section>
 
   </div>

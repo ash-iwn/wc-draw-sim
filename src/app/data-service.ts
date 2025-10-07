@@ -802,7 +802,7 @@ export class DataService {
     "confederation": "UEFA",
     "points": 1820.44,
     "qGroup": "K",
-    "flag": "🏴"
+    "flag": "🏴󠁧󠁢󠁥󠁮󠁧󠁿"
   }, {
     "name": "Albania",
     "confederation": "UEFA",

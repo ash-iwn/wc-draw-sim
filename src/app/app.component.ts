@@ -13,8 +13,9 @@ import { MatOptionModule } from '@angular/material/core';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { PlayoffsComponent } from './components/playoffs/playoffs.component';
 import { PotsComponent } from './components/pots/pots.component';
-import { MatDivider } from "@angular/material/divider";
+
 import { SimulationLogComponent } from './components/simulation-log/simulation-log.component';
+import { MatchesComponent } from "./components/matches/matches.component";
 
 @Component({
 	selector: 'app-root',
@@ -38,12 +39,13 @@ import { SimulationLogComponent } from './components/simulation-log/simulation-l
     QualifiersComponent,
     PlayoffsComponent,
     PotsComponent,
+    MatchesComponent
 ]
 })
 export class AppComponent implements OnInit {
 	@ViewChild(QualifiersComponent) qualifiersComp!: QualifiersComponent;
 
-	pots: { [key: number]: Team[] } = {};
+	
 	groups: { [key: string]: Team[] } = {};
 	matches: Match[] = [];
 	playoffResults: PlayoffResults | null = null;
@@ -54,16 +56,12 @@ export class AppComponent implements OnInit {
 	
 
 	constructor(
-		private simulator: SimulatorService,
+		public simulator: SimulatorService,
 		private wikiService: WikipediaService,
 		public dataService: DataService,
 	 	private cdr: ChangeDetectorRef) {}
 
 	ngOnInit(): void {
-		this.pots = this.simulator.getPots();
-		this.groups = this.simulator.getGroups();
-		this.simulationLog = this.simulator.getSimulationLog();
-		
 		
 		this.wikiService.getQualifiedTeams().subscribe({
       next: response => {
@@ -105,14 +103,15 @@ export class AppComponent implements OnInit {
 
 	}
 
+	
+
 	performCompleteDraw(): void {
-		this.pots = {};
-		//this.drawButtonText = 'Simulating Playoffs...';
+		
+		this.drawButtonText = 'Simulating Playoffs...';
 		this.drawInProgress = true;
 		setTimeout(()=> {
 			
 			this.playoffResults = this.simulator.simulatePlayoffs();
-			this.pots = this.simulator.getPots();
 			this.simulator.simulateDraw();
 			this.simulator.generateMatches();
 

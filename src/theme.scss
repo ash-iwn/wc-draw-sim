@@ -23,34 +23,29 @@ html, body, .mat-app-background {
   color: #e0e0e0;
 }
 
-// Section color grading classes
-.qualifiers-section, .pots-section, .playoffs-section{
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 16px;
-  display: flex;
-  flex-direction: column;
-  background: mat.m2-get-color-from-palette($primary, 500);
+.section-canada {
+  background: rgba(234, 23, 13, 0.18); // Muted Canada red
 }
-.section-uefa {
-  background: mat.m2-get-color-from-palette($primary, 100);
+.section-usa {
+  background: rgba(29, 151, 200, 0.18); // Muted USA blue
 }
-.section-afc {
-  background: mat.m2-get-color-from-palette($accent, 100);
-}
-.section-caf {
-  background: mat.m2-get-color-from-palette($warn, 100);
-}
-.section-concacaf {
-  background: mat.m2-get-color-from-palette($primary, 300);
+.section-mexico {
+  background: rgba(135, 227, 126, 0.18); // Muted Mexico green
 }
 
-.section-uefa,
-.section-afc,
-.section-caf,
-.section-concacaf {
-  border-radius: 12px;
-  margin-bottom: 24px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-  padding: 24px;
+
+// Color-based section backgrounds
+.qualifiers-section {
+  background: rgba(234, 23, 13, 0.18); // Muted Canada red
+}
+.pots-section {
+  background: rgba(29, 151, 200, 0.18); // Muted USA blue
+}
+.playoffs-section {
+  background: rgba(135, 227, 126, 0.18); // Muted Mexico green
+}
+
+// If you want all sections to share a fallback color, you can add:
+.section-shared-bg {
+  background: rgba(49, 53, 67, 0.98); // Example shared dark surface
 }

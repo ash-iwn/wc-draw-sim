@@ -24,3 +24,27 @@
 .log-empty {
   text-align: center;
 }
+
+.simulation-log-container {
+  max-width: 56.25rem;
+  margin: 0 auto;
+  padding: 1.5rem 1rem;
+  border-radius: 1rem;
+  box-shadow: 0 0.125rem 1rem rgba(21,101,192,0.08);
+  background: var(--mat-md-sys-color-surface-variant, #23272f);
+  font-size: 1rem;
+}
+
+.simulation-log-entry {
+  margin-bottom: 0.75rem;
+  line-height: 1.6;
+  word-break: break-word;
+}
+
+@media (max-width: 37.5rem) {
+  .simulation-log-container {
+    padding: 1rem 0.5rem;
+    border-radius: 0.625rem;
+    font-size: 0.95rem;
+  }
+}

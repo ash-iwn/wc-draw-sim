@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Team, PlayoffResults, SimulationLogEntry, Venue} from './model';
+import { Team, PlayoffResults, SimulationLogEntry, Venue, Match} from './model';
 
 import { PlayoffSimulatorService } from './playoff-simulator.service';
 import { DataService } from './data-service';
@@ -15,6 +15,7 @@ export class SimulatorService {
   allTeams: Team[] = [];
   playoffResults: PlayoffResults | null = null;
   simulationLog: SimulationLogEntry[] = [];
+  matches:any[] = [];
 
   constructor(private playoffSimulator: PlayoffSimulatorService, private dataService: DataService) {
     this.initializeTeams();
@@ -24,6 +25,16 @@ export class SimulatorService {
     // Create teams from qualified and projected teams (initially with placeholders)
     this.allTeams = this.createFullTeamsList();
     this.createPots();
+  }
+
+  public setPots(p: { [key: number]: any[] } ) {
+    this.pots = p;
+  }
+
+  public hasPots(): boolean {
+    if (!this.pots || Object.keys(this.pots).length === 0) return false;
+    // Check if all pots are empty arrays
+    return Object.values(this.pots).some(potArr => Array.isArray(potArr) && potArr.length > 0);
   }
 
   createFullTeamsList(): Team[] {
@@ -318,7 +329,8 @@ export class SimulatorService {
     }
   }
 
-  generateMatches(): any[] {
+  generateMatches() {
+    this.matches = []
     const allMatches: any[] = [];
     (Object.keys(this.groups) as Array<keyof typeof this.groups>).forEach(groupLetter => {
       const groupTeams = this.groups[groupLetter];
@@ -336,7 +348,7 @@ export class SimulatorService {
       });
       allMatches.push(...matches);
     });
-    return allMatches.sort((a, b) => a.match - b.match);
+    this.matches = allMatches.sort((a, b) => a.match - b.match);
   }
 
   getTeamNameForPosition(groupLetter: string, position: string | number, groupTeams: Team[]): string {

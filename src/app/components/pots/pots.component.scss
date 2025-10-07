@@ -1,8 +1,8 @@
 .pots-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 24px;
-  margin: 24px 0;
+  gap: 1.5rem;
+  margin: 1.5rem 0;
   width: 100%;
 }
 
@@ -13,19 +13,19 @@
 .pot-teams-list {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 0.75rem;
 }
 
 .pot-team-card {
   min-width: 0;
-  border-radius: 8px;
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.07);
+  border-radius: 0.5rem;
+  box-shadow: 0 0.0625rem 0.25rem rgba(0, 0, 0, 0.07);
   padding: 0;
 }
 
 .team-flag {
-  font-size: 1.5rem;
-  margin-right: 8px;
+  font-size: 2rem;
+  margin-right: 0.5rem;
   vertical-align: middle;
 }
 
@@ -65,20 +65,25 @@
   color: var(--mat-md-sys-color-secondary, #ffc107);
 }
 
-@media (max-width: 900px) {
+@media (max-width: 56.25rem) {
   .pots-grid {
     grid-template-columns: repeat(2, 1fr);
-    gap: 16px;
+    gap: 1rem;
   }
 }
 
-@media (max-width: 600px) {
+@media (max-width: 37.5rem) {
   .pots-grid {
     grid-template-columns: 1fr;
-    gap: 12px;
+    gap: 0.75rem;
   }
 
   .pot-column {
-    padding: 10px;
+    padding: 0.625rem;
+  }
+
+  .pot-header {
+    font-size: 1.1rem;
+    margin-bottom: 0.5rem;
   }
 }
