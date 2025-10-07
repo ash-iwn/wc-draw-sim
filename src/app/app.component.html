@@ -35,7 +35,7 @@
         </ul>
       </div>
 
-      <mat-accordion class="custom-accordion">
+      <mat-accordion >
         <mat-expansion-panel>
           <mat-expansion-panel-header>
             <mat-panel-title>
@@ -189,7 +189,7 @@
     </section> -->
 
 
-    <mat-tab-group class="simulated-section" *ngIf="!drawInProgress" #simulationTabs [selectedIndex]="1">
+    <mat-tab-group class="simulated-section" *ngIf="!drawInProgress && simulator.playoffResults" #simulationTabs [selectedIndex]="1">
       <mat-tab label="Playoffs">
         <app-playoffs></app-playoffs>
       </mat-tab>

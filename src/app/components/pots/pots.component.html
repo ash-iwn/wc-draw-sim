@@ -1,6 +1,6 @@
 
-  <h2 >Pots</h2>
   <ng-container *ngIf="simService.hasPots(); else noPots">
+    <br><br>
     <div class="pots-grid">
       <mat-card class="pot-column" *ngFor="let potNumber of [1,2,3,4]">
         <mat-card-header>
@@ -53,6 +53,7 @@
     </div>
   </ng-container>
   <ng-template #noPots>
+     <br><br>
     <mat-card class="playoff-note">
       <mat-card-content>
         <strong>6 Playoff Winners</strong> will be added to Pots after March 2026 playoffs

@@ -12,32 +12,25 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatAccordion } from '@angular/material/expansion';
+import {MatCardModule} from '@angular/material/card';
+import { SimulatorService } from '../../sim-service';
 
 @Component({
   selector: 'app-playoffs',
   standalone: true,
-  imports: [CommonModule,
+  imports: [
+    CommonModule,
     MatDividerModule,
     MatProgressSpinnerModule,
-    MatAccordion,
+    MatCardModule,
     MatExpansionModule,MatButtonModule,MatFormFieldModule, MatSelectModule, MatOptionModule],
   templateUrl: './playoffs.component.html',
   styleUrl: './playoffs.component.scss'
 })
 export class PlayoffsComponent {
- @Input() results: PlayoffResults | null = null;
 
-  playoffResults: PlayoffResults | null = null;
-  loading = false;
+  constructor(public simService: SimulatorService) {}
 
-  constructor(private playoffSimulator: PlayoffSimulatorService) {}
-
-  simulatePlayoffs(): void {
-    this.loading = true;
-    setTimeout(() => {
-      this.playoffResults = this.playoffSimulator.simulateAllPlayoffs();
-      this.loading = false;
-    }, 2000);
-  }
+  
  
 }

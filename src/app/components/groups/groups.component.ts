@@ -1,20 +1,18 @@
 import { Component, Input } from '@angular/core';
-import { DataService } from '../../data-service';
-import { Data } from '@angular/router';
-import { CommonModule } from '@angular/common';
-
+import { Team } from '../../model';
+import { MatCardModule } from '@angular/material/card';
+import { CommonModule, NgFor, NgIf } from '@angular/common';
+import { SimulatorService } from '../../sim-service';
+import {MatTableModule} from '@angular/material/table';
 @Component({
   selector: 'app-groups',
-  standalone: true,
-  imports: [CommonModule],
   templateUrl: './groups.component.html',
-  styleUrl: './groups.component.scss'
+  styleUrls: ['./groups.component.scss'],
+  standalone: true,
+  imports: [MatCardModule, NgFor, NgIf, CommonModule, MatTableModule], 
 })
 export class GroupsComponent {
-@Input() groups: { [key: string]: any[] } = {};
 
-
-constructor(public dataService:DataService) {
-
-}
+  constructor(public simService:SimulatorService) {}
+  groupLetters: string[] = ['A','B','C','D','E','F','G','H','I','J','K','L'];
 }

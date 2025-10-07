@@ -50,7 +50,7 @@ export class AppComponent implements OnInit {
 	@ViewChild('potsTabContent') potsTabContent!: ElementRef;
 	@ViewChild('simulationTabs') mainTabs!: ElementRef;
 
-	
+	showTabs = false;
 	groups: { [key: string]: Team[] } = {};
 	matches: Match[] = [];
 	playoffResults: PlayoffResults | null = null;
@@ -69,49 +69,45 @@ export class AppComponent implements OnInit {
 	ngOnInit(): void {
 		
 		this.wikiService.getQualifiedTeams().subscribe({
-      next: response => {
-        Promise.resolve().then(() => {
-          // process response and update dataService
-          delete response[0];
-          const qTeams = Object.values(response).map((row: any) => row[0]);
-          qTeams.forEach((teamName: string) => {
-            const team = this.dataService.ALL_TEAMS_DATA.find(t => t.name === teamName);
-            // Only push valid teams, never undefined
-            if (team) {
-              this.dataService.QUALIFIED_TEAMS.push(team);
-              team.qualified = true;
-            }
-          });
+			next: response => {
+				Promise.resolve().then(() => {
+				// process response and update dataService
+				delete response[0];
+				const qTeams = Object.values(response).map((row: any) => row[0]);
+				qTeams.forEach((teamName: string) => {
+					const team = this.dataService.ALL_TEAMS_DATA.find(t => t.name === teamName);
+					// Only push valid teams, never undefined
+					if (team) {
+					this.dataService.QUALIFIED_TEAMS.push(team);
+					team.qualified = true;
+					}
+				});
 
-          // Remove any accidental undefined entries (extra guard)
-          this.dataService.QUALIFIED_TEAMS = this.dataService.QUALIFIED_TEAMS.filter(t => !!t);
+				// Remove any accidental undefined entries (extra guard)
+				this.dataService.QUALIFIED_TEAMS = this.dataService.QUALIFIED_TEAMS.filter(t => !!t);
 
-          this.qualifiersReady = true;
-          console.log('Qualified Teams pulled from Wiki API', this.dataService.QUALIFIED_TEAMS);
-          // optional: immediately run change detection
-          if (this.qualifiersComp && typeof this.qualifiersComp.applyCafLocks === 'function') {
-            this.qualifiersComp.applyCafLocks();
-          }
+				this.qualifiersReady = true;
+				console.log('Qualified Teams pulled from Wiki API', this.dataService.QUALIFIED_TEAMS);
+				// optional: immediately run change detection
+				if (this.qualifiersComp && typeof this.qualifiersComp.applyCafLocks === 'function') {
+					this.qualifiersComp.applyCafLocks();
+				}
 
-          this.cdr.detectChanges();
-        });
-      },
-      error: err => {
-        console.error('Failed to load wiki qualifiers', err);
-        //Promise.resolve().then(() => this.qualifiersReady = true);
-      }
-    });
-
-		
-
-
+				this.cdr.detectChanges();
+				});
+			},
+			error: err => {
+				console.error('Failed to load wiki qualifiers', err);
+				//Promise.resolve().then(() => this.qualifiersReady = true);
+			}
+    	});
 
 	}
 
 	
 
 	performCompleteDraw(): void {
-		
+		this.showTabs = false;
 		this.drawButtonText = 'Simulating Playoffs...';
 		this.drawInProgress = true;
 		setTimeout(()=> {
@@ -121,7 +117,7 @@ export class AppComponent implements OnInit {
 			this.simulator.generateMatches();
 
 			this.drawInProgress = false;
-
+			this.showTabs = true;
 			setTimeout(() => {
 				if (this.mainTabs) {
 					this.mainTabs.nativeElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
