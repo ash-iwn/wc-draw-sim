@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ChangeDetectorRef, ElementRef } from '@angular/core';
 import { SimulatorService } from './sim-service';
 import { Team, PlayoffResults, SimulationLogEntry, Match } from './model';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -13,9 +13,10 @@ import { MatOptionModule } from '@angular/material/core';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { PlayoffsComponent } from './components/playoffs/playoffs.component';
 import { PotsComponent } from './components/pots/pots.component';
-
+import { GroupsComponent } from './components/groups/groups.component';
 import { SimulationLogComponent } from './components/simulation-log/simulation-log.component';
 import { MatchesComponent } from "./components/matches/matches.component";
+import {MatTabsModule} from '@angular/material/tabs';
 
 @Component({
 	selector: 'app-root',
@@ -35,15 +36,19 @@ import { MatchesComponent } from "./components/matches/matches.component";
     MatSelectModule,
     MatOptionModule,
     MatExpansionModule,
+	MatTabsModule,
     CommonModule,
     QualifiersComponent,
     PlayoffsComponent,
     PotsComponent,
-    MatchesComponent
+    MatchesComponent,
+	GroupsComponent
 ]
 })
 export class AppComponent implements OnInit {
 	@ViewChild(QualifiersComponent) qualifiersComp!: QualifiersComponent;
+	@ViewChild('potsTabContent') potsTabContent!: ElementRef;
+	@ViewChild('simulationTabs') mainTabs!: ElementRef;
 
 	
 	groups: { [key: string]: Team[] } = {};
@@ -116,7 +121,14 @@ export class AppComponent implements OnInit {
 			this.simulator.generateMatches();
 
 			this.drawInProgress = false;
-		}, 1000);
+
+			setTimeout(() => {
+				if (this.mainTabs) {
+					this.mainTabs.nativeElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+				}
+				
+			}, 0);
+		}, 500);
 
 
 		
