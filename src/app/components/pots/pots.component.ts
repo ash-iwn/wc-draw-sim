@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 
-import { AngularFlagpackModule } from 'angular-flagpack';
+
 
 import { DataService } from '../../data-service';
 import { CommonModule } from '@angular/common';
@@ -33,7 +33,6 @@ import { MatIconModule } from '@angular/material/icon'; // Import MatIconModule
     MatExpansionModule,
     MatCardModule,
     CommonModule,
-    AngularFlagpackModule
   ],
   templateUrl: './pots.component.html',
   styleUrl: './pots.component.scss'
