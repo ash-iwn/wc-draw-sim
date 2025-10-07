@@ -7,6 +7,10 @@
   padding-bottom: 0.5rem;
 }
 
+::ng-deep .mat-expansion-panel {
+  max-height: none !important;
+}
+
 @media (min-width: 75rem) {
   .groups-grid {
     grid-template-columns: repeat(3, 1fr);
@@ -22,7 +26,7 @@
 @media (max-width: 43.75rem) {
   .groups-grid {
     grid-template-columns: repeat(1, 1fr);
-    max-height: 50vh;
+   
   }
 }
 
@@ -30,7 +34,7 @@
   .groups-grid {
     grid-template-columns: 1fr;
     gap: 0.625rem;
-    max-height: 40vh;
+   
   }
 }
 
