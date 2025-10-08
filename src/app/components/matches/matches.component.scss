@@ -20,6 +20,11 @@ mat-tab-body {
   padding-bottom: 1.5rem;
 }
 
+.matches-table {
+  width: 100%;
+  font-size: clamp(0.95rem, 2vw, 1.15rem);
+}
+
 .match-row {
   display: flex;
   align-items: center;
@@ -36,11 +41,11 @@ mat-tab-body {
 .match-venue {
   flex: 0 1 auto;
   min-width: 0;
+  font-size: inherit;
 }
 
 .vs-text {
   font-weight: 600;
-  font-size: 1.1em;
   opacity: 0.8;
 }
 
@@ -52,6 +57,12 @@ mat-tab-body {
   word-break: break-word;
 }
 
+@media (max-width: 56.25rem) {
+  .matches-table {
+    font-size: clamp(0.85rem, 3vw, 1rem);
+  }
+}
+
 @media (max-width: 43.75rem) {
   .match-row {
     flex-direction: column;
@@ -61,6 +72,12 @@ mat-tab-body {
   .match-venue {
     text-align: left;
     flex: 1 1 100%;
+  }
+}
+
+@media (max-width: 37.5rem) {
+  .matches-table {
+    font-size: clamp(0.8rem, 4vw, 0.95rem);
   }
 }
 

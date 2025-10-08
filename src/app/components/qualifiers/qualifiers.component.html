@@ -263,7 +263,7 @@
               Inter-confederation Play-off
               
             </mat-label>
-            <mat-select [value]="selectedConcacafRunners" multiple [compareWith]="compareTeams" (selectionChange)="onConcacafRunnersChange($event.value)">
+            <mat-select [value]="selectedConcacafRunners" multiple [compareWith]="compareTeams" (openedChange)="onConcacafRunnersClosed()">
               <mat-option *ngFor="let t of concacafPos2List" [value]="t">{{ t.name }}</mat-option>
             </mat-select>
             <mat-hint>Select two 2nd place teams to progress</mat-hint>

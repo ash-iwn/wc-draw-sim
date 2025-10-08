@@ -5,20 +5,55 @@
         Group {{ group }}
       </ng-template>
       <div *ngIf="groupMatches(group).length > 0">
-        <mat-list>
-          <mat-list-item *ngFor="let match of groupMatches(group)">
-            <div class="match-row">
-              <span class="match-number mat-caption">Match {{ match.match }}</span>
+        <table mat-table [dataSource]="groupMatches(group)" class="matches-table" multiTemplateDataRows>
+          <!-- Match Number Column -->
+          <ng-container matColumnDef="match">
+            <th mat-header-cell *matHeaderCellDef>Match</th>
+            <td mat-cell *matCellDef="let match">
+              <span class="match-number mat-caption">M{{ match.match }}</span>
+            </td>
+          </ng-container>
+          <!-- Date Column -->
+          <ng-container matColumnDef="date">
+            <th mat-header-cell *matHeaderCellDef>Date</th>
+            <td mat-cell *matCellDef="let match">
               <span class="match-date mat-caption">{{ match.date }}</span>
+            </td>
+          </ng-container>
+          <!-- Team 1 Column -->
+          <ng-container matColumnDef="team1">
+            <th mat-header-cell *matHeaderCellDef>Team 1</th>
+            <td mat-cell *matCellDef="let match">
               <span class="team-with-flag">{{ getTeamFlag(match.team1) }} {{ match.team1 }}</span>
+            </td>
+          </ng-container>
+          <!-- VS Column -->
+          <ng-container matColumnDef="vs">
+            <th mat-header-cell *matHeaderCellDef></th>
+            <td mat-cell *matCellDef="let match">
               <span class="vs-text">vs</span>
+            </td>
+          </ng-container>
+          <!-- Team 2 Column -->
+          <ng-container matColumnDef="team2">
+            <th mat-header-cell *matHeaderCellDef>Team 2</th>
+            <td mat-cell *matCellDef="let match">
               <span class="team-with-flag">{{ getTeamFlag(match.team2) }} {{ match.team2 }}</span>
+            </td>
+          </ng-container>
+          <!-- Venue Column -->
+          <ng-container matColumnDef="venue">
+            <th mat-header-cell *matHeaderCellDef>Venue</th>
+            <td mat-cell *matCellDef="let match">
               <span class="match-venue mat-caption">
                 {{ match.venue }}, {{ match.venueInfo?.city }}, {{ match.venueInfo?.country }}
               </span>
-            </div>
-          </mat-list-item>
-        </mat-list>
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="['match', 'date', 'team1', 'vs', 'team2', 'venue']"></tr>
+          <tr mat-row *matRowDef="let row; columns: ['match', 'date', 'team1', 'vs', 'team2', 'venue'];"></tr>
+        </table>
       </div>
       <div *ngIf="groupMatches(group).length === 0" class="mat-body-2" style="padding: 16px; color: #888;">
         No matches for this group.

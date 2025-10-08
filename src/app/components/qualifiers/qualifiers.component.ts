@@ -690,38 +690,52 @@ export class QualifiersComponent implements OnInit, OnDestroy {
     upsert(b, 'CONCACAF playoff slot 2');
   }
 
- 
   
+  onConcacafRunnersClosed(): void {
+    console.log('closed');
+    const selected = this.selectedConcacafRunners || [];
 
-  // called from template when user changes the multi-select for CONCACAF runners
-  onConcacafRunnersChange(selected?: Team[] | null): void {
-    // accept up to two selections
-    this.selectedConcacafRunners = (selected || []).slice(0, 2);
+    // If only one team is selected, automatically add a second team
+    if (selected.length === 1 && this.concacafPos2List.length > 1) {
+      const secondTeam = this.concacafPos2List.find(t => t !== selected[0]);
+      if (secondTeam) {
+        this.selectedConcacafRunners = [selected[0], secondTeam];
+      } else {
+        this.selectedConcacafRunners = [selected[0]];
+      }
+    } else if (selected.length === 0 || selected.length >2) {
+      // accept up to two selections if less than 2 or more than 2 are selected
+      this.selectedConcacafRunners = selected.slice(0, 2);
+    }
 
-    // ensure uniqueness: if duplicate names selected, pick an alternate for the second slot
-    if (this.selectedConcacafRunners.length === 2 &&
-        this.selectedConcacafRunners[0]?.name === this.selectedConcacafRunners[1]?.name) {
-      const alt = this.concacafPos2List.find(t => t.name !== this.selectedConcacafRunners[0].name) ?? null;
+    // Ensure uniqueness: if duplicate names selected, pick an alternate for the second slot
+    if (
+      this.selectedConcacafRunners.length === 2 &&
+      this.selectedConcacafRunners[0]?.name === this.selectedConcacafRunners[1]?.name
+    ) {
+      console.log( 'selected ', this.selectedConcacafRunners[0]?.name, this.selectedConcacafRunners[1]?.name)
+      const alt = this.concacafPos2List.find(
+        t => t.name !== this.selectedConcacafRunners[0].name
+      ) ?? null;
       if (alt) {
         this.selectedConcacafRunners[1] = alt;
       } else {
-        // Remove the second runner if no valid alternate found
         this.selectedConcacafRunners = [this.selectedConcacafRunners[0]];
       }
       this.selectedConcacafRunners = this.selectedConcacafRunners.filter(Boolean) as Team[];
     }
 
+   
+    // Set interconf teams
     const a = this.selectedConcacafRunners[0] ?? null;
     const b = this.selectedConcacafRunners[1] ?? null;
     this.setInterconfTeamForConcacaf(a, b);
 
-    if (this.ConcacafQualifiersForm) {
-      if (typeof this.processConcacafSelections === 'function') {
-        this.processConcacafSelections(this.ConcacafQualifiersForm.value);
-      }
+    // Process selections
+    if (this.ConcacafQualifiersForm && typeof this.processConcacafSelections === 'function') {
+      this.processConcacafSelections(this.ConcacafQualifiersForm.value);
     }
   }
- 
 
   // minimal refresh for CONCACAF runner picks: pick first two pos2 teams and sync interconf list
   private refreshConcacafPlayoff(): void {
@@ -855,5 +869,4 @@ export class QualifiersComponent implements OnInit, OnDestroy {
      this.refreshConcacafPlayoff();
    }
 
-   
 }

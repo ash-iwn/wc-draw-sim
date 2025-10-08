@@ -120,7 +120,7 @@ export class AppComponent implements OnInit {
 			this.showTabs = true;
 			setTimeout(() => {
 				if (this.mainTabs) {
-					this.mainTabs.nativeElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+					//this.mainTabs.nativeElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
 				}
 				
 			}, 0);

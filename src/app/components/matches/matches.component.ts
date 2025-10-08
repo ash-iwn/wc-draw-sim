@@ -10,6 +10,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatListModule } from '@angular/material/list';
 import { CommonModule } from '@angular/common';
+import {MatTableModule} from '@angular/material/table';
 
 
 @Component({
@@ -28,7 +29,8 @@ import { CommonModule } from '@angular/common';
       MatExpansionModule,
       MatCardModule,
       MatTabsModule, 
-      MatListModule],
+      MatListModule,
+      MatTableModule],
   templateUrl: './matches.component.html',
   styleUrl: './matches.component.scss'
 })
