@@ -341,12 +341,19 @@ export class QualifiersComponent implements OnInit, OnDestroy {
 
     this.subs.add(
       this.AfcQualifiersForm.valueChanges.subscribe(val => {
-        if (this.AfcQualifiersForm.valid) {
-          this.processAfcSelections(val);
-        } else {
-          this.dataService.resetConfederationQualifiedTeams('AFC');
-        }
-      })
+    // Update AFC runner if needed
+    if (!this.afcPos2List.some(t => t.name === this.selectedAfcRunner?.name)) {
+      this.selectedAfcRunner = this.afcPos2List[0] ?? null;
+      this.setInterconfTeamForAFC(this.selectedAfcRunner);
+    }
+
+    // Now process selections once
+    if (this.AfcQualifiersForm.valid) {
+      this.processAfcSelections(val);
+    } else {
+      this.dataService.resetConfederationQualifiedTeams('AFC');
+    }
+  })
     );
 
     this.subs.add(
@@ -372,6 +379,12 @@ export class QualifiersComponent implements OnInit, OnDestroy {
         } else {
           this.dataService.resetConfederationQualifiedTeams('CONCACAF');
         }
+      })
+    );
+
+    this.subs.add(
+      this.cafPlayoffForm.valueChanges.subscribe(() => {
+        this.refreshCafIcSelection();
       })
     );
   }
@@ -479,42 +492,10 @@ export class QualifiersComponent implements OnInit, OnDestroy {
   }
 
 
-  private refreshCafIcSelection(): void {
-    const list = this.CafPlayoffTeamList;
-    // no options -> clear selection and interconf entry
-    if (!list || list.length === 0) {
-      this.CafIcTeam = null;
-      this.setInterconfTeamForCAF(undefined);
-      this.cdr.detectChanges();
-      return;
-    }
-
-    // defer until after change detection so mat-select options exist
-    Promise.resolve().then(() => {
-      const first = list[0];
-      // avoid redundant work if already set to the same team
-      if (this.CafIcTeam && this.CafIcTeam.name === first.name) {
-        return;
-      }
-
-      this.CafIcTeam = first;
-      // keep INTERCONTINENTAL_PLAYOFF_TEAMS in sync
-      this.setInterconfTeamForCAF(this.CafIcTeam);
-
-      // now that IC selection is set, process CAF selections to update projected qualifiers
-      if (this.CafQualifiersForm) {
-        this.processCafSelections(this.CafQualifiersForm.value);
-      }
-
-      this.cdr.detectChanges();
-    });
-  }
 
   // -------------------------
   // CAF methods
   // -------------------------
-
-  
 
 
   private refreshCafPlayoff(): void {
@@ -585,7 +566,37 @@ export class QualifiersComponent implements OnInit, OnDestroy {
     }
   }
 
-  
+  private refreshCafIcSelection(): void {
+    const list = this.CafPlayoffTeamList;
+    // no options -> clear selection and interconf entry
+    if (!list || list.length === 0) {
+      this.CafIcTeam = null;
+      this.setInterconfTeamForCAF(undefined);
+      this.cdr.detectChanges();
+      return;
+    }
+
+    // defer until after change detection so mat-select options exist
+    Promise.resolve().then(() => {
+      const first = list[0];
+      // avoid redundant work if already set to the same team
+      if (this.CafIcTeam && this.CafIcTeam.name === first.name) {
+        return;
+      }
+
+      this.CafIcTeam = first;
+      // keep INTERCONTINENTAL_PLAYOFF_TEAMS in sync
+      this.setInterconfTeamForCAF(this.CafIcTeam);
+
+      // now that IC selection is set, process CAF selections to update projected qualifiers
+      if (this.CafQualifiersForm) {
+        this.processCafSelections(this.CafQualifiersForm.value);
+      }
+
+      this.cdr.detectChanges();
+    });
+  }
+
   private setInterconfTeamForCAF(t?: Team | null): void {
     const teams = this.dataService.INTERCONTINENTAL_PLAYOFF_TEAMS;
     const existingIndex = teams.findIndex(team => team.confederation === 'CAF' && !(team as any).qualified);
@@ -608,7 +619,6 @@ export class QualifiersComponent implements OnInit, OnDestroy {
     }
   }
 
-  
   private processCafSelections(res: any): void {
     // clear previous CAF entries
     this.dataService.resetConfederationQualifiedTeams('CAF');
