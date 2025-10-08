@@ -11,6 +11,7 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { MatListModule } from '@angular/material/list';
 import { CommonModule } from '@angular/common';
 import {MatTableModule} from '@angular/material/table';
+import { DataService } from '../../data-service';
 
 
 @Component({
@@ -36,11 +37,20 @@ import {MatTableModule} from '@angular/material/table';
 })
 export class MatchesComponent {
 
-  constructor(public simService:SimulatorService) {
+  groupLetters: string[] = ['A','B','C','D','E','F','G','H','I','J','K','L'];
+  venueList: any[];
 
+  constructor(public simService:SimulatorService, public dataService:DataService) {
+      this.venueList = Object.entries(this.dataService.VENUES).map(([alias, info]) => ({
+      alias,
+      ...info
+    }));
+
+      console.log(this.venueList);
   }
 
-  groupLetters: string[] = ['A','B','C','D','E','F','G','H','I','J','K','L'];
+
+
 
   groupMatches(group: string): Match[] {
     return this.simService.matches.filter(m => m.group === group);
@@ -59,5 +69,12 @@ export class MatchesComponent {
       }
     }
     return '';
+  }
+
+  getMatchesForVenue(venue: any) {
+    // Filter matches by venue name (adjust property as needed)
+    return this.simService.matches
+      ? this.simService.matches.filter(m => m.venue === venue.alias)
+      : [];
   }
 }

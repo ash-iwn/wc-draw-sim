@@ -927,122 +927,122 @@ export class DataService {
   ];
 
   VENUES = {
-      'Estadio Azteca': { city: 'Mexico City', country: 'Mexico' },
-      'Estadio Akron': { city: 'Zapopan', country: 'Mexico' },
-      'Estadio BBVA': { city: 'Guadalupe', country: 'Mexico' },
-      'BMO Field': { city: 'Toronto', country: 'Canada' },
-      'BC Place': { city: 'Vancouver', country: 'Canada' },
-      'SoFi Stadium': { city: 'Inglewood', country: 'USA' },
-      'Levi\'s Stadium': { city: 'Santa Clara', country: 'USA' },
-      'Lumen Field': { city: 'Seattle', country: 'USA' },
-      'MetLife Stadium': { city: 'East Rutherford', country: 'USA' },
-      'Gillette Stadium': { city: 'Foxborough', country: 'USA' },
-      'Lincoln Financial Field': { city: 'Philadelphia', country: 'USA' },
-      'Hard Rock Stadium': { city: 'Miami Gardens', country: 'USA' },
       'Mercedes-Benz Stadium': { city: 'Atlanta', country: 'USA' },
+      'Gillette Stadium': { city: 'Boston', country: 'USA' },
+      'AT&T Stadium': { city: 'Dallas', country: 'USA' },
+      'Estadio Akron': { city: 'Guadalajara', country: 'Mexico' },
       'NRG Stadium': { city: 'Houston', country: 'USA' },
       'Arrowhead Stadium': { city: 'Kansas City', country: 'USA' },
-      'AT&T Stadium': { city: 'Arlington', country: 'USA' }
+      'SoFi Stadium': { city: 'Los Angeles', country: 'USA' },
+      'Estadio Azteca': { city: 'Mexico City', country: 'Mexico' },
+      'Hard Rock Stadium': { city: 'Miami', country: 'USA' },
+      'Estadio BBVA': { city: 'Monterrey', country: 'Mexico' },
+      'MetLife Stadium': { city: 'New York/New Jersey', country: 'USA' },
+      'Lincoln Financial Field': { city: 'Philadelphia', country: 'USA' },
+      'Levi\'s Stadium': { city: 'San Francisco Bay Area', country: 'USA' },
+      'Lumen Field': { city: 'Seattle', country: 'USA' },
+      'BMO Field': { city: 'Toronto', country: 'Canada' },
+      'BC Place': { city: 'Vancouver', country: 'Canada' }  
   };
 
 
   GROUP_MATCHES = {
-      'A': [
-          { date: 'June 11, 2026', match: 1, team1: 'Mexico', team2: 'A2', venue: 'Estadio Azteca' },
-          { date: 'June 11, 2026', match: 2, team1: 'A3', team2: 'A4', venue: 'Estadio Akron' },
-          { date: 'June 18, 2026', match: 25, team1: 'A4', team2: 'A2', venue: 'Mercedes-Benz Stadium' },
-          { date: 'June 18, 2026', match: 28, team1: 'Mexico', team2: 'A3', venue: 'Estadio Akron' },
-          { date: 'June 24, 2026', match: 53, team1: 'A4', team2: 'Mexico', venue: 'Estadio Azteca' },
-          { date: 'June 24, 2026', match: 54, team1: 'A2', team2: 'A3', venue: 'Estadio BBVA' }
-      ],
-      'B': [
-          { date: 'June 12, 2026', match: 3, team1: 'Canada', team2: 'B2', venue: 'BMO Field' },
-          { date: 'June 13, 2026', match: 8, team1: 'B3', team2: 'B4', venue: 'Levi\'s Stadium' },
-          { date: 'June 18, 2026', match: 26, team1: 'B4', team2: 'B2', venue: 'SoFi Stadium' },
-          { date: 'June 18, 2026', match: 27, team1: 'Canada', team2: 'B3', venue: 'BC Place' },
-          { date: 'June 24, 2026', match: 51, team1: 'B4', team2: 'Canada', venue: 'BC Place' },
-          { date: 'June 24, 2026', match: 52, team1: 'B2', team2: 'B3', venue: 'Lumen Field' }
-      ],
-      'C': [
-          { date: 'June 13, 2026', match: 5, team1: 'C1', team2: 'C2', venue: 'Gillette Stadium' },
-          { date: 'June 13, 2026', match: 7, team1: 'C3', team2: 'C4', venue: 'MetLife Stadium' },
-          { date: 'June 19, 2026', match: 29, team1: 'C4', team2: 'C2', venue: 'Lincoln Financial Field' },
-          { date: 'June 19, 2026', match: 30, team1: 'C1', team2: 'C3', venue: 'Gillette Stadium' },
-          { date: 'June 24, 2026', match: 49, team1: 'C4', team2: 'C1', venue: 'Hard Rock Stadium' },
-          { date: 'June 24, 2026', match: 50, team1: 'C2', team2: 'C3', venue: 'Mercedes-Benz Stadium' }
-      ],
-      'D': [
-          { date: 'June 12, 2026', match: 4, team1: 'United States', team2: 'D2', venue: 'SoFi Stadium' },
-          { date: 'June 13, 2026', match: 6, team1: 'D3', team2: 'D4', venue: 'BC Place' },
-          { date: 'June 19, 2026', match: 31, team1: 'D4', team2: 'D2', venue: 'Levi\'s Stadium' },
-          { date: 'June 19, 2026', match: 32, team1: 'United States', team2: 'D3', venue: 'Lumen Field' },
-          { date: 'June 25, 2026', match: 59, team1: 'D4', team2: 'United States', venue: 'SoFi Stadium' },
-          { date: 'June 25, 2026', match: 60, team1: 'D2', team2: 'D3', venue: 'Levi\'s Stadium' }
-      ],
-      'E': [
-          { date: 'June 14, 2026', match: 9, team1: 'E1', team2: 'E2', venue: 'Lincoln Financial Field' },
-          { date: 'June 14, 2026', match: 10, team1: 'E3', team2: 'E4', venue: 'NRG Stadium' },
-          { date: 'June 20, 2026', match: 33, team1: 'E4', team2: 'E2', venue: 'BMO Field' },
-          { date: 'June 20, 2026', match: 34, team1: 'E1', team2: 'E3', venue: 'Arrowhead Stadium' },
-          { date: 'June 25, 2026', match: 55, team1: 'E4', team2: 'E1', venue: 'Lincoln Financial Field' },
-          { date: 'June 25, 2026', match: 56, team1: 'E2', team2: 'E3', venue: 'MetLife Stadium' }
-      ],
-      'F': [
-          { date: 'June 14, 2026', match: 11, team1: 'F1', team2: 'F2', venue: 'AT&T Stadium' },
-          { date: 'June 14, 2026', match: 12, team1: 'F3', team2: 'F4', venue: 'Estadio BBVA' },
-          { date: 'June 20, 2026', match: 35, team1: 'F4', team2: 'F2', venue: 'NRG Stadium' },
-          { date: 'June 20, 2026', match: 36, team1: 'F1', team2: 'F3', venue: 'Estadio BBVA' },
-          { date: 'June 25, 2026', match: 57, team1: 'F4', team2: 'F1', venue: 'AT&T Stadium' },
-          { date: 'June 25, 2026', match: 58, team1: 'F2', team2: 'F3', venue: 'Arrowhead Stadium' }
-      ],
-      'G': [
-          { date: 'June 15, 2026', match: 15, team1: 'G1', team2: 'G2', venue: 'SoFi Stadium' },
-          { date: 'June 15, 2026', match: 16, team1: 'G3', team2: 'G4', venue: 'Lumen Field' },
-          { date: 'June 21, 2026', match: 39, team1: 'G4', team2: 'G2', venue: 'SoFi Stadium' },
-          { date: 'June 21, 2026', match: 40, team1: 'G1', team2: 'G3', venue: 'BC Place' },
-          { date: 'June 26, 2026', match: 63, team1: 'G4', team2: 'G1', venue: 'Lumen Field' },
-          { date: 'June 26, 2026', match: 64, team1: 'G2', team2: 'G3', venue: 'BC Place' }
-      ],
-      'H': [
-          { date: 'June 15, 2026', match: 13, team1: 'H1', team2: 'H2', venue: 'Hard Rock Stadium' },
-          { date: 'June 15, 2026', match: 14, team1: 'H3', team2: 'H4', venue: 'Mercedes-Benz Stadium' },
-          { date: 'June 21, 2026', match: 37, team1: 'H4', team2: 'H2', venue: 'Hard Rock Stadium' },
-          { date: 'June 21, 2026', match: 38, team1: 'H1', team2: 'H3', venue: 'Mercedes-Benz Stadium' },
-          { date: 'June 26, 2026', match: 65, team1: 'H4', team2: 'H1', venue: 'NRG Stadium' },
-          { date: 'June 26, 2026', match: 66, team1: 'H2', team2: 'H3', venue: 'Estadio Akron' }
-      ],
-      'I': [
-          { date: 'June 16, 2026', match: 17, team1: 'I1', team2: 'I2', venue: 'MetLife Stadium' },
-          { date: 'June 16, 2026', match: 18, team1: 'I3', team2: 'I4', venue: 'Gillette Stadium' },
-          { date: 'June 22, 2026', match: 41, team1: 'I4', team2: 'I2', venue: 'MetLife Stadium' },
-          { date: 'June 22, 2026', match: 42, team1: 'I1', team2: 'I3', venue: 'Lincoln Financial Field' },
-          { date: 'June 26, 2026', match: 61, team1: 'I4', team2: 'I1', venue: 'Gillette Stadium' },
-          { date: 'June 26, 2026', match: 62, team1: 'I2', team2: 'I3', venue: 'BMO Field' }
-      ],
-      'J': [
-          { date: 'June 16, 2026', match: 19, team1: 'J1', team2: 'J2', venue: 'Arrowhead Stadium' },
-          { date: 'June 16, 2026', match: 20, team1: 'J3', team2: 'J4', venue: 'Levi\'s Stadium' },
-          { date: 'June 22, 2026', match: 43, team1: 'J4', team2: 'J2', venue: 'AT&T Stadium' },
-          { date: 'June 22, 2026', match: 44, team1: 'J1', team2: 'J3', venue: 'Levi\'s Stadium' },
-          { date: 'June 27, 2026', match: 69, team1: 'J4', team2: 'J1', venue: 'Arrowhead Stadium' },
-          { date: 'June 27, 2026', match: 70, team1: 'J2', team2: 'J3', venue: 'AT&T Stadium' }
-      ],
-      'K': [
-          { date: 'June 17, 2026', match: 23, team1: 'K1', team2: 'K2', venue: 'NRG Stadium' },
-          { date: 'June 17, 2026', match: 24, team1: 'K3', team2: 'K4', venue: 'Estadio Azteca' },
-          { date: 'June 23, 2026', match: 47, team1: 'K4', team2: 'K2', venue: 'NRG Stadium' },
-          { date: 'June 23, 2026', match: 48, team1: 'K1', team2: 'K3', venue: 'Estadio Akron' },
-          { date: 'June 27, 2026', match: 71, team1: 'K4', team2: 'K1', venue: 'Hard Rock Stadium' },
-          { date: 'June 27, 2026', match: 72, team1: 'K2', team2: 'K3', venue: 'Mercedes-Benz Stadium' }
-      ],
-      'L': [
-          { date: 'June 17, 2026', match: 21, team1: 'L1', team2: 'L2', venue: 'BMO Field' },
-          { date: 'June 17, 2026', match: 22, team1: 'L3', team2: 'L4', venue: 'AT&T Stadium' },
-          { date: 'June 23, 2026', match: 45, team1: 'L4', team2: 'L2', venue: 'Gillette Stadium' },
-          { date: 'June 23, 2026', match: 46, team1: 'L1', team2: 'L3', venue: 'BMO Field' },
-          { date: 'June 27, 2026', match: 67, team1: 'L4', team2: 'L1', venue: 'MetLife Stadium' },
-          { date: 'June 27, 2026', match: 68, team1: 'L2', team2: 'L3', venue: 'Lincoln Financial Field' }
-      ]
+    'A': [
+        { date: 'June 11, 2026', match: 1, team1: 'Mexico', team2: 'A2', venue: 'Estadio Azteca' },
+        { date: 'June 11, 2026', match: 2, team1: 'A3', team2: 'A4', venue: 'Estadio Akron' },
+        { date: 'June 18, 2026', match: 25, team1: 'A4', team2: 'A2', venue: 'Mercedes-Benz Stadium' },
+        { date: 'June 18, 2026', match: 28, team1: 'Mexico', team2: 'A3', venue: 'Estadio Akron' },
+        { date: 'June 24, 2026', match: 53, team1: 'A4', team2: 'Mexico', venue: 'Estadio Azteca' },
+        { date: 'June 24, 2026', match: 54, team1: 'A2', team2: 'A3', venue: 'Estadio BBVA' }
+    ],
+    'B': [
+        { date: 'June 12, 2026', match: 3, team1: 'Canada', team2: 'B2', venue: 'BMO Field' },
+        { date: 'June 13, 2026', match: 8, team1: 'B3', team2: 'B4', venue: 'Levi\'s Stadium' },
+        { date: 'June 18, 2026', match: 26, team1: 'B4', team2: 'B2', venue: 'SoFi Stadium' },
+        { date: 'June 18, 2026', match: 27, team1: 'Canada', team2: 'B3', venue: 'BC Place' },
+        { date: 'June 24, 2026', match: 51, team1: 'B4', team2: 'Canada', venue: 'BC Place' },
+        { date: 'June 24, 2026', match: 52, team1: 'B2', team2: 'B3', venue: 'Lumen Field' }
+    ],
+    'C': [
+        { date: 'June 13, 2026', match: 5, team1: 'C1', team2: 'C2', venue: 'Gillette Stadium' },
+        { date: 'June 13, 2026', match: 7, team1: 'C3', team2: 'C4', venue: 'MetLife Stadium' },
+        { date: 'June 19, 2026', match: 29, team1: 'C4', team2: 'C2', venue: 'Lincoln Financial Field' },
+        { date: 'June 19, 2026', match: 30, team1: 'C1', team2: 'C3', venue: 'Gillette Stadium' },
+        { date: 'June 24, 2026', match: 49, team1: 'C4', team2: 'C1', venue: 'Hard Rock Stadium' },
+        { date: 'June 24, 2026', match: 50, team1: 'C2', team2: 'C3', venue: 'Mercedes-Benz Stadium' }
+    ],
+    'D': [
+        { date: 'June 12, 2026', match: 4, team1: 'United States', team2: 'D2', venue: 'SoFi Stadium' },
+        { date: 'June 13, 2026', match: 6, team1: 'D3', team2: 'D4', venue: 'BC Place' },
+        { date: 'June 19, 2026', match: 31, team1: 'D4', team2: 'D2', venue: 'Levi\'s Stadium' },
+        { date: 'June 19, 2026', match: 32, team1: 'United States', team2: 'D3', venue: 'Lumen Field' },
+        { date: 'June 25, 2026', match: 59, team1: 'D4', team2: 'United States', venue: 'SoFi Stadium' },
+        { date: 'June 25, 2026', match: 60, team1: 'D2', team2: 'D3', venue: 'Levi\'s Stadium' }
+    ],
+    'E': [
+        { date: 'June 14, 2026', match: 9, team1: 'E1', team2: 'E2', venue: 'Lincoln Financial Field' },
+        { date: 'June 14, 2026', match: 10, team1: 'E3', team2: 'E4', venue: 'NRG Stadium' },
+        { date: 'June 20, 2026', match: 33, team1: 'E4', team2: 'E2', venue: 'BMO Field' },
+        { date: 'June 20, 2026', match: 34, team1: 'E1', team2: 'E3', venue: 'Arrowhead Stadium' },
+        { date: 'June 25, 2026', match: 55, team1: 'E4', team2: 'E1', venue: 'Lincoln Financial Field' },
+        { date: 'June 25, 2026', match: 56, team1: 'E2', team2: 'E3', venue: 'MetLife Stadium' }
+    ],
+    'F': [
+        { date: 'June 14, 2026', match: 11, team1: 'F1', team2: 'F2', venue: 'AT&T Stadium' },
+        { date: 'June 14, 2026', match: 12, team1: 'F3', team2: 'F4', venue: 'Estadio BBVA' },
+        { date: 'June 20, 2026', match: 35, team1: 'F4', team2: 'F2', venue: 'NRG Stadium' },
+        { date: 'June 20, 2026', match: 36, team1: 'F1', team2: 'F3', venue: 'Estadio BBVA' },
+        { date: 'June 25, 2026', match: 57, team1: 'F4', team2: 'F1', venue: 'AT&T Stadium' },
+        { date: 'June 25, 2026', match: 58, team1: 'F2', team2: 'F3', venue: 'Arrowhead Stadium' }
+    ],
+    'G': [
+        { date: 'June 15, 2026', match: 15, team1: 'G1', team2: 'G2', venue: 'SoFi Stadium' },
+        { date: 'June 15, 2026', match: 16, team1: 'G3', team2: 'G4', venue: 'Lumen Field' },
+        { date: 'June 21, 2026', match: 39, team1: 'G4', team2: 'G2', venue: 'SoFi Stadium' },
+        { date: 'June 21, 2026', match: 40, team1: 'G1', team2: 'G3', venue: 'BC Place' },
+        { date: 'June 26, 2026', match: 63, team1: 'G4', team2: 'G1', venue: 'Lumen Field' },
+        { date: 'June 26, 2026', match: 64, team1: 'G2', team2: 'G3', venue: 'BC Place' }
+    ],
+    'H': [
+        { date: 'June 15, 2026', match: 13, team1: 'H1', team2: 'H2', venue: 'Hard Rock Stadium' },
+        { date: 'June 15, 2026', match: 14, team1: 'H3', team2: 'H4', venue: 'Mercedes-Benz Stadium' },
+        { date: 'June 21, 2026', match: 37, team1: 'H4', team2: 'H2', venue: 'Hard Rock Stadium' },
+        { date: 'June 21, 2026', match: 38, team1: 'H1', team2: 'H3', venue: 'Mercedes-Benz Stadium' },
+        { date: 'June 26, 2026', match: 65, team1: 'H4', team2: 'H1', venue: 'NRG Stadium' },
+        { date: 'June 26, 2026', match: 66, team1: 'H2', team2: 'H3', venue: 'Estadio Akron' }
+    ],
+    'I': [
+        { date: 'June 16, 2026', match: 17, team1: 'I1', team2: 'I2', venue: 'MetLife Stadium' },
+        { date: 'June 16, 2026', match: 18, team1: 'I3', team2: 'I4', venue: 'Gillette Stadium' },
+        { date: 'June 22, 2026', match: 41, team1: 'I4', team2: 'I2', venue: 'MetLife Stadium' },
+        { date: 'June 22, 2026', match: 42, team1: 'I1', team2: 'I3', venue: 'Lincoln Financial Field' },
+        { date: 'June 26, 2026', match: 61, team1: 'I4', team2: 'I1', venue: 'Gillette Stadium' },
+        { date: 'June 26, 2026', match: 62, team1: 'I2', team2: 'I3', venue: 'BMO Field' }
+    ],
+    'J': [
+        { date: 'June 16, 2026', match: 19, team1: 'J1', team2: 'J2', venue: 'Arrowhead Stadium' },
+        { date: 'June 16, 2026', match: 20, team1: 'J3', team2: 'J4', venue: 'Levi\'s Stadium' },
+        { date: 'June 22, 2026', match: 43, team1: 'J4', team2: 'J2', venue: 'AT&T Stadium' },
+        { date: 'June 22, 2026', match: 44, team1: 'J1', team2: 'J3', venue: 'Levi\'s Stadium' },
+        { date: 'June 27, 2026', match: 69, team1: 'J4', team2: 'J1', venue: 'Arrowhead Stadium' },
+        { date: 'June 27, 2026', match: 70, team1: 'J2', team2: 'J3', venue: 'AT&T Stadium' }
+    ],
+    'K': [
+        { date: 'June 17, 2026', match: 23, team1: 'K1', team2: 'K2', venue: 'NRG Stadium' },
+        { date: 'June 17, 2026', match: 24, team1: 'K3', team2: 'K4', venue: 'Estadio Azteca' },
+        { date: 'June 23, 2026', match: 47, team1: 'K4', team2: 'K2', venue: 'NRG Stadium' },
+        { date: 'June 23, 2026', match: 48, team1: 'K1', team2: 'K3', venue: 'Estadio Akron' },
+        { date: 'June 27, 2026', match: 71, team1: 'K4', team2: 'K1', venue: 'Hard Rock Stadium' },
+        { date: 'June 27, 2026', match: 72, team1: 'K2', team2: 'K3', venue: 'Mercedes-Benz Stadium' }
+    ],
+    'L': [
+        { date: 'June 17, 2026', match: 21, team1: 'L1', team2: 'L2', venue: 'BMO Field' },
+        { date: 'June 17, 2026', match: 22, team1: 'L3', team2: 'L4', venue: 'AT&T Stadium' },
+        { date: 'June 23, 2026', match: 45, team1: 'L4', team2: 'L2', venue: 'Gillette Stadium' },
+        { date: 'June 23, 2026', match: 46, team1: 'L1', team2: 'L3', venue: 'BMO Field' },
+        { date: 'June 27, 2026', match: 67, team1: 'L4', team2: 'L1', venue: 'MetLife Stadium' },
+        { date: 'June 27, 2026', match: 68, team1: 'L2', team2: 'L3', venue: 'Lincoln Financial Field' }
+    ]
   };
 
 
