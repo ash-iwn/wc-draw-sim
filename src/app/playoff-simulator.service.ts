@@ -83,10 +83,32 @@ export class PlayoffSimulatorService {
   }
 
   simulateUEFAPlayoffs(): PlayoffPath[] {
+    // 1. Sort the 12 teams with nl=false by points descending
+    const runnerUpTeams = this.dataService.UEFA_PLAYOFF_TEAMS
+      .filter(t => !t.nl)
+      .sort((a, b) => b.points - a.points);
+
+    // 2. Add the 4 teams with nl=true to the end
+    const nlTeams = this.dataService.UEFA_PLAYOFF_TEAMS.filter(t => t.nl);
+    let sortedTeams = [...runnerUpTeams, ...nlTeams];
+
+
+    // 3. Split into 4 quartiles
+    let quartiles = [
+      sortedTeams.slice(0, 4),
+      sortedTeams.slice(4, 8),
+      sortedTeams.slice(8, 12),
+      sortedTeams.slice(12, 16)
+    ];
+
     const paths: PlayoffPath[] = [];
     for (let i = 0; i < 4; i++) {
-      console.log(this.dataService.UEFA_PLAYOFF_TEAMS);
-      const potTeams = this.dataService.UEFA_PLAYOFF_TEAMS.slice(i * 4, i * 4 + 4);
+      // Pick a random team from each quartile and remove it from the quartile
+      const potTeams = quartiles.map(q => {
+        const idx = Math.floor(Math.random() * q.length);
+        return q.splice(idx, 1)[0];
+      });
+
       const semi1 = this.simulateMatch(potTeams[0], potTeams[3]);
       const semi2 = this.simulateMatch(potTeams[1], potTeams[2]);
       const final = this.simulateMatch(semi1.winner, semi2.winner);
@@ -99,6 +121,7 @@ export class PlayoffSimulatorService {
         winner
       });
     }
+
     return paths;
   }
 
@@ -162,7 +185,6 @@ export class PlayoffSimulatorService {
       ...this.intercontinentalWinners
     ];
 
-    console.log('final qualified teams from simulator', res)
     return res;
   }
 }

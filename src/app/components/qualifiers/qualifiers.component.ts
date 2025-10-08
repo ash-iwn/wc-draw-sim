@@ -424,8 +424,17 @@ export class QualifiersComponent implements OnInit, OnDestroy {
     while (count < 4 && index < this.dataService.UEFA_NATIONS_LEAGUE_PRIORITY.length) {
       let team = this.dataService.UEFA_NATIONS_LEAGUE_PRIORITY[index];
 
-      if (team && (!this.dataService.QUALIFIED_TEAMS.find(t => t.name === team) && !this.dataService.UEFA_PLAYOFF_TEAMS.find(t => t.name === team) && !this.dataService.PROJECTED_QUALIFIERS.find(qt => qt.name === team))) {
-        this.dataService.UEFA_PLAYOFF_TEAMS.push(this.dataService.ALL_TEAMS_DATA.find(at => at.name === team) as Team);
+      if (
+        team &&
+        ( !this.dataService.QUALIFIED_TEAMS.find(t => t.name === team) &&
+          !this.dataService.UEFA_PLAYOFF_TEAMS.find(t => t.name === team) &&
+          !this.dataService.PROJECTED_QUALIFIERS.find(qt => qt.name === team)
+        )
+      ) {
+
+        let t: Team = this.dataService.ALL_TEAMS_DATA.find(at => at.name === team) as Team;
+        t.nl = true;
+        this.dataService.UEFA_PLAYOFF_TEAMS.push(t);
         count++;
       }
       index++;
@@ -702,7 +711,6 @@ export class QualifiersComponent implements OnInit, OnDestroy {
 
   
   onConcacafRunnersClosed(): void {
-    console.log('closed');
     const selected = this.selectedConcacafRunners || [];
 
     // If only one team is selected, automatically add a second team
@@ -723,7 +731,6 @@ export class QualifiersComponent implements OnInit, OnDestroy {
       this.selectedConcacafRunners.length === 2 &&
       this.selectedConcacafRunners[0]?.name === this.selectedConcacafRunners[1]?.name
     ) {
-      console.log( 'selected ', this.selectedConcacafRunners[0]?.name, this.selectedConcacafRunners[1]?.name)
       const alt = this.concacafPos2List.find(
         t => t.name !== this.selectedConcacafRunners[0].name
       ) ?? null;

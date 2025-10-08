@@ -12,6 +12,7 @@ export interface Team {
   projected?: boolean;
   qGroup?: string;
   playoffSlot?: string;
+  nl?: boolean;
 }
 
 export interface Confederation {

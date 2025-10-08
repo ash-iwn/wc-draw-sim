@@ -45,8 +45,6 @@ export class MatchesComponent {
       alias,
       ...info
     }));
-
-      console.log(this.venueList);
   }
 
 
