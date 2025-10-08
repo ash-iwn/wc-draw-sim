@@ -3,8 +3,8 @@ import { SimulatorService } from './sim-service';
 import { Team, PlayoffResults, SimulationLogEntry, Match } from './model';
 import { ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { WikipediaService } from './http-service';
-import { DataService } from './data-service';
+import { WikipediaService } from './services/http-service';
+import { DataService } from './services/data-service';
 import { QualifiersComponent } from './components/qualifiers/qualifiers.component'; // adjust path if needed
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';

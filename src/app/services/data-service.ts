@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Team } from './model';
+import { Team } from '../model';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({ providedIn: 'root' })
 export class DataService {
@@ -73,787 +74,788 @@ export class DataService {
 
   PROJECTED_QUALIFIERS:Team[] = [];
 
+  public ALL_TEAMS_DATA: Team[] = []
 
-  ALL_TEAMS_DATA: Team[] = [{
-    "name": "Japan",
-    "confederation": "AFC",
-    "points": 1640.47,
-    "flag": "🇯🇵"
-  }, {
-    "name": "Iran",
-    "confederation": "AFC",
-    "points": 1622.61,
-    "flag": "🇮🇷"
-  }, {
-    "name": "South Korea",
-    "confederation": "AFC",
-    "points": 1593.19,
-    "flag": "🇰🇷"
-  }, {
-    "name": "Australia",
-    "confederation": "AFC",
-    "points": 1583.49,
-    "flag": "🇦🇺"
-  }, {
-    "name": "Uzbekistan",
-    "confederation": "AFC",
-    "points": 1453.31,
-    "flag": "🇺🇿"
-  }, {
-    "name": "Jordan",
-    "confederation": "AFC",
-    "points": 1391.33,
-    "flag": "🇯🇴"
-  }, {
-    "name": "Saudi Arabia",
-    "confederation": "AFC",
-    "points": 1420.65,
-    "qGroup": 'B',
-    "flag": "🇸🇦"
-  }, {
-    "name": "Iraq",
-    "confederation": "AFC",
-    "points": 1422.20,
-    "qGroup": 'B',
-    "flag": "🇮🇶"
-  }, {
-    "name": "Indonesia",
-    "confederation": "AFC",
-    "points": 1157.94,
-    "qGroup": 'B',
-    "flag": "🇮🇩"
-  }, 
-  {
-    "name": "Qatar",
-    "confederation": "AFC",
-    "points": 1453.65,
-    "qGroup": 'A',
-    "flag": "🇶🇦"
-  }, {
-    "name": "UAE",
-    "confederation": "AFC",
-    "points": 1379.86,
-    "qGroup": 'A',
-    "flag": "🇦🇪"
-  }, {
-    "name": "Oman",
-    "confederation": "AFC",
-    "points": 1320.34,
-    "qGroup": 'A',
-    "flag": "🇴🇲"
-  }, {
-    "name": "Egypt",
-    "qGroup":"A",
-    "confederation": "CAF",
-    "points": 1519.18,
-    "flag": "🇪🇬"
-  }, {
-    "name": "Burkina Faso",
-      "qGroup":"A",
-    "confederation": "CAF",
-    "points": 1385.37,
-    "flag": "🇧🇫"
-  }, {
-    "name": "Sierra Leone",
-      "qGroup":"A",
-    "confederation": "CAF",
-    "points": 1150.1,
-    "flag": "🇸🇱"
-  }, {
-    "name": "Guinea-Bissau",
-      "qGroup":"A",
-    "confederation": "CAF",
-    "points": 1126.81,
-    "flag": "🇬🇼"
-  }, {
-    "name": "Senegal",
-      "qGroup":"B",
-    "confederation": "CAF",
-    "points": 1645.23,
-    "flag": "🇸🇳"
-  },
-  {
-    "name": "DR Congo",
-    "qGroup":"B",
-    "confederation": "CAF",
-    "points": 1407.6,
-    "flag": "🇨🇩"
-  },
-  {
-    "name": "Sudan",
-    "qGroup":"B",
-    "confederation": "CAF",
-    "points": 1163.56,
-    "flag": "🇸🇩"
-  },
-  {
-    "name": "Benin",
-    "qGroup":"C",
-    "confederation": "CAF",
-    "points": 1257.3,
-    "flag": "🇧🇯"
-  },  
-  {
-    "name": "South Africa",
-    "qGroup":"C",
-    "confederation": "CAF",
-    "points": 1448.67,
-    "flag": "🇿🇦"
-  }, {
-    "name": "Nigeria",
-    "qGroup":"C",
-    "confederation": "CAF",
-    "points": 1483.86,
-    "flag": "🇳🇬"
-  },
-  {
-    "name": "Rwanda",
-    "qGroup":"C",
-    "confederation": "CAF",
-    "points": 1133.5,
-    "flag": "RW"
-  },
-  {
-    "name": "Lesotho",
-    "qGroup":"C",
-    "confederation": "CAF",
-    "points": 1034.1,
-    "flag": "LS"
-  },  
-  {
-    "name": "Cape Verde",
-    "qGroup":"D",
-    "confederation": "CAF",
-    "points": 1363.21,
-    "flag": "🇨🇻"
-  }, {
-    "name": "Cameroon",
-    "qGroup":"D",
-    "confederation": "CAF",
-    "points": 1455.42,
-    "flag": "🇨🇲"
-  }, {
-    "name": "Libya",
-    "qGroup":"D",
-    "confederation": "CAF",
-    "points": 1179.57,
-    "flag": "🇱🇾"
-  }, {
-    "name": "Angola",
-    "qGroup":"D",
-    "confederation": "CAF",
-    "points": 1268.72,
-    "flag": "🇱🇾"
-  }, {
-    "name": "Morocco",
-    "qGroup":"E",
-    "confederation": "CAF",
-    "points": 1706.27,
-    "flag": "🇲🇦"
-  },{
-    "name": "Tanzania",
-    "qGroup":"E",
-    "confederation": "CAF",
-    "points": 1199.45,
-    "flag": "🇲🇦"
-  }, {
-    "name": "Niger",
-    "qGroup":"E",
-    "confederation": "CAF",
-    "points": 1160.33,
-    "flag": "🇲🇦"
-  }, {
-    "name": "Zambia",
-    "qGroup":"E",
-    "confederation": "CAF",
-    "points": 1706.27,
-    "flag": "🇲🇦"
-  }, {
-    "name": "Ivory Coast",
-    "qGroup":"F",
-    "confederation": "CAF",
-    "points": 1273,
-    "flag": "🇨🇮"
-  }, {
-    "name": "Gabon",
-    "qGroup":"F",
-    "confederation": "CAF",
-    "points": 1314.06,
-    "flag": "🇬🇦"
-  }, {
-    "name": "Algeria",
-    "qGroup":"G",
-    "confederation": "CAF",
-    "points": 1500.74,
-    "flag": "🇩🇿"
-  }, {
-    "name": "Uganda",
-    "qGroup":"G",
-    "confederation": "CAF",
-    "points": 1287.61,
-    "flag": "🇺🇬"
-  }, {
-    "name": "Mozambique",
-    "qGroup":"G",
-    "confederation": "CAF",
-    "points": 1234.04,
-    "flag": "🇲🇿"
-  }, {
-    "name": "Guinea",
-    "qGroup":"G",
-    "confederation": "CAF",
-    "points": 1299.49,
-    "flag": "🇬🇳"
-  },  {
-    "name": "Botswana",
-    "qGroup":"G",
-    "confederation": "CAF",
-    "points": 1087.27,
-    "flag": "🇧🇼"
-  },{
-    "name": "Tunisia",
-    "qGroup":"H",
-    "confederation": "CAF",
-    "points": 1483.02,
-    "flag": "🇹🇳"
-  }, {
-    "name": "Namibia",
-    "qGroup":"H",
-    "confederation": "CAF",
-    "points": 1183.8,
-    "flag": "🇳🇦"
-  }, {
-    "name": "Liberia",
-    "qGroup":"H",
-    "confederation": "CAF",
-    "points": 1065.62,
-    "flag": "🇹🇳"
-  }, {
-    "name": "Malawi",
-    "qGroup":"H",
-    "confederation": "CAF",
-    "points": 1133.6,
-    "flag": "🇲🇼"
-  }, {
-    "name": "Equatorial Guinea",
-    "qGroup":"H",
-    "confederation": "CAF",
-    "points": 1248.68,
-    "flag": "🇬🇶"
-  }, {
-    "name": "Ghana",
-    "qGroup":"I",
-    "confederation": "CAF",
-    "points": 1340.84,
-    "flag": "🇬🇭"
-  }, {
-    "name": "Madagascar",
-    "qGroup":"I",
-    "confederation": "CAF",
-    "points": 1187.59,
-    "flag": "🇲🇬"
-  }, {
-    "name": "Comoros",
-    "qGroup":"I",
-    "confederation": "CAF",
-    "points": 1201.83,
-    "flag": "🇰🇲"
-  },{
-    "name": "Mali",
-    "qGroup":"I",
-    "confederation": "CAF",
-    "points": 1445.83,
-    "flag": "🇲🇱"
-  },  {
-    "name": "Mexico",
-    "confederation": "CONCACAF",
-    "points": 1688.38,
-    host: true,
-    "flag": "🇲🇽"
-  }, {
-    "name": "United States",
-    "confederation": "CONCACAF",
-    "points": 1670.04,
-    host: true,
-    "flag": "🇺🇸"
-  }, {
-    "name": "Canada",
-    "confederation": "CONCACAF",
-    "points": 1558.04,
-    host: true,
-    "flag": "🇨🇦"
-  }, 
-  {
-    "name": "Suriname",
-    "confederation": "CONCACAF",
-    "qGroup": "A",
-    "points": 1125.21,
-    "flag": "🇸🇷"
-  }, 
-  {
-    "name": "El Salvador",
-    "confederation": "CONCACAF",
-    "qGroup": "A",
-    "points": 1267.75,
-    "flag": "🇵🇦"
-  },
-  {
-    "name": "Panama",
-    "confederation": "CONCACAF",
-    "qGroup": "A",
-    "points": 1529.71,
-    "flag": "🇵🇦"
-  },
-  {
-    "name": "Guatemala",
-    "confederation": "CONCACAF",
-    "qGroup": "A",
-    "points": 1230.73,
-    "flag": "🇬🇹"
-  }, {
-    "name": "Jamaica",
-    "confederation": "CONCACAF",
-    "qGroup": "B",
-    "points": 1377.22,
-    "flag": "🇯🇲"
-  }, {
-    "name": "Curaçao",
-    "qGroup": "B",
-    "confederation": "CONCACAF",
-    "points": 1282.42,
-    "flag": "🇨🇼"
-  }, {
-    "name": "Trinidad and Tobago",
-    "confederation": "CONCACAF",
-    "qGroup": "B",
-    "points": 1220.99,
-    "flag": "🇹🇹"
-  },
-  {
-    "name": "Bermuda",
-    "confederation": "CONCACAF",
-    "qGroup": "B",
-    "points": 988.72,
-    "flag": "🇹🇹"
-  }, {
-    "name": "Costa Rica",
-    "confederation": "CONCACAF",
-    "qGroup": "C",
-    "points": 1481.13,
-    "flag": "🇨🇷"
-  }, {
-    "name": "Honduras",
-    "confederation": "CONCACAF",
-    "points": 1383.98,
-    "qGroup": "C",
-    "flag": "🇭🇳"
-  }, {
-    "name": "Haiti",
-    "confederation": "CONCACAF",
-    "points": 1269.24,
-    "qGroup": "C",
-    "flag": "🇭🇹"
-  }, {
-    "name": "Nicaragua",
-    "confederation": "CONCACAF",
-    "qGroup": "C",
-    "points": 1120.78,
-    "flag": "🇳🇮"
-  }, {
-    "name": "Argentina",
-    "confederation": "CONMEBOL",
-    "points": 1870.32,
-    "flag": "🇦🇷"
-  }, {
-    "name": "Brazil",
-    "confederation": "CONMEBOL",
-    "points": 1761.6,
-    "flag": "🇧🇷"
-  }, {
-    "name": "Colombia",
-    "confederation": "CONMEBOL",
-    "points": 1692.1,
-    "flag": "🇨🇴"
-  }, {
-    "name": "Uruguay",
-    "confederation": "CONMEBOL",
-    "points": 1673.65,
-    "flag": "🇺🇾"
-  }, {
-    "name": "Ecuador",
-    "confederation": "CONMEBOL",
-    "points": 1588.04,
-    "flag": "🇪🇨"
-  }, {
-    "name": "Paraguay",
-    "confederation": "CONMEBOL",
-    "points": 1501.01,
-    "flag": "🇵🇾"
-  }, {
-    "name": "Bolivia",
-    "confederation": "CONMEBOL",
-    "points": 1332.24,
-    "flag": "🇧🇴"
-  }, {
-    "name": "New Zealand",
-    "confederation": "OFC",
-    "points": 1283.94,
-    "flag": "🇳🇿"
-  },
-  {
-    "name": "Slovakia",
-    "confederation": "UEFA",
-    "qGroup": "A",
-    "points": 1491.87,
-    "flag": "🇸🇰"
-  }, {
-    "name": "Northern Ireland",
-    "confederation": "UEFA",
-    "qGroup": "A",
-    "points": 1355.98,
-    "flag": "🇳🇮"
-  }, 
-  {
-    "name": "Germany",
-    "confederation": "UEFA",
-    "qGroup": "A",
-    "points": 1704.27,
-    "flag": "🇩🇪"
-  }, 
-  {
-    "name": "Luxembourg",
-    "confederation": "UEFA",
-    "qGroup": "A",
-    "points": 1242.61,
-    "flag": "🇱🇺"
-  }, 
-  {
-    "name": "Switzerland",
-    "confederation": "UEFA",
-    "points": 1648.3,
-    "qGroup": "B",
-    "flag": "🇨🇭"
-  },  {
-    "name": "Kosovo",
-    "confederation": "UEFA",
-    "points": 1262.1,
-    "qGroup": "B",
-    "flag": "🇽🇰"
-  },
-  {
-    "name": "Sweden",
-    "confederation": "UEFA",
-    "points": 1524.62,
-    "qGroup": "B",
-    "flag": "🇸🇪"
-  },
-  {
-    "name": "Slovenia",
-    "confederation": "UEFA",
-    "points": 1462.96,
-    "qGroup": "B",
-    "flag": "🇸🇮"
-  },
-  {
-    "name": "Denmark",
-    "confederation": "UEFA",
-    "points": 1627.64,
-    "qGroup": "C",
-    "flag": "🇩🇰"
-  },
-  {
-    "name": "Scotland",
-    "confederation": "UEFA",
-    "points": 1485.08,
-    "qGroup": "C",
-    "flag": "🏴"
-  }, {
-    "name": "Greece",
-    "confederation": "UEFA",
-    "points": 1494.72,
-    "qGroup": "C",
-    "flag": "🇬🇷"
-  }, 
-  {
-    "name": "Belarus",
-    "confederation": "UEFA",
-    "points": 1223.54,
-    "qGroup": "C",
-    "flag": "🇧🇾"
-  },  
-  {
-    "name": "France",
-    "confederation": "UEFA",
-    "points": 1870.92,
-    "qGroup": "D",
-    "flag": "🇫🇷"
-  }, 
-  {
-    "name": "Iceland",
-    "confederation": "UEFA",
-    "points": 1343.09,
-    "qGroup": "D",
-    "flag": "🇮🇸"
-  }, 
-  {
-    "name": "Ukraine",
-    "confederation": "UEFA",
-    "points": 1543.06,
-      "qGroup": "D",
-    "flag": "🇺🇦"
-  },
-  {
-    "name": "Azerbaijan",
-    "confederation": "UEFA",
-    "points": 1148.09,
-    "qGroup": "D",
-    "flag": "🇦🇿"
-  }, 
-  {
-    "name": "Spain",
-    "confederation": "UEFA",
-    "points": 1875.37,
-    "qGroup": "E",
-    "flag": "🇪🇸"
-  },
-  {
-    "name": "Georgia",
-    "confederation": "UEFA",
-    "qGroup": "E",
-    "points": 1377.32,
-    "flag": "🇬🇪"
-  },
+  // ALL_TEAMS_DATA: Team[] = [{
+  //   "name": "Japan",
+  //   "confederation": "AFC",
+  //   "points": 1640.47,
+  //   "flag": "🇯🇵"
+  // }, {
+  //   "name": "Iran",
+  //   "confederation": "AFC",
+  //   "points": 1622.61,
+  //   "flag": "🇮🇷"
+  // }, {
+  //   "name": "South Korea",
+  //   "confederation": "AFC",
+  //   "points": 1593.19,
+  //   "flag": "🇰🇷"
+  // }, {
+  //   "name": "Australia",
+  //   "confederation": "AFC",
+  //   "points": 1583.49,
+  //   "flag": "🇦🇺"
+  // }, {
+  //   "name": "Uzbekistan",
+  //   "confederation": "AFC",
+  //   "points": 1453.31,
+  //   "flag": "🇺🇿"
+  // }, {
+  //   "name": "Jordan",
+  //   "confederation": "AFC",
+  //   "points": 1391.33,
+  //   "flag": "🇯🇴"
+  // }, {
+  //   "name": "Saudi Arabia",
+  //   "confederation": "AFC",
+  //   "points": 1420.65,
+  //   "qGroup": 'B',
+  //   "flag": "🇸🇦"
+  // }, {
+  //   "name": "Iraq",
+  //   "confederation": "AFC",
+  //   "points": 1422.20,
+  //   "qGroup": 'B',
+  //   "flag": "🇮🇶"
+  // }, {
+  //   "name": "Indonesia",
+  //   "confederation": "AFC",
+  //   "points": 1157.94,
+  //   "qGroup": 'B',
+  //   "flag": "🇮🇩"
+  // }, 
+  // {
+  //   "name": "Qatar",
+  //   "confederation": "AFC",
+  //   "points": 1453.65,
+  //   "qGroup": 'A',
+  //   "flag": "🇶🇦"
+  // }, {
+  //   "name": "UAE",
+  //   "confederation": "AFC",
+  //   "points": 1379.86,
+  //   "qGroup": 'A',
+  //   "flag": "🇦🇪"
+  // }, {
+  //   "name": "Oman",
+  //   "confederation": "AFC",
+  //   "points": 1320.34,
+  //   "qGroup": 'A',
+  //   "flag": "🇴🇲"
+  // }, {
+  //   "name": "Egypt",
+  //   "qGroup":"A",
+  //   "confederation": "CAF",
+  //   "points": 1519.18,
+  //   "flag": "🇪🇬"
+  // }, {
+  //   "name": "Burkina Faso",
+  //     "qGroup":"A",
+  //   "confederation": "CAF",
+  //   "points": 1385.37,
+  //   "flag": "🇧🇫"
+  // }, {
+  //   "name": "Sierra Leone",
+  //     "qGroup":"A",
+  //   "confederation": "CAF",
+  //   "points": 1150.1,
+  //   "flag": "🇸🇱"
+  // }, {
+  //   "name": "Guinea-Bissau",
+  //     "qGroup":"A",
+  //   "confederation": "CAF",
+  //   "points": 1126.81,
+  //   "flag": "🇬🇼"
+  // }, {
+  //   "name": "Senegal",
+  //     "qGroup":"B",
+  //   "confederation": "CAF",
+  //   "points": 1645.23,
+  //   "flag": "🇸🇳"
+  // },
+  // {
+  //   "name": "DR Congo",
+  //   "qGroup":"B",
+  //   "confederation": "CAF",
+  //   "points": 1407.6,
+  //   "flag": "🇨🇩"
+  // },
+  // {
+  //   "name": "Sudan",
+  //   "qGroup":"B",
+  //   "confederation": "CAF",
+  //   "points": 1163.56,
+  //   "flag": "🇸🇩"
+  // },
+  // {
+  //   "name": "Benin",
+  //   "qGroup":"C",
+  //   "confederation": "CAF",
+  //   "points": 1257.3,
+  //   "flag": "🇧🇯"
+  // },  
+  // {
+  //   "name": "South Africa",
+  //   "qGroup":"C",
+  //   "confederation": "CAF",
+  //   "points": 1448.67,
+  //   "flag": "🇿🇦"
+  // }, {
+  //   "name": "Nigeria",
+  //   "qGroup":"C",
+  //   "confederation": "CAF",
+  //   "points": 1483.86,
+  //   "flag": "🇳🇬"
+  // },
+  // {
+  //   "name": "Rwanda",
+  //   "qGroup":"C",
+  //   "confederation": "CAF",
+  //   "points": 1133.5,
+  //   "flag": "RW"
+  // },
+  // {
+  //   "name": "Lesotho",
+  //   "qGroup":"C",
+  //   "confederation": "CAF",
+  //   "points": 1034.1,
+  //   "flag": "LS"
+  // },  
+  // {
+  //   "name": "Cape Verde",
+  //   "qGroup":"D",
+  //   "confederation": "CAF",
+  //   "points": 1363.21,
+  //   "flag": "🇨🇻"
+  // }, {
+  //   "name": "Cameroon",
+  //   "qGroup":"D",
+  //   "confederation": "CAF",
+  //   "points": 1455.42,
+  //   "flag": "🇨🇲"
+  // }, {
+  //   "name": "Libya",
+  //   "qGroup":"D",
+  //   "confederation": "CAF",
+  //   "points": 1179.57,
+  //   "flag": "🇱🇾"
+  // }, {
+  //   "name": "Angola",
+  //   "qGroup":"D",
+  //   "confederation": "CAF",
+  //   "points": 1268.72,
+  //   "flag": "🇱🇾"
+  // }, {
+  //   "name": "Morocco",
+  //   "qGroup":"E",
+  //   "confederation": "CAF",
+  //   "points": 1706.27,
+  //   "flag": "🇲🇦"
+  // },{
+  //   "name": "Tanzania",
+  //   "qGroup":"E",
+  //   "confederation": "CAF",
+  //   "points": 1199.45,
+  //   "flag": "🇲🇦"
+  // }, {
+  //   "name": "Niger",
+  //   "qGroup":"E",
+  //   "confederation": "CAF",
+  //   "points": 1160.33,
+  //   "flag": "🇲🇦"
+  // }, {
+  //   "name": "Zambia",
+  //   "qGroup":"E",
+  //   "confederation": "CAF",
+  //   "points": 1706.27,
+  //   "flag": "🇲🇦"
+  // }, {
+  //   "name": "Ivory Coast",
+  //   "qGroup":"F",
+  //   "confederation": "CAF",
+  //   "points": 1273,
+  //   "flag": "🇨🇮"
+  // }, {
+  //   "name": "Gabon",
+  //   "qGroup":"F",
+  //   "confederation": "CAF",
+  //   "points": 1314.06,
+  //   "flag": "🇬🇦"
+  // }, {
+  //   "name": "Algeria",
+  //   "qGroup":"G",
+  //   "confederation": "CAF",
+  //   "points": 1500.74,
+  //   "flag": "🇩🇿"
+  // }, {
+  //   "name": "Uganda",
+  //   "qGroup":"G",
+  //   "confederation": "CAF",
+  //   "points": 1287.61,
+  //   "flag": "🇺🇬"
+  // }, {
+  //   "name": "Mozambique",
+  //   "qGroup":"G",
+  //   "confederation": "CAF",
+  //   "points": 1234.04,
+  //   "flag": "🇲🇿"
+  // }, {
+  //   "name": "Guinea",
+  //   "qGroup":"G",
+  //   "confederation": "CAF",
+  //   "points": 1299.49,
+  //   "flag": "🇬🇳"
+  // },  {
+  //   "name": "Botswana",
+  //   "qGroup":"G",
+  //   "confederation": "CAF",
+  //   "points": 1087.27,
+  //   "flag": "🇧🇼"
+  // },{
+  //   "name": "Tunisia",
+  //   "qGroup":"H",
+  //   "confederation": "CAF",
+  //   "points": 1483.02,
+  //   "flag": "🇹🇳"
+  // }, {
+  //   "name": "Namibia",
+  //   "qGroup":"H",
+  //   "confederation": "CAF",
+  //   "points": 1183.8,
+  //   "flag": "🇳🇦"
+  // }, {
+  //   "name": "Liberia",
+  //   "qGroup":"H",
+  //   "confederation": "CAF",
+  //   "points": 1065.62,
+  //   "flag": "🇹🇳"
+  // }, {
+  //   "name": "Malawi",
+  //   "qGroup":"H",
+  //   "confederation": "CAF",
+  //   "points": 1133.6,
+  //   "flag": "🇲🇼"
+  // }, {
+  //   "name": "Equatorial Guinea",
+  //   "qGroup":"H",
+  //   "confederation": "CAF",
+  //   "points": 1248.68,
+  //   "flag": "🇬🇶"
+  // }, {
+  //   "name": "Ghana",
+  //   "qGroup":"I",
+  //   "confederation": "CAF",
+  //   "points": 1340.84,
+  //   "flag": "🇬🇭"
+  // }, {
+  //   "name": "Madagascar",
+  //   "qGroup":"I",
+  //   "confederation": "CAF",
+  //   "points": 1187.59,
+  //   "flag": "🇲🇬"
+  // }, {
+  //   "name": "Comoros",
+  //   "qGroup":"I",
+  //   "confederation": "CAF",
+  //   "points": 1201.83,
+  //   "flag": "🇰🇲"
+  // },{
+  //   "name": "Mali",
+  //   "qGroup":"I",
+  //   "confederation": "CAF",
+  //   "points": 1445.83,
+  //   "flag": "🇲🇱"
+  // },  {
+  //   "name": "Mexico",
+  //   "confederation": "CONCACAF",
+  //   "points": 1688.38,
+  //   host: true,
+  //   "flag": "🇲🇽"
+  // }, {
+  //   "name": "United States",
+  //   "confederation": "CONCACAF",
+  //   "points": 1670.04,
+  //   host: true,
+  //   "flag": "🇺🇸"
+  // }, {
+  //   "name": "Canada",
+  //   "confederation": "CONCACAF",
+  //   "points": 1558.04,
+  //   host: true,
+  //   "flag": "🇨🇦"
+  // }, 
+  // {
+  //   "name": "Suriname",
+  //   "confederation": "CONCACAF",
+  //   "qGroup": "A",
+  //   "points": 1125.21,
+  //   "flag": "🇸🇷"
+  // }, 
+  // {
+  //   "name": "El Salvador",
+  //   "confederation": "CONCACAF",
+  //   "qGroup": "A",
+  //   "points": 1267.75,
+  //   "flag": "🇵🇦"
+  // },
+  // {
+  //   "name": "Panama",
+  //   "confederation": "CONCACAF",
+  //   "qGroup": "A",
+  //   "points": 1529.71,
+  //   "flag": "🇵🇦"
+  // },
+  // {
+  //   "name": "Guatemala",
+  //   "confederation": "CONCACAF",
+  //   "qGroup": "A",
+  //   "points": 1230.73,
+  //   "flag": "🇬🇹"
+  // }, {
+  //   "name": "Jamaica",
+  //   "confederation": "CONCACAF",
+  //   "qGroup": "B",
+  //   "points": 1377.22,
+  //   "flag": "🇯🇲"
+  // }, {
+  //   "name": "Curaçao",
+  //   "qGroup": "B",
+  //   "confederation": "CONCACAF",
+  //   "points": 1282.42,
+  //   "flag": "🇨🇼"
+  // }, {
+  //   "name": "Trinidad and Tobago",
+  //   "confederation": "CONCACAF",
+  //   "qGroup": "B",
+  //   "points": 1220.99,
+  //   "flag": "🇹🇹"
+  // },
+  // {
+  //   "name": "Bermuda",
+  //   "confederation": "CONCACAF",
+  //   "qGroup": "B",
+  //   "points": 988.72,
+  //   "flag": "🇹🇹"
+  // }, {
+  //   "name": "Costa Rica",
+  //   "confederation": "CONCACAF",
+  //   "qGroup": "C",
+  //   "points": 1481.13,
+  //   "flag": "🇨🇷"
+  // }, {
+  //   "name": "Honduras",
+  //   "confederation": "CONCACAF",
+  //   "points": 1383.98,
+  //   "qGroup": "C",
+  //   "flag": "🇭🇳"
+  // }, {
+  //   "name": "Haiti",
+  //   "confederation": "CONCACAF",
+  //   "points": 1269.24,
+  //   "qGroup": "C",
+  //   "flag": "🇭🇹"
+  // }, {
+  //   "name": "Nicaragua",
+  //   "confederation": "CONCACAF",
+  //   "qGroup": "C",
+  //   "points": 1120.78,
+  //   "flag": "🇳🇮"
+  // }, {
+  //   "name": "Argentina",
+  //   "confederation": "CONMEBOL",
+  //   "points": 1870.32,
+  //   "flag": "🇦🇷"
+  // }, {
+  //   "name": "Brazil",
+  //   "confederation": "CONMEBOL",
+  //   "points": 1761.6,
+  //   "flag": "🇧🇷"
+  // }, {
+  //   "name": "Colombia",
+  //   "confederation": "CONMEBOL",
+  //   "points": 1692.1,
+  //   "flag": "🇨🇴"
+  // }, {
+  //   "name": "Uruguay",
+  //   "confederation": "CONMEBOL",
+  //   "points": 1673.65,
+  //   "flag": "🇺🇾"
+  // }, {
+  //   "name": "Ecuador",
+  //   "confederation": "CONMEBOL",
+  //   "points": 1588.04,
+  //   "flag": "🇪🇨"
+  // }, {
+  //   "name": "Paraguay",
+  //   "confederation": "CONMEBOL",
+  //   "points": 1501.01,
+  //   "flag": "🇵🇾"
+  // }, {
+  //   "name": "Bolivia",
+  //   "confederation": "CONMEBOL",
+  //   "points": 1332.24,
+  //   "flag": "🇧🇴"
+  // }, {
+  //   "name": "New Zealand",
+  //   "confederation": "OFC",
+  //   "points": 1283.94,
+  //   "flag": "🇳🇿"
+  // },
+  // {
+  //   "name": "Slovakia",
+  //   "confederation": "UEFA",
+  //   "qGroup": "A",
+  //   "points": 1491.87,
+  //   "flag": "🇸🇰"
+  // }, {
+  //   "name": "Northern Ireland",
+  //   "confederation": "UEFA",
+  //   "qGroup": "A",
+  //   "points": 1355.98,
+  //   "flag": "🇳🇮"
+  // }, 
+  // {
+  //   "name": "Germany",
+  //   "confederation": "UEFA",
+  //   "qGroup": "A",
+  //   "points": 1704.27,
+  //   "flag": "🇩🇪"
+  // }, 
+  // {
+  //   "name": "Luxembourg",
+  //   "confederation": "UEFA",
+  //   "qGroup": "A",
+  //   "points": 1242.61,
+  //   "flag": "🇱🇺"
+  // }, 
+  // {
+  //   "name": "Switzerland",
+  //   "confederation": "UEFA",
+  //   "points": 1648.3,
+  //   "qGroup": "B",
+  //   "flag": "🇨🇭"
+  // },  {
+  //   "name": "Kosovo",
+  //   "confederation": "UEFA",
+  //   "points": 1262.1,
+  //   "qGroup": "B",
+  //   "flag": "🇽🇰"
+  // },
+  // {
+  //   "name": "Sweden",
+  //   "confederation": "UEFA",
+  //   "points": 1524.62,
+  //   "qGroup": "B",
+  //   "flag": "🇸🇪"
+  // },
+  // {
+  //   "name": "Slovenia",
+  //   "confederation": "UEFA",
+  //   "points": 1462.96,
+  //   "qGroup": "B",
+  //   "flag": "🇸🇮"
+  // },
+  // {
+  //   "name": "Denmark",
+  //   "confederation": "UEFA",
+  //   "points": 1627.64,
+  //   "qGroup": "C",
+  //   "flag": "🇩🇰"
+  // },
+  // {
+  //   "name": "Scotland",
+  //   "confederation": "UEFA",
+  //   "points": 1485.08,
+  //   "qGroup": "C",
+  //   "flag": "🏴"
+  // }, {
+  //   "name": "Greece",
+  //   "confederation": "UEFA",
+  //   "points": 1494.72,
+  //   "qGroup": "C",
+  //   "flag": "🇬🇷"
+  // }, 
+  // {
+  //   "name": "Belarus",
+  //   "confederation": "UEFA",
+  //   "points": 1223.54,
+  //   "qGroup": "C",
+  //   "flag": "🇧🇾"
+  // },  
+  // {
+  //   "name": "France",
+  //   "confederation": "UEFA",
+  //   "points": 1870.92,
+  //   "qGroup": "D",
+  //   "flag": "🇫🇷"
+  // }, 
+  // {
+  //   "name": "Iceland",
+  //   "confederation": "UEFA",
+  //   "points": 1343.09,
+  //   "qGroup": "D",
+  //   "flag": "🇮🇸"
+  // }, 
+  // {
+  //   "name": "Ukraine",
+  //   "confederation": "UEFA",
+  //   "points": 1543.06,
+  //     "qGroup": "D",
+  //   "flag": "🇺🇦"
+  // },
+  // {
+  //   "name": "Azerbaijan",
+  //   "confederation": "UEFA",
+  //   "points": 1148.09,
+  //   "qGroup": "D",
+  //   "flag": "🇦🇿"
+  // }, 
+  // {
+  //   "name": "Spain",
+  //   "confederation": "UEFA",
+  //   "points": 1875.37,
+  //   "qGroup": "E",
+  //   "flag": "🇪🇸"
+  // },
+  // {
+  //   "name": "Georgia",
+  //   "confederation": "UEFA",
+  //   "qGroup": "E",
+  //   "points": 1377.32,
+  //   "flag": "🇬🇪"
+  // },
 
-  {
-    "name": "Türkiye",
-    "confederation": "UEFA",
-    "qGroup": "E",
-    "points": 1555.72,
-    "flag": "🇹🇷"
-  }, 
-  {
-    "name": "Bulgaria",
-    "confederation": "UEFA",
-    "points": 1271.52,
-    "qGroup": "E",
-    "flag": "🇮🇸"
-  }, 
-  {
-    "name": "Portugal",
-    "confederation": "UEFA",
-    "points": 1779.55,
-    "qGroup": "F",
-    "flag": "🇵🇹"
-  }, 
-  {
-    "name": "Armenia",
-    "confederation": "UEFA",
-    "points": 1219.55,
-    "qGroup": "F",
-    "flag": "🇦🇲"
-  },
-  {
-    "name": "Hungary",
-    "confederation": "UEFA",
-    "points": 1492.18,
-    "qGroup": "F",
-    "flag": "🇭🇺"
-  },
-  {
-    "name": "Republic of Ireland",
-    "confederation": "UEFA",
-    "points": 1397.52,
-    "qGroup": "F",
-    "flag": "🇮🇪"
-  }, 
-  {
-    "name": "Netherlands",
-    "confederation": "UEFA",
-    "points": 1754.17,
-    "qGroup": "G",
-    "flag": "🇳🇱"
-  },  {
-    "name": "Poland",
-    "confederation": "UEFA",
-    "points": 1517.3,
-    "qGroup": "G",
-    "flag": "🇵🇱"
-  }, 
-  {
-    "name": "Finland",
-    "confederation": "UEFA",
-    "points": 1358.72,
-    "qGroup": "G",
-    "flag": "🇫🇮"
-  },
-  {
-    "name": "Lithuania",
-    "confederation": "UEFA",
-    "points": 1065.34,
-    "qGroup": "G",
-    "flag": "🇱🇹"
-  },
-  {
-    "name": "Malta",
-    "confederation": "UEFA",
-    "points": 982.43,
-    "qGroup": "G",
-    "flag": "🇲🇹"
-  },
-  {
-    "name": "Bosnia and Herzegovina",
-    "confederation": "UEFA",
-    "points": 1344.25,
-    "qGroup": "H",
-    "flag": "🇧🇦"
-  },
-  {
-    "name": "Austria",
-    "confederation": "UEFA",
-    "points": 1601.86,
-    "qGroup": "H",
-    "flag": "🇦🇹"
-  },
-  {
-    "name": "Romania",
-    "confederation": "UEFA",
-    "points": 1462.85,
-    "qGroup": "H",
-    "flag": "🇷🇴"
-  }, 
-  {
-    "name": "Cyprus",
-    "confederation": "UEFA",
-    "points": 1128.1,
-    "qGroup": "H",
-    "flag": "🇨🇾"
-  },
-  {
-    "name": "San Marino",
-    "confederation": "UEFA",
-    "points": 733.23,
-    "qGroup": "H",
-    "flag": "🇸🇲"
-  }, 
-  {
-    "name": "Norway",
-    "confederation": "UEFA",
-    "points": 1526.23,
-    "qGroup": "I",
-    "flag": "🇳🇴"
-  },
-  {
-    "name": "Italy",
-    "confederation": "UEFA",
-    "points": 1710.06,
-    "qGroup": "I",
-    "flag": "🇮🇹"
-  }, {
-    "name": "Israel",
-    "confederation": "UEFA",
-    "points": 1337.4,
-    "qGroup": "I",
-    "flag": "🇮🇱"
-  },
-  {
-    "name": "Estonia",
-    "confederation": "UEFA",
-    "points": 1127.2,
-    "qGroup": "I",
-    "flag": "🇪🇪"
-  },
-  {
-    "name": "Moldova",
-    "confederation": "UEFA",
-    "points": 1127.2,
-    "qGroup": "I",
-    "flag": "🇲🇩"
-  },
-  {
-    "name": "North Macedonia",
-    "confederation": "UEFA",
-    "points": 1388.5,
-    "qGroup": "J",
-    "flag": "🇲🇰"
-  },
-  {
-    "name": "Belgium",
-    "confederation": "UEFA",
-    "points": 1739.54,
-    "qGroup": "J",
-    "flag": "🇧🇪"
-  },
-  {
-    "name": "Wales",
-    "confederation": "UEFA",
-    "points": 1529.09,
-    "qGroup": "J",
-    "flag": "🏴"
-  },
-  {
-    "name": "Kazakhstan",
-    "confederation": "UEFA",
-    "points": 1158.06,
-    "qGroup": "J",
-    "flag": "🇰🇿"
-  }, 
-  {
-    "name": "England",
-    "confederation": "UEFA",
-    "points": 1820.44,
-    "qGroup": "K",
-    "flag": "🏴󠁧󠁢󠁥󠁮󠁧󠁿"
-  }, {
-    "name": "Albania",
-    "confederation": "UEFA",
-    "points": 1380.66,
-    "qGroup": "K",
-    "flag": "🇦🇱"
-  }, {
-    "name": "Serbia",
-    "confederation": "UEFA",
-    "points": 1520.9,
-      "qGroup": "K",
-    "flag": "🇷🇸"
-  }, {
-    "name": "Latvia",
-    "confederation": "UEFA",
-    "points": 1088.8,
-    "qGroup": "K",
-    "flag": ""
-  }, {
-    "name": "Andorra",
-    "confederation": "UEFA",
-    "points": 954.68,
-    "qGroup": "K",
-    "flag": "🇦🇩"
-  },  {
-    "name": "Croatia",
-    "confederation": "UEFA",
-    "points": 1714.2,
-    "qGroup": "L",
-    "flag": "🇭🇷"
-  },
-  {
-    "name": "Czechia",
-    "confederation": "UEFA",
-    "points": 1500.29,
-    "qGroup": "L",
-    "flag": "🇨🇿"
-  },
-  {
-    "name": "Faroe Islands",
-    "confederation": "UEFA",
-    "points": 1094.46,
-    "qGroup": "L",
-    "flag": "🇫🇴"
-  }, {
-    "name": "Montenegro",
-    "confederation": "UEFA",
-    "points": 1314.05,
-    "qGroup": "L",
-    "flag": "🇲🇪"
-  }];
+  // {
+  //   "name": "Türkiye",
+  //   "confederation": "UEFA",
+  //   "qGroup": "E",
+  //   "points": 1555.72,
+  //   "flag": "🇹🇷"
+  // }, 
+  // {
+  //   "name": "Bulgaria",
+  //   "confederation": "UEFA",
+  //   "points": 1271.52,
+  //   "qGroup": "E",
+  //   "flag": "🇮🇸"
+  // }, 
+  // {
+  //   "name": "Portugal",
+  //   "confederation": "UEFA",
+  //   "points": 1779.55,
+  //   "qGroup": "F",
+  //   "flag": "🇵🇹"
+  // }, 
+  // {
+  //   "name": "Armenia",
+  //   "confederation": "UEFA",
+  //   "points": 1219.55,
+  //   "qGroup": "F",
+  //   "flag": "🇦🇲"
+  // },
+  // {
+  //   "name": "Hungary",
+  //   "confederation": "UEFA",
+  //   "points": 1492.18,
+  //   "qGroup": "F",
+  //   "flag": "🇭🇺"
+  // },
+  // {
+  //   "name": "Republic of Ireland",
+  //   "confederation": "UEFA",
+  //   "points": 1397.52,
+  //   "qGroup": "F",
+  //   "flag": "🇮🇪"
+  // }, 
+  // {
+  //   "name": "Netherlands",
+  //   "confederation": "UEFA",
+  //   "points": 1754.17,
+  //   "qGroup": "G",
+  //   "flag": "🇳🇱"
+  // },  {
+  //   "name": "Poland",
+  //   "confederation": "UEFA",
+  //   "points": 1517.3,
+  //   "qGroup": "G",
+  //   "flag": "🇵🇱"
+  // }, 
+  // {
+  //   "name": "Finland",
+  //   "confederation": "UEFA",
+  //   "points": 1358.72,
+  //   "qGroup": "G",
+  //   "flag": "🇫🇮"
+  // },
+  // {
+  //   "name": "Lithuania",
+  //   "confederation": "UEFA",
+  //   "points": 1065.34,
+  //   "qGroup": "G",
+  //   "flag": "🇱🇹"
+  // },
+  // {
+  //   "name": "Malta",
+  //   "confederation": "UEFA",
+  //   "points": 982.43,
+  //   "qGroup": "G",
+  //   "flag": "🇲🇹"
+  // },
+  // {
+  //   "name": "Bosnia and Herzegovina",
+  //   "confederation": "UEFA",
+  //   "points": 1344.25,
+  //   "qGroup": "H",
+  //   "flag": "🇧🇦"
+  // },
+  // {
+  //   "name": "Austria",
+  //   "confederation": "UEFA",
+  //   "points": 1601.86,
+  //   "qGroup": "H",
+  //   "flag": "🇦🇹"
+  // },
+  // {
+  //   "name": "Romania",
+  //   "confederation": "UEFA",
+  //   "points": 1462.85,
+  //   "qGroup": "H",
+  //   "flag": "🇷🇴"
+  // }, 
+  // {
+  //   "name": "Cyprus",
+  //   "confederation": "UEFA",
+  //   "points": 1128.1,
+  //   "qGroup": "H",
+  //   "flag": "🇨🇾"
+  // },
+  // {
+  //   "name": "San Marino",
+  //   "confederation": "UEFA",
+  //   "points": 733.23,
+  //   "qGroup": "H",
+  //   "flag": "🇸🇲"
+  // }, 
+  // {
+  //   "name": "Norway",
+  //   "confederation": "UEFA",
+  //   "points": 1526.23,
+  //   "qGroup": "I",
+  //   "flag": "🇳🇴"
+  // },
+  // {
+  //   "name": "Italy",
+  //   "confederation": "UEFA",
+  //   "points": 1710.06,
+  //   "qGroup": "I",
+  //   "flag": "🇮🇹"
+  // }, {
+  //   "name": "Israel",
+  //   "confederation": "UEFA",
+  //   "points": 1337.4,
+  //   "qGroup": "I",
+  //   "flag": "🇮🇱"
+  // },
+  // {
+  //   "name": "Estonia",
+  //   "confederation": "UEFA",
+  //   "points": 1127.2,
+  //   "qGroup": "I",
+  //   "flag": "🇪🇪"
+  // },
+  // {
+  //   "name": "Moldova",
+  //   "confederation": "UEFA",
+  //   "points": 1127.2,
+  //   "qGroup": "I",
+  //   "flag": "🇲🇩"
+  // },
+  // {
+  //   "name": "North Macedonia",
+  //   "confederation": "UEFA",
+  //   "points": 1388.5,
+  //   "qGroup": "J",
+  //   "flag": "🇲🇰"
+  // },
+  // {
+  //   "name": "Belgium",
+  //   "confederation": "UEFA",
+  //   "points": 1739.54,
+  //   "qGroup": "J",
+  //   "flag": "🇧🇪"
+  // },
+  // {
+  //   "name": "Wales",
+  //   "confederation": "UEFA",
+  //   "points": 1529.09,
+  //   "qGroup": "J",
+  //   "flag": "🏴"
+  // },
+  // {
+  //   "name": "Kazakhstan",
+  //   "confederation": "UEFA",
+  //   "points": 1158.06,
+  //   "qGroup": "J",
+  //   "flag": "🇰🇿"
+  // }, 
+  // {
+  //   "name": "England",
+  //   "confederation": "UEFA",
+  //   "points": 1820.44,
+  //   "qGroup": "K",
+  //   "flag": "🏴󠁧󠁢󠁥󠁮󠁧󠁿"
+  // }, {
+  //   "name": "Albania",
+  //   "confederation": "UEFA",
+  //   "points": 1380.66,
+  //   "qGroup": "K",
+  //   "flag": "🇦🇱"
+  // }, {
+  //   "name": "Serbia",
+  //   "confederation": "UEFA",
+  //   "points": 1520.9,
+  //     "qGroup": "K",
+  //   "flag": "🇷🇸"
+  // }, {
+  //   "name": "Latvia",
+  //   "confederation": "UEFA",
+  //   "points": 1088.8,
+  //   "qGroup": "K",
+  //   "flag": ""
+  // }, {
+  //   "name": "Andorra",
+  //   "confederation": "UEFA",
+  //   "points": 954.68,
+  //   "qGroup": "K",
+  //   "flag": "🇦🇩"
+  // },  {
+  //   "name": "Croatia",
+  //   "confederation": "UEFA",
+  //   "points": 1714.2,
+  //   "qGroup": "L",
+  //   "flag": "🇭🇷"
+  // },
+  // {
+  //   "name": "Czechia",
+  //   "confederation": "UEFA",
+  //   "points": 1500.29,
+  //   "qGroup": "L",
+  //   "flag": "🇨🇿"
+  // },
+  // {
+  //   "name": "Faroe Islands",
+  //   "confederation": "UEFA",
+  //   "points": 1094.46,
+  //   "qGroup": "L",
+  //   "flag": "🇫🇴"
+  // }, {
+  //   "name": "Montenegro",
+  //   "confederation": "UEFA",
+  //   "points": 1314.05,
+  //   "qGroup": "L",
+  //   "flag": "🇲🇪"
+  // }];
 
   UEFA_PLAYOFF_TEAMS: Team[] = [
       // Group runners-up (12 teams)
@@ -1044,6 +1046,15 @@ export class DataService {
         { date: 'June 27, 2026', match: 68, team1: 'L2', team2: 'L3', venue: 'Lincoln Financial Field' }
     ]
   };
+
+
+  constructor(private http: HttpClient) {}
+
+  loadTeamsData():void {
+     this.http.get<Team[]>('assets/all-teams-data.json').subscribe(data => {
+      this.ALL_TEAMS_DATA = data;
+    });
+  }
 
 
   // remove qualified/playoff/interconf entries for a confederation

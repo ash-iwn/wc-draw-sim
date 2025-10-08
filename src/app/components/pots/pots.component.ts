@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 
 
 
-import { DataService } from '../../data-service';
+import { DataService } from '../../services/data-service';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';

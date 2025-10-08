@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Team, PlayoffResults, SimulationLogEntry, Venue, Match} from './model';
 
 import { PlayoffSimulatorService } from './playoff-simulator.service';
-import { DataService } from './data-service';
+import { DataService } from './services/data-service';
 
 
 
@@ -195,6 +195,8 @@ export class SimulatorService {
     // Final validation and emergency fixes
     this.validateAndFixDraw();
 
+    this.randomizeGroupPositions();
+
     return this.groups;
   }
 
@@ -379,4 +381,18 @@ export class SimulatorService {
   getGroups(): { [key: string]: Team[] } {
     return this.groups;
   }
+
+
+  randomizeGroupPositions(): void {
+  Object.keys(this.groups).forEach(groupLetter => {
+    const group = this.groups[groupLetter];
+    if (group.length === 4) {
+      // Keep the first team fixed, shuffle the rest
+      const firstTeam = group[0];
+      const rest = group.slice(1);
+      this.shuffleArray(rest);
+      this.groups[groupLetter] = [firstTeam, ...rest];
+    }
+  });
+}
 }

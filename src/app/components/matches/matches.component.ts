@@ -11,7 +11,7 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { MatListModule } from '@angular/material/list';
 import { CommonModule } from '@angular/common';
 import {MatTableModule} from '@angular/material/table';
-import { DataService } from '../../data-service';
+import { DataService } from '../../services/data-service';
 
 
 @Component({

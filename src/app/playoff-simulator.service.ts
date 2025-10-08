@@ -7,7 +7,7 @@ import {
     IntercontinentalPlayoffResults,
     SimulationLogEntry
 } from './model';
-import { DataService } from './data-service';
+import { DataService } from './services/data-service';
 
 @Injectable({
   providedIn: 'root'
