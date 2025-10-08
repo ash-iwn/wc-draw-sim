@@ -68,6 +68,8 @@ export class AppComponent implements OnInit {
 
 	ngOnInit(): void {
 		
+
+		this.dataService.loadTeamsData();
 		this.wikiService.getQualifiedTeams().subscribe({
 			next: response => {
 				Promise.resolve().then(() => {

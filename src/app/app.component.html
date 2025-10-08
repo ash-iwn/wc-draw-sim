@@ -8,7 +8,7 @@
   </header>
 
   <div class="main-content">
-    <section class="qualifiers-section">
+    <section *ngIf="dataService.QUALIFIED_TEAMS.length > 0" class="qualifiers-section">
       <h2>Introduction</h2>
       <div>
         This application allows you to generate the seeded pots and simulate the upcoming FIFA World Cup 2026 draw on 5th December, 2025.
