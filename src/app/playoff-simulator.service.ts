@@ -46,7 +46,6 @@ export class PlayoffSimulatorService {
     }
   }
 
-
   private calculateWinProbability(team1Points: number, team2Points: number): { team1: number; team2: number } {
     const pointsDiff = team1Points - team2Points;
     let team1Prob = 0.5;
@@ -62,6 +61,15 @@ export class PlayoffSimulatorService {
   }
 
   private simulateMatch(team1: Team, team2: Team): PlayoffMatchResult & { winner: Team; loser: Team } {
+    if (!team1 || !team2 || typeof team1.points !== 'number' || typeof team2.points !== 'number') {
+      return {
+        winner: team1 ?? team2 ?? { name: 'Unknown', points: 0 } as Team,
+        loser: team2 ?? team1 ?? { name: 'Unknown', points: 0 } as Team,
+        probability: 0.5,
+        matchup: `${team1?.name ?? 'Unknown'} vs ${team2?.name ?? 'Unknown'}`,
+        result: 'Invalid matchup'
+      };
+    }
     const probs = this.calculateWinProbability(team1.points, team2.points);
     const winner = team1.points >= team2.points ? team1 : team2;
     const loser = winner === team1 ? team2 : team1;
@@ -126,10 +134,28 @@ export class PlayoffSimulatorService {
   }
 
   simulateIntercontinentalPlayoffs(): IntercontinentalPlayoffResults  {
-    const playoffTeams = [...this.dataService.INTERCONTINENTAL_PLAYOFF_TEAMS];
+    const playoffTeams = [...this.dataService.INTERCONTINENTAL_PLAYOFF_TEAMS].filter(t => !!t && typeof t.points === 'number');
     const sortedTeams = [...playoffTeams].sort((a, b) => b.points - a.points);
     const seededTeams = sortedTeams.slice(0, 2);
     const unseededTeams = sortedTeams.slice(2, 6);
+
+    if (seededTeams.length < 2 || unseededTeams.length < 4) {
+      return {
+        participants: playoffTeams,
+        bracket1: {
+          pathName: 'Invalid',
+          semiFinals: [],
+          final: null as any,
+          winner: null as any
+        },
+        bracket2: {
+          pathName: 'Invalid',
+          semiFinals: [],
+          final: null as any,
+          winner: null as any
+        }
+      };
+    }
 
     const bracket1Seed = seededTeams[0];
     const bracket2Seed = seededTeams[1];

@@ -39,7 +39,6 @@ import { MatCardModule } from '@angular/material/card';
 })
 export class QualifiersComponent implements OnInit, OnDestroy {
   private subs = new Subscription();
-  private initializing = true;
   UefaQualifiersForm!: FormGroup;
   AfcQualifiersForm!: FormGroup;
   CafQualifiersForm!: FormGroup;
@@ -56,7 +55,6 @@ export class QualifiersComponent implements OnInit, OnDestroy {
   CafTeamNames: Team[] = [];
   ConcacafTeamNames: Team[] = [];
   selectedAfcRunner: Team | null = null;
-  selectedCafRunners: Team[] | null = null;
   selectedConcacafRunners: Team[] = [];
   cafPlayoffForm!: FormGroup;
   CafIcTeam: Team | null = null;
@@ -71,8 +69,6 @@ export class QualifiersComponent implements OnInit, OnDestroy {
   constructor(private fb: FormBuilder, public dataService: DataService, private cdr: ChangeDetectorRef) { }
 
   ngOnInit(): void {
-    this.initializing = true;
-
     this.UefaTeamNames = this.dataService.ALL_TEAMS_DATA.filter(val => val.confederation === 'UEFA');
     this.AfcTeamNames = this.dataService.ALL_TEAMS_DATA.filter(val => val.confederation === 'AFC');
     this.CafTeamNames = this.dataService.ALL_TEAMS_DATA.filter(val => val.confederation === 'CAF');
@@ -228,13 +224,10 @@ export class QualifiersComponent implements OnInit, OnDestroy {
     wireUpPair(this.CafQualifiersForm, this.CafGroupLetters, this.CafGroupedTeams);
     wireUpPair(this.ConcacafQualifiersForm, this.ConcacafGroupLetters, this.ConcacafGroupedTeams);
 
-    // Initialize playoff team lists with default runners-up
     this.updatePlayoffTeamList(this.AfcGroupLetters, this.AfcGroupedTeams, this.AfcPlayoffTeamList);
     this.updatePlayoffTeamList(this.ConcacafGroupLetters, this.ConcacafGroupedTeams, this.ConcacafPlayoffTeamList);
     this.updatePlayoffTeamList(this.CafGroupLetters, this.CafGroupedTeams, this.CafPlayoffTeamList);
 
-  
-    
     const defaults = this.CafPlayoffTeamList.map(t => t.name).filter(Boolean).slice(0, 4);
     while (defaults.length < 4) { defaults.push(''); }
     this.cafPlayoffForm = this.fb.group({
@@ -248,7 +241,7 @@ export class QualifiersComponent implements OnInit, OnDestroy {
     this.selectedConcacafRunners = [
       this.ConcacafPlayoffTeamList[0],
       this.ConcacafPlayoffTeamList[1]
-    ].filter(Boolean) as Team[];
+    ].filter((t): t is Team => !!t && !!t.name);
 
     if (this.UefaQualifiersForm.valid) {
       this.processUefaSelections(this.UefaQualifiersForm.value);
@@ -272,11 +265,10 @@ export class QualifiersComponent implements OnInit, OnDestroy {
     }
 
     Promise.resolve().then(() => {
-      this.refreshCafPlayoff();
+      //this.refreshCafPlayoff();
       this.refreshCafIcSelection();
-      this.refreshConcacafPlayoff();
+      //this.refreshConcacafPlayoff();
       this.cdr.detectChanges();
-      this.initializing = false;
     });
 
     this.subs.add(
@@ -299,6 +291,14 @@ export class QualifiersComponent implements OnInit, OnDestroy {
         return { positionsMissing: true };
       }
       return pos1 === pos2 ? { positionsSame: true } : null;
+    };
+  }
+
+  uniqueRunnersValidator(): ValidatorFn {
+    return (group: AbstractControl) => {
+      const vals = Object.values(group.value || {}).filter(v => !!v);
+      const set = new Set(vals);
+      return set.size === vals.length ? null : { duplicates: true };
     };
   }
 
@@ -363,9 +363,10 @@ export class QualifiersComponent implements OnInit, OnDestroy {
       letter,
       this.processAfcSelections.bind(this),
       () => {
-        this.refreshAfcRunner(); 
+        this.updatePlayoffTeamList(this.AfcGroupLetters, this.AfcGroupedTeams, this.AfcPlayoffTeamList);
+        this.selectedAfcRunner = this.AfcPlayoffTeamList[0] ?? null;
+        this.setInterconfTeamForAFC(this.selectedAfcRunner);
       }
-      
     );
   }
 
@@ -374,11 +375,6 @@ export class QualifiersComponent implements OnInit, OnDestroy {
     this.selectedAfcRunner = this.AfcPlayoffTeamList[0];
     this.setInterconfTeamForAFC(this.selectedAfcRunner);
     this.cdr.detectChanges();
-  }
-
-  private refreshAfcRunner(): void {
-    this.selectedAfcRunner = this.afcPos2List[0] ?? null;
-    this.setInterconfTeamForAFC(this.selectedAfcRunner);
   }
 
   private processAfcSelections(res: any): void {
@@ -427,13 +423,12 @@ export class QualifiersComponent implements OnInit, OnDestroy {
       letter,
       this.processCafSelections.bind(this),
       () => {
-      this.updatePlayoffTeamList(this.CafGroupLetters, this.CafGroupedTeams, this.CafPlayoffTeamList);
-      
-      for (let i = 0; i < 4; i++) {
-        this.cafPlayoffForm.get('runner' + i)?.setValue(this.CafPlayoffTeamList[i]?.name ?? '');
+        this.updatePlayoffTeamList(this.CafGroupLetters, this.CafGroupedTeams, this.CafPlayoffTeamList);
+        for (let i = 0; i < 4; i++) {
+          this.cafPlayoffForm.get('runner' + i)?.setValue(this.CafPlayoffTeamList[i]?.name ?? '');
+        }
+        this.refreshCafIcSelection();
       }
-      this.refreshCafIcSelection();
-      } 
     );
   }
 
@@ -445,53 +440,14 @@ export class QualifiersComponent implements OnInit, OnDestroy {
     this.cdr.detectChanges();
   }
 
-  private refreshCafPlayoff(): void {
-    if (!this.cafPlayoffForm) { return; }
-    ['runner0', 'runner1', 'runner2', 'runner3'].forEach(k => {
-      const ctrl = this.cafPlayoffForm.get(k);
-      if (ctrl && ctrl.disabled) { ctrl.enable({ emitEvent: false }); }
+  private processCafSelections(res: any): void {
+    this.dataService.resetConfederationQualifiedTeams('CAF');
+    Object.keys(res || {}).forEach(key => {
+      const teams = res[key];
+      const found = this.dataService.ALL_TEAMS_DATA.find(t => t.name === teams.pos1);
+      if (found) { this.addQualifiedTeam(found); }
     });
-    const names = this.cafPos2List.map(t => t.name).filter(Boolean).slice(0, 4);
-    while (names.length < 4) { names.push(''); }
-    this.cafPlayoffForm.setValue({
-      runner0: names[0],
-      runner1: names[1],
-      runner2: names[2],
-      runner3: names[3],
-    }, { emitEvent: false });
-    this.refreshCafIcSelection();
-  }
-
-  isCafOptionDisabled(name: string, index: number): boolean {
-    if (!this.cafPlayoffForm) { return false; }
-    const values = Object.values(this.cafPlayoffForm.value || {});
-    return values.some((v, i) => i !== index && v === name);
-  }
-
-  get cafPos2List(): Team[] {
-    if (!this.CafQualifiersForm) { return []; }
-    const teamNames = this.CafGroupLetters
-      .map(letter => this.CafQualifiersForm.get('group' + letter + '.pos2')?.value)
-      .filter((n): n is string => !!n);
-    return teamNames
-      .map(name => this.dataService.ALL_TEAMS_DATA.find(t => t.name === name))
-      .filter((t): t is Team => !!t);
-  }
-
-  uniqueRunnersValidator(): ValidatorFn {
-    return (group: AbstractControl) => {
-      const vals = Object.values(group.value || {}).filter(v => !!v);
-      const set = new Set(vals);
-      return set.size === vals.length ? null : { duplicates: true };
-    };
-  }
-
-  onCafIcChange(selected?: Team | null): void {
-    this.CafIcTeam = selected ?? null;
     this.setInterconfTeamForCAF(this.CafIcTeam);
-    if (this.CafQualifiersForm) {
-      this.processCafSelections(this.CafQualifiersForm.value);
-    }
   }
 
   private refreshCafIcSelection(): void {
@@ -533,16 +489,6 @@ export class QualifiersComponent implements OnInit, OnDestroy {
     }
   }
 
-  private processCafSelections(res: any): void {
-    this.dataService.resetConfederationQualifiedTeams('CAF');
-    Object.keys(res || {}).forEach(key => {
-      const teams = res[key];
-      const found = this.dataService.ALL_TEAMS_DATA.find(t => t.name === teams.pos1);
-      if (found) { this.addQualifiedTeam(found); }
-    });
-    this.setInterconfTeamForCAF(this.CafIcTeam);
-  }
-
   onCafPlayoffDrop(event: CdkDragDrop<Team[]>) {
     const group = this.CafPlayoffTeamList;
     const targetIdx = event.currentIndex;
@@ -562,6 +508,14 @@ export class QualifiersComponent implements OnInit, OnDestroy {
     if (!group.slice(0, 4).some(t => t.name === this.CafIcTeam?.name)) {
       this.CafIcTeam = group[0];
       this.onCafIcChange(this.CafIcTeam);
+    }
+  }
+
+  onCafIcChange(selected?: Team | null): void {
+    this.CafIcTeam = selected ?? null;
+    this.setInterconfTeamForCAF(this.CafIcTeam);
+    if (this.CafQualifiersForm) {
+      this.processCafSelections(this.CafQualifiersForm.value);
     }
   }
 
@@ -587,7 +541,12 @@ export class QualifiersComponent implements OnInit, OnDestroy {
       letter,
       this.processConcacafSelections.bind(this),
       () => {
-        this.refreshConcacafPlayoff(); 
+        this.updatePlayoffTeamList(this.ConcacafGroupLetters, this.ConcacafGroupedTeams, this.ConcacafPlayoffTeamList);
+        this.selectedConcacafRunners = [
+          this.ConcacafPlayoffTeamList[0],
+          this.ConcacafPlayoffTeamList[1]
+        ].filter((t): t is Team => !!t && !!t.name);
+        this.setInterconfTeamForConcacaf(this.selectedConcacafRunners[0], this.selectedConcacafRunners[1]);
       }
     );
   }
@@ -595,17 +554,17 @@ export class QualifiersComponent implements OnInit, OnDestroy {
   onConcacafIcDrop(event: CdkDragDrop<Team[]>) {
     moveItemInArray(this.ConcacafPlayoffTeamList, event.previousIndex, event.currentIndex);
     this.selectedConcacafRunners = [
-    this.ConcacafPlayoffTeamList[0],
-    this.ConcacafPlayoffTeamList[1]
-    ].filter(Boolean) as Team[];
+      this.ConcacafPlayoffTeamList[0],
+      this.ConcacafPlayoffTeamList[1]
+    ].filter((t): t is Team => !!t && !!t.name);
     this.setInterconfTeamForConcacaf(this.selectedConcacafRunners[0], this.selectedConcacafRunners[1]);
     this.cdr.detectChanges();
   }
 
   onConcacafRunnersClosed(): void {
     const selected = this.selectedConcacafRunners || [];
-    if (selected.length === 1 && this.concacafPos2List.length > 1) {
-      const secondTeam = this.concacafPos2List.find(t => t !== selected[0]);
+    if (selected.length === 1 && this.ConcacafPlayoffTeamList.length > 1) {
+      const secondTeam = this.ConcacafPlayoffTeamList.find(t => t !== selected[0]);
       if (secondTeam) {
         this.selectedConcacafRunners = [selected[0], secondTeam];
       } else {
@@ -618,7 +577,7 @@ export class QualifiersComponent implements OnInit, OnDestroy {
       this.selectedConcacafRunners.length === 2 &&
       this.selectedConcacafRunners[0]?.name === this.selectedConcacafRunners[1]?.name
     ) {
-      const alt = this.concacafPos2List.find(
+      const alt = this.ConcacafPlayoffTeamList.find(
         t => t.name !== this.selectedConcacafRunners[0].name
       ) ?? null;
       if (alt) {
@@ -626,7 +585,7 @@ export class QualifiersComponent implements OnInit, OnDestroy {
       } else {
         this.selectedConcacafRunners = [this.selectedConcacafRunners[0]];
       }
-      this.selectedConcacafRunners = this.selectedConcacafRunners.filter(Boolean) as Team[];
+      this.selectedConcacafRunners = this.selectedConcacafRunners.filter((t): t is Team => !!t && !!t.name);
     }
     const a = this.selectedConcacafRunners[0] ?? null;
     const b = this.selectedConcacafRunners[1] ?? null;
@@ -634,14 +593,6 @@ export class QualifiersComponent implements OnInit, OnDestroy {
     if (this.ConcacafQualifiersForm && typeof this.processConcacafSelections === 'function') {
       this.processConcacafSelections(this.ConcacafQualifiersForm.value);
     }
-  }
-
-  private refreshConcacafPlayoff(): void {
-   this.selectedConcacafRunners = [
-    this.concacafPos2List[0],
-    this.concacafPos2List[1]
-  ].filter(Boolean) as Team[];
-  this.setInterconfTeamForConcacaf(this.selectedConcacafRunners[0], this.selectedConcacafRunners[1]);
   }
 
   private processConcacafSelections(res: any): void {
@@ -709,7 +660,7 @@ export class QualifiersComponent implements OnInit, OnDestroy {
   updatePlayoffTeamList(groupLetters: string[], groupedTeams: Record<string, Team[]>, targetList: Team[]) {
     const teams = groupLetters
       .map(letter => groupedTeams[letter][1])
-      .filter(Boolean);
+      .filter((t): t is Team => !!t && !!t.name);
     targetList.length = 0;
     targetList.push(...teams);
   }
@@ -722,12 +673,13 @@ export class QualifiersComponent implements OnInit, OnDestroy {
     posControls = ['pos1', 'pos2']
   ) {
     if (!form) { return; }
-    const qualifiedNames = this.getQualifiedNames(conf);
+    const qualifiedNames = this.dataService.QUALIFIED_TEAMS
+      .filter(t => t.confederation === conf && t.host !== true)
+      .map(t => t.name);
     groupLetters.forEach(letter => {
       const group = form.get('group' + letter) as FormGroup | null;
       if (!group) { return; }
       const options = groupedTeams[letter] || [];
-      // Reset all teams to unlocked
       options.forEach(team => (team as any).locked = false);
       const qualInThisGroup = options.filter(o => qualifiedNames.includes(o.name)).map(o => o.name);
       posControls.forEach((p, idx) => {
@@ -801,12 +753,12 @@ export class QualifiersComponent implements OnInit, OnDestroy {
 
   public applyCafLocks(): void {
     this.applyLocksForConf('CAF', this.CafQualifiersForm, this.CafGroupLetters, this.CafGroupedTeams);
-    this.refreshCafPlayoff();
+    //this.refreshCafPlayoff();
   }
 
   public applyConcacafLocks(): void {
     this.applyLocksForConf('CONCACAF', this.ConcacafQualifiersForm, this.ConcacafGroupLetters, this.ConcacafGroupedTeams);
-    this.refreshConcacafPlayoff();
+    //this.refreshConcacafPlayoff();
   }
 
   trackByTeam(index: number, team: Team) {
