@@ -35,11 +35,8 @@
         <mat-icon color="primary">help_outline</mat-icon>
       </button> </mat-panel-title>
     </mat-expansion-panel-header>
-    <section>
-    
+   <h3>Drag and drop to set positions within each group.</h3>
     <form [formGroup]="UefaQualifiersForm">
-      <h3>Drag and drop to set positions within each group.</h3>
-
       <div class="groups-grid">
         <div *ngFor="let letter of UefaGroupLetters" class="group" [formGroupName]="'group' + letter">
            <div cdkDropList [cdkDropListData]="UefaGroupedTeams[letter]"
@@ -70,7 +67,7 @@
       </div>
      
     </form>
-    </section>
+  
    
   </mat-expansion-panel>
 
@@ -82,9 +79,10 @@
         <mat-icon color="primary">help_outline</mat-icon></button>
       </mat-panel-title>
     </mat-expansion-panel-header>
-    <h3>Drag and drop to set positions within each group.</h3>
+   
     
     <form [formGroup]="AfcQualifiersForm">
+       <h3>Drag and drop to set positions within each group.</h3>
       <div class="groups-grid">
         <div *ngFor="let letter of AfcGroupLetters" class="group" [formGroupName]="'group' + letter">
           <div cdkDropList [cdkDropListData]="AfcGroupedTeams[letter]" (cdkDropListDropped)="onAfcDrop($event, letter)">
@@ -116,7 +114,7 @@
 
       <mat-divider></mat-divider>
       <br>
-      <h3>Select one team enter the Inter-confederation Playoff.</h3>
+      <h3>Select one team to progress to the Inter-confederation Playoffs.</h3>
       <div cdkDropList [cdkDropListData]="afcPos2List" (cdkDropListDropped)="onAfcIcDrop($event)">
         <div *ngFor="let t of afcPos2List; let idx = index" cdkDrag>
           <div class="team-card" [ngClass]="{'top-team': idx === 0}">
@@ -168,9 +166,9 @@
         </div>
       </div>
       <mat-divider></mat-divider>
-      <br>
+   
       <div class="groups-grid playoff-grid">
-          Select the 4 best runners-up to enter the CAF Playoffs.
+          <h3> Select the 4 best runners-up to enter the CAF Playoffs.</h3>
           <form [formGroup]="cafPlayoffForm">
             <!-- Use CafPlayoffTeamList directly for drag-and-drop and mat-select -->
             <div cdkDropList [cdkDropListData]="CafPlayoffTeamList" (cdkDropListDropped)="onCafPlayoffDrop($event)">
@@ -186,13 +184,8 @@
               </div>
             </div>
           </form>
-
           <mat-divider></mat-divider>
-
-          <br>
-          Select one team to progress to the Inter-confederation Play-off.
-
-          <br><br>
+          <h3>Select one team to progress to the Inter-confederation Playoffs.</h3>
 
           <div cdkDropList [cdkDropListData]="CafPlayoffTeamList.slice(0, 4)" (cdkDropListDropped)="onCafIcDrop($event)">
             <div *ngFor="let t of CafPlayoffTeamList.slice(0, 4); let idx = index" cdkDrag>
@@ -250,7 +243,7 @@
       <mat-divider></mat-divider>
      
       <div class="groups-grid playoff-grid">
-          <h3>Select 2 of the runner ups to qualify for the inter-confederation playoffs</h3>
+          <h3>Select two of the runner ups to progress to the Inter-confederation Playoffs.</h3>
           <div class="playoff-choice">
             <div cdkDropList [cdkDropListData]="concacafPos2List" (cdkDropListDropped)="onConcacafIcDrop($event)">
             <div *ngFor="let t of concacafPos2List; let idx = index" cdkDrag>

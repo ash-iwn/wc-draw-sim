@@ -3,7 +3,7 @@
   <br><br>
 
   <b>Matches by Group</b>
-  <mat-tab-group>
+  <mat-tab-group color="accent">
     <mat-tab *ngFor="let group of groupLetters">
       <ng-template mat-tab-label>
         Group {{ group }}
@@ -68,7 +68,7 @@
   <br><br>
 
   <b>Matches by City</b>
-  <mat-tab-group>
+  <mat-tab-group color="warn">
   <mat-tab *ngFor="let venue of venueList">
     <ng-template mat-tab-label>
       {{ venue.city }}
