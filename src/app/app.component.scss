@@ -191,7 +191,20 @@ body {
   }
 }
 
-@media (max-width: 37.5rem) {
+@media (max-width: 600px) {
+
+  ::ng-deep .mdc-tab .mat-mdc-tab .mat-mdc-focus-indicator {
+    max-width: 30px !important; //or whatever size
+  }
+
+  ::ng-deep .mat-ripple .mat-mdc-tab-ripple {
+    max-width: 30px !important; //or whatever size
+  }
+
+  ::ng-deep .mdc-tab__text-label {
+    font-size: 12px !important;
+  }
+
   html {
     font-size: 0.9375rem;
   }
@@ -228,4 +241,14 @@ body {
     grid-template-columns: 1fr;
     gap: 0.5rem;
   }
+
+ 
+
+  
 }
+
+ 
+
+
+
+
