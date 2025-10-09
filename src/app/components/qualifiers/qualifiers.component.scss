@@ -7,34 +7,25 @@
   padding-bottom: 0.5rem;
 }
 
-::ng-deep .mat-expansion-panel {
-  max-height: none !important;
-}
-
 @media (min-width: 75rem) {
   .groups-grid {
     grid-template-columns: repeat(3, 1fr);
   }
 }
-
 @media (max-width: 62.5rem) and (min-width: 43.75rem) {
   .groups-grid {
     grid-template-columns: repeat(2, 1fr);
   }
 }
-
 @media (max-width: 43.75rem) {
   .groups-grid {
     grid-template-columns: repeat(1, 1fr);
-   
   }
 }
-
 @media (max-width: 31.25rem) {
   .groups-grid {
     grid-template-columns: 1fr;
     gap: 0.625rem;
-   
   }
 }
 
@@ -45,122 +36,97 @@
   font-size: clamp(0.95rem, 2vw, 1.1rem);
 }
 
-.group-field,
-.mat-form-field {
-  width: 100%;
-  min-width: 0;
-  font-size: clamp(0.95rem, 2vw, 1.1rem);
-  overflow: visible;
-}
-
-.mat-form-field-flex {
-  overflow: visible !important;
-}
-
-.mat-select-panel {
-  max-width: 90vw !important;
-  min-width: 11.25rem;
-}
-
-.mat-select {
-  min-width: 7.5rem;
-  max-width: 100%;
-  font-size: clamp(0.95rem, 2vw, 1.1rem);
-}
-
-.mat-option {
-  font-size: clamp(0.95rem, 2vw, 1.1rem);
-}
-
-.mat-hint,
-.mat-error {
-  font-size: clamp(0.85rem, 1.5vw, 1rem);
-}
-
-.afc-playoff-choice,
-.caf-playoff-choice,
-.concacaf-playoff-choice {
-  margin-top: 1rem;
-  border-radius: 0.5rem;
-  padding: 0.75rem 0.5rem;
-  font-size: clamp(0.95rem, 2vw, 1.1rem);
-}
-
-.interconf-playoff-choice {
-  border: 0.125rem dashed;
-  border-radius: 0.625rem;
-  padding: 1rem 0.75rem;
-  margin-top: 1.125rem;
-  box-shadow: 0 0.125rem 0.5rem rgba(2,136,209,0.08);
-  font-size: clamp(1rem, 2vw, 1.15rem);
-}
-
-.interconf-playoff-choice .mat-form-field {
-  border-radius: 0.375rem;
-}
-
-.interconf-playoff-choice .mat-label {
-  font-weight: 600;
-}
-
-.interconf-playoff-choice .mat-hint {
-  font-size: clamp(0.9rem, 1.5vw, 1rem);
-}
-
-.qualifiers-panel {
-  border-radius: 1rem;
-  box-shadow: 0 0.125rem 0.75rem rgba(21, 101, 192, 0.08);
-  padding: 1.5rem 1.125rem;
-  margin-bottom: 1.5rem;
-  width: 100%;
-}
-
-.mat-expansion-panel-header,
-.mat-panel-title {
-  font-size: clamp(1.1rem, 2vw, 1.4rem);
-  font-weight: 500;
-}
-
-@media (max-width: 37.5rem) {
-  .qualifiers-panel {
-    padding: 0.75rem 0.25rem;
-    border-radius: 0.5rem;
-  }
-  .group {
-    padding: 0.5rem 0.25rem;
-    font-size: 0.95rem;
-  }
-  .afc-playoff-choice,
-  .caf-playoff-choice,
-  .concacaf-playoff-choice {
-    padding: 0.5rem 0.25rem;
-    font-size: 0.95rem;
-  }
-}
-
-@media (max-width: 25rem) {
-  .mat-expansion-panel-header,
-  .mat-panel-title {
-    font-size: 1rem;
-  }
-}
-
-@media (max-width: 37.5rem) {
-  .mat-select-panel {
-    max-width: 98vw !important;
-    min-width: 7.5rem;
-  }
-  .mat-form-field,
-  .group-field {
-    min-width: 0;
-    width: 100%;
-  }
-}
-
 .selected-team {
   display: inline-flex;
   align-items: center;
   margin-top: 0.375rem;
   font-weight: 500;
   font-size: 1.05em;
+}
+
+/* Drag and Drop List Styling */
+.cdk-drop-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 0.5rem 0;
+  background: rgba(49, 53, 67, 0.08);
+  border-radius: 0.5rem;
+  min-width: 12rem;
+}
+
+.team-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #23273a;
+  color: #fff;
+  border-radius: 0.375rem;
+  box-shadow: 0 0.125rem 0.5rem rgba(40, 60, 90, 0.12);
+  padding: 0.75rem 1rem;
+  font-size: 1.05rem;
+  transition: box-shadow 0.2s;
+  cursor: grab;
+  border: 2px solid transparent;
+}
+.team-card.cdk-drag-preview {
+  box-shadow: 0 0.25rem 1.5rem rgba(40, 60, 90, 0.22);
+  opacity: 0.9;
+}
+.team-card.cdk-drag-placeholder {
+  opacity: 0.3;
+}
+.team-card.top-team {
+  border-left: 4px solid #4caf50;
+  background: rgba(135, 227, 126, 0.18);
+  color: #d1b518;
+}
+.team-card.second-team {
+  background: rgba(234, 23, 13, 0.18);
+  border-left: 4px solid #ea170d;
+}
+.team-card.second-team .team-label {
+  color: #ea170d;
+  background: rgba(234, 23, 13, 0.12);
+}
+.team-label {
+  font-size: 0.95em;
+  font-weight: 600;
+  color: #d1b518;
+  margin-left: 1rem;
+  background: rgba(255, 215, 0, 0.08);
+  padding: 0.2em 0.6em;
+  border-radius: 0.25em;
+  min-width: 6em;
+  text-align: right;
+}
+.team-card:not(.top-team) .team-label {
+  color: #b0b0b0;
+  background: rgba(29, 151, 200, 0.18);
+}
+.cdk-drop-list .team-card {
+  margin-bottom: 0.25rem;
+}
+.cdk-drop-list .team-card:last-child {
+  margin-bottom: 0;
+}
+.drag-icon {
+  margin-right: 0.75rem;
+  color: #b0b0b0;
+  font-size: 1.3em;
+  vertical-align: middle;
+  cursor: grab;
+  opacity: 0.85;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .cdk-drop-list {
+    min-width: 100%;
+    padding: 0.25rem 0;
+  }
+  .team-card {
+    font-size: 0.95rem;
+    padding: 0.5rem 0.5rem;
+  }
 }

@@ -12,6 +12,10 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { FooterComponent } from "../footer/footer.component";
+import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
+
+import { DragDropModule } from '@angular/cdk/drag-drop';
+import { MatCardModule } from '@angular/material/card';
 // Add MatExpansionModule to your imports array or standalone imports
 @Component({
   selector: 'app-qualifiers',
@@ -26,6 +30,8 @@ import { FooterComponent } from "../footer/footer.component";
     MatExpansionModule,
     MatIconModule,
     MatTooltipModule,
+    DragDropModule,
+    MatCardModule
 ],
 
   templateUrl: './qualifiers.component.html',
@@ -328,16 +334,16 @@ export class QualifiersComponent implements OnInit, OnDestroy {
       }
     });
 
-    this.subs.add(
-      this.UefaQualifiersForm.valueChanges.subscribe(val => {
-        if (this.UefaQualifiersForm.valid) {
-          this.processUefaSelections(val);
-        } else {
-          // keep UI/state consistent (remove previous UEFA entries if partially changed)
-          this.dataService.resetConfederationQualifiedTeams('UEFA');
-        }
-      })
-    );
+    // this.subs.add(
+    //   this.UefaQualifiersForm.valueChanges.subscribe(val => {
+    //     if (this.UefaQualifiersForm.valid) {
+    //       this.processUefaSelections(val);
+    //     } else {
+    //       // keep UI/state consistent (remove previous UEFA entries if partially changed)
+    //       this.dataService.resetConfederationQualifiedTeams('UEFA');
+    //     }
+    //   })
+    // );
 
     this.subs.add(
       this.AfcQualifiersForm.valueChanges.subscribe(val => {
@@ -408,6 +414,22 @@ export class QualifiersComponent implements OnInit, OnDestroy {
   // -------------------------
   // UEFA methods
   // -------------------------
+
+  onUefaDrop(event: CdkDragDrop<Team[]>, letter: string) {
+    moveItemInArray(this.UefaGroupedTeams[letter], event.previousIndex, event.currentIndex);
+
+
+    console.log('drop')
+    // Update form values for top 2 teams after drag
+    const groupForm = this.UefaQualifiersForm.get('group' + letter);
+    if (groupForm) {
+      groupForm.get('pos1')?.setValue(this.UefaGroupedTeams[letter][0].name);
+      groupForm.get('pos2')?.setValue(this.UefaGroupedTeams[letter][1].name);
+    }
+    // Optionally, trigger validation or further processing here
+    this.processUefaSelections(this.UefaQualifiersForm.value);
+  }
+
   private processUefaSelections(res: any): void {
     this.dataService.resetConfederationQualifiedTeams('UEFA');
 

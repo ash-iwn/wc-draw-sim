@@ -40,7 +40,7 @@
     <form [formGroup]="UefaQualifiersForm">
       <div class="groups-grid">
         <div *ngFor="let letter of UefaGroupLetters" class="group" [formGroupName]="'group' + letter">
-          <mat-form-field appearance="outline" class="group-field">
+          <!-- <mat-form-field appearance="outline" class="group-field">
             <mat-label>Group {{ letter }} — 1st place</mat-label>
             <mat-select formControlName="pos1">
               <mat-option *ngFor="let t of UefaGroupedTeams[letter]"
@@ -68,7 +68,29 @@
             <mat-error *ngIf="UefaQualifiersForm.get('group' + letter)?.errors?.['positionsSame'] && (UefaQualifiersForm.get('group' + letter + '.pos2')?.touched || UefaQualifiersForm.touched)">
               1st and 2nd cannot be the same team.
             </mat-error>
-          </mat-form-field>
+          </mat-form-field> -->
+
+          
+           <div cdkDropList [cdkDropListData]="UefaGroupedTeams[letter]" (cdkDropListDropped)="onUefaDrop($event, letter)">
+              <div *ngFor="let t of UefaGroupedTeams[letter]; let idx = index" cdkDrag>
+               <div
+                  class="team-card"
+                  [ngClass]="{
+                    'top-team': idx === 0,
+                    'second-team': idx === 1
+                  }">
+                  <span>{{ t.name }}</span>
+                  <mat-icon class="drag-icon" aria-label="Drag team">drag_handle</mat-icon>
+                  
+                </div>
+              </div>
+
+            
+
+            </div>
+            <mat-error *ngIf="UefaQualifiersForm.get('group' + letter)?.errors?.['positionsSame'] && UefaQualifiersForm.touched">
+              1st and 2nd cannot be the same team.
+            </mat-error>
         </div>
       </div>
       <div class="groups-grid playoff-grid">
