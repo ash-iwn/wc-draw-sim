@@ -27,10 +27,16 @@
   box-shadow: 0 0.15vw 0.5vw rgba(0,0,0,0.07);
   min-width: 40vw;
   flex: 1 1 40vw;
+  background:  rgba(135, 227, 126, 0.18);
+}
+
+.playoff-final-card {
+    background: rgba(29, 151, 200, 0.18);
 }
 
 .playoff-final-card, .playoff-winner-card {
   margin-bottom: 1vw;
   padding: 1vw 2vw;
   border-radius: 0.8vw;
+
 }
