@@ -45,6 +45,8 @@ export class QualifiersComponent implements OnInit, OnDestroy {
   CafQualifiersForm!: FormGroup;
   ConcacafQualifiersForm!: FormGroup;
   CafPlayoffTeamList: Team[] = [];
+  ConcacafPlayoffTeamList: Team[] = [];
+  AfcPlayoffTeamList: Team[] = [];
   UefaGroupLetters = 'ABCDEFGHIJKL'.split('');
   AfcGroupLetters = 'AB'.split('');
   CafGroupLetters = 'ABCDEFGHI'.split('');
@@ -226,10 +228,13 @@ export class QualifiersComponent implements OnInit, OnDestroy {
     wireUpPair(this.CafQualifiersForm, this.CafGroupLetters, this.CafGroupedTeams);
     wireUpPair(this.ConcacafQualifiersForm, this.ConcacafGroupLetters, this.ConcacafGroupedTeams);
 
-    // Initialize CafPlayoffTeamList with default runners-up
+    // Initialize playoff team lists with default runners-up
+    this.updatePlayoffTeamList(this.AfcGroupLetters, this.AfcGroupedTeams, this.AfcPlayoffTeamList);
+    this.updatePlayoffTeamList(this.ConcacafGroupLetters, this.ConcacafGroupedTeams, this.ConcacafPlayoffTeamList);
     this.updatePlayoffTeamList(this.CafGroupLetters, this.CafGroupedTeams, this.CafPlayoffTeamList);
 
-    // Now initialize cafPlayoffForm using CafPlayoffTeamList
+  
+    
     const defaults = this.CafPlayoffTeamList.map(t => t.name).filter(Boolean).slice(0, 4);
     while (defaults.length < 4) { defaults.push(''); }
     this.cafPlayoffForm = this.fb.group({
@@ -238,6 +243,12 @@ export class QualifiersComponent implements OnInit, OnDestroy {
       runner2: [defaults[2], Validators.required],
       runner3: [defaults[3], Validators.required],
     }, { validators: [this.uniqueRunnersValidator()] });
+
+    this.selectedAfcRunner = this.AfcPlayoffTeamList[0] ?? null;
+    this.selectedConcacafRunners = [
+      this.ConcacafPlayoffTeamList[0],
+      this.ConcacafPlayoffTeamList[1]
+    ].filter(Boolean) as Team[];
 
     if (this.UefaQualifiersForm.valid) {
       this.processUefaSelections(this.UefaQualifiersForm.value);
@@ -359,8 +370,8 @@ export class QualifiersComponent implements OnInit, OnDestroy {
   }
 
   onAfcIcDrop(event: CdkDragDrop<Team[]>) {
-    moveItemInArray(this.afcPos2List, event.previousIndex, event.currentIndex);
-    this.selectedAfcRunner = this.afcPos2List[0];
+    moveItemInArray(this.AfcPlayoffTeamList, event.previousIndex, event.currentIndex);
+    this.selectedAfcRunner = this.AfcPlayoffTeamList[0];
     this.setInterconfTeamForAFC(this.selectedAfcRunner);
     this.cdr.detectChanges();
   }
@@ -582,10 +593,10 @@ export class QualifiersComponent implements OnInit, OnDestroy {
   }
 
   onConcacafIcDrop(event: CdkDragDrop<Team[]>) {
-    moveItemInArray(this.concacafPos2List, event.previousIndex, event.currentIndex);
+    moveItemInArray(this.ConcacafPlayoffTeamList, event.previousIndex, event.currentIndex);
     this.selectedConcacafRunners = [
-      this.concacafPos2List[0],
-      this.concacafPos2List[1]
+    this.ConcacafPlayoffTeamList[0],
+    this.ConcacafPlayoffTeamList[1]
     ].filter(Boolean) as Team[];
     this.setInterconfTeamForConcacaf(this.selectedConcacafRunners[0], this.selectedConcacafRunners[1]);
     this.cdr.detectChanges();

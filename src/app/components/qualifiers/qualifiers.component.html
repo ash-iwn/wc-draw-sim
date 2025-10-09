@@ -115,8 +115,8 @@
       <mat-divider></mat-divider>
       <br>
       <h3>Select one team to progress to the Inter-confederation Playoffs.</h3>
-      <div cdkDropList [cdkDropListData]="afcPos2List" (cdkDropListDropped)="onAfcIcDrop($event)">
-        <div *ngFor="let t of afcPos2List; let idx = index" cdkDrag>
+      <div cdkDropList [cdkDropListData]="AfcPlayoffTeamList" (cdkDropListDropped)="onAfcIcDrop($event)">
+        <div *ngFor="let t of AfcPlayoffTeamList; let idx = index" cdkDrag>
           <div class="team-card" [ngClass]="{'top-team': idx === 0}">
             <mat-icon class="drag-icon" aria-label="Drag team">drag_handle</mat-icon>
             <span>{{ t.name }}</span>
@@ -245,8 +245,8 @@
       <div class="groups-grid playoff-grid">
           <h3>Select two of the runner ups to progress to the Inter-confederation Playoffs.</h3>
           <div class="playoff-choice">
-            <div cdkDropList [cdkDropListData]="concacafPos2List" (cdkDropListDropped)="onConcacafIcDrop($event)">
-            <div *ngFor="let t of concacafPos2List; let idx = index" cdkDrag>
+            <div cdkDropList [cdkDropListData]="ConcacafPlayoffTeamList" (cdkDropListDropped)="onConcacafIcDrop($event)">
+            <div *ngFor="let t of ConcacafPlayoffTeamList; let idx = index" cdkDrag>
               <div class="team-card" [ngClass]="{'top-team': idx === 0 || idx === 1}">
                 <mat-icon class="drag-icon" aria-label="Drag team">drag_handle</mat-icon>
                 <span>{{ t.name }}</span>
