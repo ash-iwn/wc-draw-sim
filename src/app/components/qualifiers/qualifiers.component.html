@@ -42,12 +42,13 @@
 
       <div class="groups-grid">
         <div *ngFor="let letter of UefaGroupLetters" class="group" [formGroupName]="'group' + letter">
-           <div cdkDropList [cdkDropListData]="UefaGroupedTeams[letter]" (cdkDropListDropped)="onUefaDrop($event, letter)">
-              <div *ngFor="let t of UefaGroupedTeams[letter]; let idx = index"
-     cdkDrag
-     [cdkDragDisabled]="t.qualified"
-     (cdkDragStarted)="onDragStarted(UefaGroupedTeams, 'UEFA', letter)">
-               <div
+           <div cdkDropList [cdkDropListData]="UefaGroupedTeams[letter]"
+           (cdkDropListDropped)="onUefaDrop($event, letter)">
+              <div *ngFor="let t of UefaGroupedTeams[letter]; let idx = index" 
+              cdkDrag
+              [cdkDragDisabled]="t.qualified"
+              (cdkDragStarted)="onDragStarted(UefaGroupedTeams, 'UEFA', letter)">
+                <div
                   class="team-card"
                   [ngClass]="{
                     'top-team': idx === 0,
@@ -61,18 +62,13 @@
                   
                 </div>
               </div>
-
-            
-
             </div>
             <mat-error *ngIf="UefaQualifiersForm.get('group' + letter)?.errors?.['positionsSame'] && UefaQualifiersForm.touched">
               1st and 2nd cannot be the same team.
             </mat-error>
         </div>
       </div>
-      <div class="groups-grid playoff-grid">
-        <!-- Add any UEFA playoff dropdowns here if needed -->
-      </div>
+     
     </form>
     </section>
    
@@ -129,11 +125,7 @@
           </div>
         </div>
       </div>
-      <!-- <div class="groups-grid playoff-grid">
-        <div class="interconf-playoff-choice mat-elevation-z2">
-         
-        </div>
-      </div> -->
+     
     </form>
   </mat-expansion-panel>
 
@@ -256,7 +248,7 @@
         </div>
       </div>
       <mat-divider></mat-divider>
-      <br>
+     
       <div class="groups-grid playoff-grid">
           <h3>Select 2 of the runner ups to qualify for the inter-confederation playoffs</h3>
           <div class="playoff-choice">

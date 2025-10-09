@@ -24,7 +24,7 @@ html, body, .mat-app-background {
 }
 
 .section-canada {
-  background: rgba(234, 23, 13, 0.18); // Muted Canada red
+  background: rgba(104, 8, 3, 0.14); // Muted Canada red
 }
 .section-usa {
   background: rgba(29, 151, 200, 0.18); // Muted USA blue
@@ -35,15 +35,10 @@ html, body, .mat-app-background {
 
 
 // Color-based section backgrounds
-.qualifiers-section {
-  //background: rgba(234, 23, 13, 0.18); // Muted Canada red
+.qualifiers-section, .simulated-section {
+  background: rgba(53, 3, 0, 0.2);
 }
-.pots-section {
-  background: rgba(29, 151, 200, 0.18); // Muted USA blue
-}
-.playoffs-section {
-  background: rgba(135, 227, 126, 0.18); // Muted Mexico green
-}
+
 
 // If you want all sections to share a fallback color, you can add:
 .section-shared-bg {

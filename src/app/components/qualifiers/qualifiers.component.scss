@@ -89,13 +89,13 @@ mat-form-field.group-field {
   opacity: 0.3;
 }
 .team-card.top-team {
-  border-left: 4px solid #4caf50;
+  border-left: 4px solid rgb(134, 227, 126);
   background: rgba(135, 227, 126, 0.18);
   color: #d1b518;
 }
 .team-card.second-team {
-  background: rgba(234, 23, 13, 0.18);
-  border-left: 4px solid #ea170d;
+  background: rgba(29, 151, 200, 0.18);
+  border-left: 4px solid rgba(29, 151, 200);
 }
 
 .team-card.top-team.qualified-team {
@@ -103,8 +103,8 @@ mat-form-field.group-field {
   border-left: 4px solid #388e3c;
 }
 .team-card.second-team .team-label {
-  color: #ea170d;
-  background: rgba(234, 23, 13, 0.12);
+  color: #0d41ea;
+  background: rgba(29, 151, 200, 0.18);
 }
 .team-label {
   font-size: 0.95em;
