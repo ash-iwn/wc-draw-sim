@@ -78,18 +78,6 @@
     "points": 1385.37,
     "flag": "🇧🇫"
   }, {
-    "name": "Sierra Leone",
-      "qGroup":"A",
-    "confederation": "CAF",
-    "points": 1150.1,
-    "flag": "🇸🇱"
-  }, {
-    "name": "Guinea-Bissau",
-      "qGroup":"A",
-    "confederation": "CAF",
-    "points": 1126.81,
-    "flag": "🇬🇼"
-  }, {
     "name": "Senegal",
       "qGroup":"B",
     "confederation": "CAF",
@@ -163,22 +151,10 @@
     "points": 1179.57,
     "flag": "🇱🇾"
   }, {
-    "name": "Angola",
-    "qGroup":"D",
-    "confederation": "CAF",
-    "points": 1268.72,
-    "flag": "🇱🇾"
-  }, {
     "name": "Morocco",
     "qGroup":"E",
     "confederation": "CAF",
     "points": 1706.27,
-    "flag": "🇲🇦"
-  },{
-    "name": "Tanzania",
-    "qGroup":"E",
-    "confederation": "CAF",
-    "points": 1199.45,
     "flag": "🇲🇦"
   }, {
     "name": "Niger",
@@ -190,9 +166,9 @@
     "name": "Zambia",
     "qGroup":"E",
     "confederation": "CAF",
-    "points": 1706.27,
-    "flag": "🇲🇦"
-  }, {
+    "points": 1273,
+    "flag": "🇿🇲"
+  },{
     "name": "Ivory Coast",
     "qGroup":"F",
     "confederation": "CAF",
@@ -276,18 +252,6 @@
     "confederation": "CAF",
     "points": 1187.59,
     "flag": "🇲🇬"
-  }, {
-    "name": "Comoros",
-    "qGroup":"I",
-    "confederation": "CAF",
-    "points": 1201.83,
-    "flag": "🇰🇲"
-  },{
-    "name": "Mali",
-    "qGroup":"I",
-    "confederation": "CAF",
-    "points": 1445.83,
-    "flag": "🇲🇱"
   },  {
     "name": "Mexico",
     "confederation": "CONCACAF",
