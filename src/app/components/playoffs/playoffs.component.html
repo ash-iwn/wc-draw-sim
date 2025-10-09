@@ -4,21 +4,25 @@
     <section class="playoff-section uefa-playoff-section">
       <h2 class="playoff-section-title">UEFA Playoffs (4 Winners)</h2>
       <div *ngFor="let path of simService.playoffResults.uefa" class="playoff-path">
-        <h3>Path {{ path.pathName }}</h3>
-        <div>
-          <strong>SF1:</strong> {{ path.semiFinals[0].result }}<br>
-          <small>{{ path.semiFinals[0].matchup }}</small>
+        <h3>Playoff {{ path.pathName }}</h3>
+        <div class="playoff-sf-container">
+          <div class="playoff-sf-card">
+            <strong>Semifinal 1</strong><br>
+            <div>{{ path.semiFinals[0].matchup }}</div><br>
+            <strong>{{ path.semiFinals[0].result }}</strong>
+          </div>
+          <div class="playoff-sf-card">
+            <strong>Semifinal 2</strong><br>
+            <div>{{ path.semiFinals[1].matchup }}</div><br>
+            <strong>{{ path.semiFinals[1].result }}</strong>
+          </div>
         </div>
-        <div>
-          <strong>SF2:</strong> {{ path.semiFinals[1].result }}<br>
-          <small>{{ path.semiFinals[1].matchup }}</small>
+        <div class="playoff-final-card">
+          <div>Final: {{ path.final.matchup }}</div>
+          <strong>{{ path.final.result }}</strong>
         </div>
-        <div>
-          <strong>Final:</strong> {{ path.final.result }}<br>
-          <small>{{ path.final.matchup }}</small>
-        </div>
-        <div>
-          <strong>Winner:</strong> <span>{{ path.winner.flag }}</span> {{ path.winner.name }}
+        <div class="playoff-winner-card">
+          <span>{{ path.winner.flag }} </span> {{ path.winner.name }} progresses to the World Cup
         </div>
         <hr>
       </div>
@@ -35,34 +39,38 @@
         <hr>
         <div style="margin-top: 8px;">
           <h3>Bracket 1</h3>
-          <div *ngFor="let sf of simService.playoffResults.intercontinental.bracket1.semiFinals; let i = index">
-            <strong>SF{{ i + 1 }}:</strong> {{ sf.result }}<br>
-            <small>{{ sf.matchup }}</small>
+          <div class="playoff-sf-container">
+            <div *ngFor="let sf of simService.playoffResults.intercontinental.bracket1.semiFinals; let i = index" class="playoff-sf-card">
+              <strong>SF{{ i + 1 }}:</strong> {{ sf.result }}<br>
+              <small>{{ sf.matchup }}</small>
+            </div>
           </div>
-          <div>
+          <div class="playoff-final-card">
             <strong>Final:</strong> {{ simService.playoffResults.intercontinental.bracket1.final.result }}<br>
             <small>{{ simService.playoffResults.intercontinental.bracket1.final.matchup }}</small>
           </div>
-          <div>
+          <div class="playoff-winner-card">
             <strong>Winner:</strong> <span>{{ simService.playoffResults.intercontinental.bracket1.winner.flag }}</span> {{ simService.playoffResults.intercontinental.bracket1.winner.name }}
           </div>
         </div>
         <hr>
         <div style="margin-top: 8px;">
           <h3>Bracket 2</h3>
-          <div>
-            <strong>SF1:</strong> {{ simService.playoffResults.intercontinental.bracket2.semiFinals[0].result }}<br>
-            <small>{{ simService.playoffResults.intercontinental.bracket2.semiFinals[0].matchup }}</small>
+          <div class="playoff-sf-container">
+            <div class="playoff-sf-card">
+              <strong>SF1:</strong> {{ simService.playoffResults.intercontinental.bracket2.semiFinals[0].result }}<br>
+              <small>{{ simService.playoffResults.intercontinental.bracket2.semiFinals[0].matchup }}</small>
+            </div>
+            <div class="playoff-sf-card">
+              <strong>SF2:</strong> {{ simService.playoffResults.intercontinental.bracket2.semiFinals[1] }}<br>
+              <small>{{ simService.playoffResults.intercontinental.bracket2.semiFinals[1] }}</small>
+            </div>
           </div>
-          <div>
-            <strong>SF2:</strong> {{ simService.playoffResults.intercontinental.bracket2.semiFinals[1] }}<br>
-            <small>{{ simService.playoffResults.intercontinental.bracket2.semiFinals[1] }}</small>
-          </div>
-          <div>
+          <div class="playoff-final-card">
             <strong>Final:</strong> {{ simService.playoffResults.intercontinental.bracket2.final.result }}<br>
             <small>{{ simService.playoffResults.intercontinental.bracket2.final.matchup }}</small>
           </div>
-          <div>
+          <div class="playoff-winner-card">
             <strong>Winner:</strong> <span>{{ simService.playoffResults.intercontinental.bracket2.winner.flag }}</span> {{ simService.playoffResults.intercontinental.bracket2.winner.name }}
           </div>
         </div>

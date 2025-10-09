@@ -1,15 +1,36 @@
 .playoffs-container {
-  max-width: 56.25rem;
+  max-width: 90vw;
   margin: 0 auto;
-  padding: 1.5rem 1rem;
-  border-radius: 1rem;
-  box-shadow: 0 0.125rem 1rem rgba(21,101,192,0.08);
+  padding: 2.5vw 2vw;
+  border-radius: 2vw;
+  box-shadow: 0 0.2vw 1.8vw rgba(21,101,192,0.08);
   background: var(--mat-md-sys-color-surface-variant, #23272f);
 }
 
 @media (max-width: 37.5rem) {
   .playoffs-container {
-    padding: 1rem 0.5rem;
-    border-radius: 0.625rem;
+    padding: 2vw 1vw;
+    border-radius: 1vw;
   }
+}
+
+.playoff-sf-container {
+  display: flex;
+  gap: 2vw;
+  margin-bottom: 2vw;
+  flex-wrap: wrap;
+}
+
+.playoff-sf-card {
+  border-radius: 1vw;
+  padding: 1vw 2vw;
+  box-shadow: 0 0.15vw 0.5vw rgba(0,0,0,0.07);
+  min-width: 40vw;
+  flex: 1 1 40vw;
+}
+
+.playoff-final-card, .playoff-winner-card {
+  margin-bottom: 1vw;
+  padding: 1vw 2vw;
+  border-radius: 0.8vw;
 }
