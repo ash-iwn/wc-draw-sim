@@ -358,9 +358,15 @@ export class QualifiersComponent implements OnInit, OnDestroy {
     );
   }
 
+  onAfcIcDrop(event: CdkDragDrop<Team[]>) {
+    moveItemInArray(this.afcPos2List, event.previousIndex, event.currentIndex);
+    this.selectedAfcRunner = this.afcPos2List[0];
+    this.setInterconfTeamForAFC(this.selectedAfcRunner);
+    this.cdr.detectChanges();
+  }
+
   private refreshAfcRunner(): void {
-    const pos2List = this.afcPos2List;
-    this.selectedAfcRunner = pos2List[0] ?? null;
+    this.selectedAfcRunner = this.afcPos2List[0] ?? null;
     this.setInterconfTeamForAFC(this.selectedAfcRunner);
   }
 
@@ -418,6 +424,14 @@ export class QualifiersComponent implements OnInit, OnDestroy {
       this.refreshCafIcSelection();
       } 
     );
+  }
+
+
+  onCafIcDrop(event: CdkDragDrop<Team[]>) {
+    moveItemInArray(this.CafPlayoffTeamList, event.previousIndex, event.currentIndex);
+    this.CafIcTeam = this.CafPlayoffTeamList[0];
+    this.setInterconfTeamForCAF(this.CafIcTeam);
+    this.cdr.detectChanges();
   }
 
   private refreshCafPlayoff(): void {
@@ -567,6 +581,16 @@ export class QualifiersComponent implements OnInit, OnDestroy {
     );
   }
 
+  onConcacafIcDrop(event: CdkDragDrop<Team[]>) {
+    moveItemInArray(this.concacafPos2List, event.previousIndex, event.currentIndex);
+    this.selectedConcacafRunners = [
+      this.concacafPos2List[0],
+      this.concacafPos2List[1]
+    ].filter(Boolean) as Team[];
+    this.setInterconfTeamForConcacaf(this.selectedConcacafRunners[0], this.selectedConcacafRunners[1]);
+    this.cdr.detectChanges();
+  }
+
   onConcacafRunnersClosed(): void {
     const selected = this.selectedConcacafRunners || [];
     if (selected.length === 1 && this.concacafPos2List.length > 1) {
@@ -602,14 +626,11 @@ export class QualifiersComponent implements OnInit, OnDestroy {
   }
 
   private refreshConcacafPlayoff(): void {
-    if (!this.ConcacafQualifiersForm) { return; }
-    const opts = this.concacafPos2List;
-    const first = opts[0] ?? null;
-    const second = opts[1] ?? null;
-    this.selectedConcacafRunners = [first, second].filter(Boolean) as Team[];
-    const a = this.selectedConcacafRunners[0] ?? null;
-    const b = this.selectedConcacafRunners[1] ?? null;
-    this.setInterconfTeamForConcacaf(a, b);
+   this.selectedConcacafRunners = [
+    this.concacafPos2List[0],
+    this.concacafPos2List[1]
+  ].filter(Boolean) as Team[];
+  this.setInterconfTeamForConcacaf(this.selectedConcacafRunners[0], this.selectedConcacafRunners[1]);
   }
 
   private processConcacafSelections(res: any): void {

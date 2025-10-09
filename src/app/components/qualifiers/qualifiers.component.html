@@ -86,8 +86,8 @@
         <mat-icon color="primary">help_outline</mat-icon></button>
       </mat-panel-title>
     </mat-expansion-panel-header>
-    <h5>Drag and drop to set positions within each group.</h5>
-    <br><br>
+    <h3>Drag and drop to set positions within each group.</h3>
+    
     <form [formGroup]="AfcQualifiersForm">
       <div class="groups-grid">
         <div *ngFor="let letter of AfcGroupLetters" class="group" [formGroupName]="'group' + letter">
@@ -120,15 +120,15 @@
 
       <mat-divider></mat-divider>
       <br>
-
-      <mat-form-field appearance="outline" class="group-field">
-          <mat-label>
-            Inter-confederation Play-off
-          </mat-label>
-          <mat-select [value]="selectedAfcRunner" [compareWith]="compareTeams" (selectionChange)="onAfcRunnerChange($event.value)">
-            <mat-option *ngFor="let t of afcPos2List" [value]="t">{{ t.name }}</mat-option>
-          </mat-select>
-      </mat-form-field>
+      <h3>Select one team enter the Inter-confederation Playoff.</h3>
+      <div cdkDropList [cdkDropListData]="afcPos2List" (cdkDropListDropped)="onAfcIcDrop($event)">
+        <div *ngFor="let t of afcPos2List; let idx = index" cdkDrag>
+          <div class="team-card" [ngClass]="{'top-team': idx === 0}">
+            <mat-icon class="drag-icon" aria-label="Drag team">drag_handle</mat-icon>
+            <span>{{ t.name }}</span>
+          </div>
+        </div>
+      </div>
       <!-- <div class="groups-grid playoff-grid">
         <div class="interconf-playoff-choice mat-elevation-z2">
          
@@ -178,8 +178,6 @@
       <mat-divider></mat-divider>
       <br>
       <div class="groups-grid playoff-grid">
-        <div  class="caf-playoff-choice">
-         
           Select the 4 best runners-up to enter the CAF Playoffs.
           <form [formGroup]="cafPlayoffForm">
             <!-- Use CafPlayoffTeamList directly for drag-and-drop and mat-select -->
@@ -204,16 +202,17 @@
 
           <br><br>
 
-          <mat-form-field appearance="outline" class="group-field">
-            <mat-label>
-              Inter-confederation Play-off
-              
-            </mat-label>
-            <mat-select [(value)]="CafIcTeam" [compareWith]="compareTeams" (selectionChange)="onCafIcChange($event.value)">
-              <mat-option *ngFor="let t of CafPlayoffTeamList.slice(0, 4)" [value]="t">{{ t.name }}</mat-option>
-            </mat-select>
-          </mat-form-field>
-          
+          <div cdkDropList [cdkDropListData]="CafPlayoffTeamList.slice(0, 4)" (cdkDropListDropped)="onCafIcDrop($event)">
+            <div *ngFor="let t of CafPlayoffTeamList.slice(0, 4); let idx = index" cdkDrag>
+              <div class="team-card" [ngClass]="{'top-team': idx === 0}">
+                <mat-icon class="drag-icon" aria-label="Drag team">drag_handle</mat-icon>
+                <span>{{ t.name }}</span>
+              </div>
+            </div>
+          </div>
+        <div  class="caf-playoff-choice">
+         
+        
         </div>
       </div>
     </form>
@@ -259,16 +258,18 @@
       <mat-divider></mat-divider>
       <br>
       <div class="groups-grid playoff-grid">
-         <mat-form-field appearance="outline" class="group-field">
-            <mat-label>
-              Inter-confederation Play-off
-              
-            </mat-label>
-            <mat-select [value]="selectedConcacafRunners" multiple [compareWith]="compareTeams" (openedChange)="onConcacafRunnersClosed()">
-              <mat-option *ngFor="let t of concacafPos2List" [value]="t">{{ t.name }}</mat-option>
-            </mat-select>
-            <mat-hint>Select two 2nd place teams to progress</mat-hint>
-          </mat-form-field>
+          <h3>Select 2 of the runner ups to qualify for the inter-confederation playoffs</h3>
+          <div class="playoff-choice">
+            <div cdkDropList [cdkDropListData]="concacafPos2List" (cdkDropListDropped)="onConcacafIcDrop($event)">
+            <div *ngFor="let t of concacafPos2List; let idx = index" cdkDrag>
+              <div class="team-card" [ngClass]="{'top-team': idx === 0 || idx === 1}">
+                <mat-icon class="drag-icon" aria-label="Drag team">drag_handle</mat-icon>
+                <span>{{ t.name }}</span>
+              </div>
+            </div>
+          </div>
+          </div>
+         
       </div>
     </form>
   </mat-expansion-panel>
