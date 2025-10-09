@@ -47,13 +47,6 @@
   font-size: clamp(0.95rem, 2vw, 1.1rem);
 }
 
-.group-field,
-.mat-form-field {
-  width: 100%;
-  min-width: 0;
-  font-size: clamp(0.95rem, 2vw, 1.1rem);
-  overflow: visible;
-}
 
 .mat-form-field-flex {
   overflow: visible !important;
@@ -152,11 +145,7 @@
     max-width: 98vw !important;
     min-width: 7.5rem;
   }
-  .mat-form-field,
-  .group-field {
-    min-width: 0;
-    width: 100%;
-  }
+
 }
 
 .selected-team {

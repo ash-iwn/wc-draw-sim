@@ -1,4 +1,4 @@
-<mat-accordion >
+<mat-accordion>
   <!-- UEFA Section -->
   <mat-expansion-panel>
     <mat-expansion-panel-header>
@@ -36,51 +36,28 @@
       </button> </mat-panel-title>
     </mat-expansion-panel-header>
     <section>
-    <br><br>
+    
     <form [formGroup]="UefaQualifiersForm">
+      <h3>Drag and drop to set positions within each group.</h3>
+
       <div class="groups-grid">
         <div *ngFor="let letter of UefaGroupLetters" class="group" [formGroupName]="'group' + letter">
-          <!-- <mat-form-field appearance="outline" class="group-field">
-            <mat-label>Group {{ letter }} — 1st place</mat-label>
-            <mat-select formControlName="pos1">
-              <mat-option *ngFor="let t of UefaGroupedTeams[letter]"
-                          [value]="t.name"
-                          >
-                {{ t.name }}
-              </mat-option>
-            </mat-select>
-            <mat-error *ngIf="UefaQualifiersForm.get('group' + letter + '.pos1')?.hasError('required') && (UefaQualifiersForm.get('group' + letter + '.pos1')?.touched || UefaQualifiersForm.touched)">
-              Select the 1st place team.
-            </mat-error>
-          </mat-form-field>
-          <mat-form-field appearance="outline" class="group-field">
-            <mat-label>Group {{ letter }} — 2nd place</mat-label>
-            <mat-select formControlName="pos2">
-              <mat-option *ngFor="let t of UefaGroupedTeams[letter]"
-                          [value]="t.name"
-                          >
-                {{ t.name }}
-              </mat-option>
-            </mat-select>
-            <mat-error *ngIf="UefaQualifiersForm.get('group' + letter + '.pos2')?.hasError('required') && (UefaQualifiersForm.get('group' + letter + '.pos2')?.touched || UefaQualifiersForm.touched)">
-              Select the 2nd place team.
-            </mat-error>
-            <mat-error *ngIf="UefaQualifiersForm.get('group' + letter)?.errors?.['positionsSame'] && (UefaQualifiersForm.get('group' + letter + '.pos2')?.touched || UefaQualifiersForm.touched)">
-              1st and 2nd cannot be the same team.
-            </mat-error>
-          </mat-form-field> -->
-
-          
            <div cdkDropList [cdkDropListData]="UefaGroupedTeams[letter]" (cdkDropListDropped)="onUefaDrop($event, letter)">
-              <div *ngFor="let t of UefaGroupedTeams[letter]; let idx = index" cdkDrag>
+              <div *ngFor="let t of UefaGroupedTeams[letter]; let idx = index"
+     cdkDrag
+     [cdkDragDisabled]="t.qualified"
+     (cdkDragStarted)="onDragStarted(UefaGroupedTeams, 'UEFA', letter)">
                <div
                   class="team-card"
                   [ngClass]="{
                     'top-team': idx === 0,
-                    'second-team': idx === 1
+                    'second-team': idx === 1,
+                    'qualified-team': t.qualified
                   }">
+                  <mat-icon *ngIf="!t.qualified" class="drag-icon" aria-label="Drag team">drag_handle</mat-icon>
+                  <mat-icon *ngIf="t.qualified" class="qualified-icon" aria-label="Qualified">check_circle</mat-icon>
+              
                   <span>{{ t.name }}</span>
-                  <mat-icon class="drag-icon" aria-label="Drag team">drag_handle</mat-icon>
                   
                 </div>
               </div>
@@ -109,55 +86,54 @@
         <mat-icon color="primary">help_outline</mat-icon></button>
       </mat-panel-title>
     </mat-expansion-panel-header>
+    <h5>Drag and drop to set positions within each group.</h5>
     <br><br>
     <form [formGroup]="AfcQualifiersForm">
       <div class="groups-grid">
         <div *ngFor="let letter of AfcGroupLetters" class="group" [formGroupName]="'group' + letter">
-          <mat-form-field appearance="outline" class="group-field">
-            <mat-label>Group {{ letter }} — 1st place</mat-label>
-            <mat-select formControlName="pos1">
-              <mat-option *ngFor="let t of AfcGroupedTeams[letter]"
-                          [value]="t.name"
-                        >
-                {{ t.name }}
-              </mat-option>
-            </mat-select>
-            <mat-error *ngIf="AfcQualifiersForm.get('group' + letter + '.pos1')?.hasError('required') && (AfcQualifiersForm.get('group' + letter + '.pos1')?.touched || AfcQualifiersForm.touched)">
-              Select the 1st place team.
-            </mat-error>
-          </mat-form-field>
-          <mat-form-field appearance="outline" class="group-field">
-            <mat-label>Group {{ letter }} — 2nd place</mat-label>
-            <mat-select formControlName="pos2">
-              <mat-option *ngFor="let t of AfcGroupedTeams[letter]"
-                          [value]="t.name"
-                        >
-                {{ t.name }}
-              </mat-option>
-            </mat-select>
-            <mat-error *ngIf="AfcQualifiersForm.get('group' + letter + '.pos2')?.hasError('required') && (AfcQualifiersForm.get('group' + letter + '.pos2')?.touched || AfcQualifiersForm.touched)">
-              Select the 2nd place team.
-            </mat-error>
-            <mat-error *ngIf="AfcQualifiersForm.get('group' + letter)?.errors?.['positionsSame'] && (AfcQualifiersForm.get('group' + letter + '.pos2')?.touched || AfcQualifiersForm.touched)">
-              1st and 2nd cannot be the same team.
-            </mat-error>
-          </mat-form-field>
-        </div>
-      </div>
-      <div class="groups-grid playoff-grid">
-        <div class="interconf-playoff-choice mat-elevation-z2">
-          <mat-form-field appearance="outline" class="group-field">
-            <mat-label>
-              Inter-confederation Play-off
+          <div cdkDropList [cdkDropListData]="AfcGroupedTeams[letter]" (cdkDropListDropped)="onAfcDrop($event, letter)">
+            <div *ngFor="let t of AfcGroupedTeams[letter]; let idx = index; trackBy: trackByTeam"
+                 cdkDrag
+                 [cdkDragDisabled]="t.qualified"
+                 (cdkDragStarted)="onDragStarted(AfcGroupedTeams, 'AFC', letter)">
+              <div
+                class="team-card"
+                [ngClass]="{
+                  'top-team': idx === 0,
+                  'second-team': idx === 1,
+                  'qualified-team': t.qualified
+                }">
+                <mat-icon *ngIf="!t.qualified" class="drag-icon" aria-label="Drag team">drag_handle</mat-icon>
+                <mat-icon *ngIf="t.qualified" class="qualified-icon" aria-label="Qualified">check_circle</mat-icon>
+                
+                <span>{{ t.name }}</span>
               
-            </mat-label>
-            <mat-select [value]="selectedAfcRunner" [compareWith]="compareTeams" (selectionChange)="onAfcRunnerChange($event.value)">
-              <mat-option *ngFor="let t of afcPos2List" [value]="t">{{ t.name }}</mat-option>
-            </mat-select>
-           
-          </mat-form-field>
+    
+              </div>
+            </div>
+          </div>
+          <mat-error *ngIf="AfcQualifiersForm.get('group' + letter)?.errors?.['positionsSame'] && AfcQualifiersForm.touched">
+            1st and 2nd cannot be the same team.
+          </mat-error>
         </div>
       </div>
+
+      <mat-divider></mat-divider>
+      <br>
+
+      <mat-form-field appearance="outline" class="group-field">
+          <mat-label>
+            Inter-confederation Play-off
+          </mat-label>
+          <mat-select [value]="selectedAfcRunner" [compareWith]="compareTeams" (selectionChange)="onAfcRunnerChange($event.value)">
+            <mat-option *ngFor="let t of afcPos2List" [value]="t">{{ t.name }}</mat-option>
+          </mat-select>
+      </mat-form-field>
+      <!-- <div class="groups-grid playoff-grid">
+        <div class="interconf-playoff-choice mat-elevation-z2">
+         
+        </div>
+      </div> -->
     </form>
   </mat-expansion-panel>
 
@@ -171,63 +147,73 @@
         <mat-icon color="primary">help_outline</mat-icon></button>
       </mat-panel-title>
     </mat-expansion-panel-header>
-    <br><br>
+    
     <form [formGroup]="CafQualifiersForm">
       <div class="groups-grid">
         <div *ngFor="let letter of CafGroupLetters" class="group" [formGroupName]="'group' + letter">
-          <mat-form-field appearance="outline" class="group-field">
-            <mat-label>Group {{ letter }} — 1st place</mat-label>
-            <mat-select formControlName="pos1">
-              <mat-option *ngFor="let t of CafGroupedTeams[letter]"
-                          [value]="t.name"
-                         >
-                {{ t.name }}
-              </mat-option>
-            </mat-select>
-            <mat-error *ngIf="CafQualifiersForm.get('group' + letter + '.pos1')?.hasError('required') && (CafQualifiersForm.get('group' + letter + '.pos1')?.touched || CafQualifiersForm.touched)">
-              Select the 1st place team.
-            </mat-error>
-          </mat-form-field>
-          <mat-form-field appearance="outline" class="group-field">
-            <mat-label>Group {{ letter }} — 2nd place</mat-label>
-            <mat-select formControlName="pos2">
-              <mat-option *ngFor="let t of CafGroupedTeams[letter]"
-                          [value]="t.name"
-                       >
-                {{ t.name }}
-              </mat-option>
-            </mat-select>
-            <mat-error *ngIf="CafQualifiersForm.get('group' + letter + '.pos2')?.hasError('required') && (CafQualifiersForm.get('group' + letter + '.pos2')?.touched || CafQualifiersForm.touched)">
-              Select the 2nd place team.
-            </mat-error>
-            <mat-error *ngIf="CafQualifiersForm.get('group' + letter)?.errors?.['positionsSame'] && (CafQualifiersForm.get('group' + letter + '.pos2')?.touched || CafQualifiersForm.touched)">
-              1st and 2nd cannot be the same team.
-            </mat-error>
-          </mat-form-field>
+          <div cdkDropList [cdkDropListData]="CafGroupedTeams[letter]" (cdkDropListDropped)="onCafDrop($event, letter)">
+            <div
+            *ngFor="let t of CafGroupedTeams[letter]; let idx = index; trackBy: trackByTeam"
+                 cdkDrag
+                 [cdkDragDisabled]="t.qualified"
+                 (cdkDragStarted)="onDragStarted(CafGroupedTeams, 'CAF', letter)">
+              <div
+                class="team-card"
+                [ngClass]="{
+                  'top-team': idx === 0,
+                  'second-team': idx === 1,
+                  'qualified-team': t.qualified
+                }">
+                <mat-icon *ngIf="!t.qualified" class="drag-icon" aria-label="Drag team">drag_handle</mat-icon>
+                <mat-icon *ngIf="t.qualified" class="qualified-icon" aria-label="Qualified">check_circle</mat-icon>
+                <span>{{ t.name }}</span>
+              </div>
+            </div>
+          </div>
+          <mat-error *ngIf="CafQualifiersForm.get('group' + letter)?.errors?.['positionsSame'] && CafQualifiersForm.touched">
+            1st and 2nd cannot be the same team.
+          </mat-error>
         </div>
       </div>
+      <mat-divider></mat-divider>
+      <br>
       <div class="groups-grid playoff-grid">
-        <div *ngIf="cafPlayoffForm" [formGroup]="cafPlayoffForm" class="caf-playoff-choice">
-          <mat-form-field appearance="outline" class="group-field" *ngFor="let idx of [0,1,2,3]">
-            <mat-label>CAF Playoff Team {{ idx + 1 }}</mat-label>
-            <mat-select [formControlName]="'runner' + idx">
-              <mat-option *ngFor="let t of cafPos2List" [value]="t.name" [disabled]="isCafOptionDisabled(t.name, idx)">
-                {{ t.name }}
-              </mat-option>
+        <div  class="caf-playoff-choice">
+         
+          Select the 4 best runners-up to enter the CAF Playoffs.
+          <form [formGroup]="cafPlayoffForm">
+            <!-- Use CafPlayoffTeamList directly for drag-and-drop and mat-select -->
+            <div cdkDropList [cdkDropListData]="CafPlayoffTeamList" (cdkDropListDropped)="onCafPlayoffDrop($event)">
+              <div *ngFor="let t of CafPlayoffTeamList; let idx = index" cdkDrag>
+                <div class="team-card" [ngClass]="{'top-team': idx < 4}">
+                  <mat-icon *ngIf="!t.qualified" class="drag-icon" aria-label="Drag team">drag_handle</mat-icon>
+                  <mat-icon *ngIf="t.qualified" class="qualified-icon" aria-label="Qualified">check_circle</mat-icon>
+                
+                  
+                  <span>{{ t.name }}</span>
+                 
+                  </div>
+              </div>
+            </div>
+          </form>
+
+          <mat-divider></mat-divider>
+
+          <br>
+          Select one team to progress to the Inter-confederation Play-off.
+
+          <br><br>
+
+          <mat-form-field appearance="outline" class="group-field">
+            <mat-label>
+              Inter-confederation Play-off
+              
+            </mat-label>
+            <mat-select [(value)]="CafIcTeam" [compareWith]="compareTeams" (selectionChange)="onCafIcChange($event.value)">
+              <mat-option *ngFor="let t of CafPlayoffTeamList.slice(0, 4)" [value]="t">{{ t.name }}</mat-option>
             </mat-select>
           </mat-form-field>
-          <div class="interconf-playoff-choice mat-elevation-z2">
-            <mat-form-field appearance="outline" class="group-field">
-              <mat-label>
-                Inter-confederation Play-off
-               
-              </mat-label>
-              <mat-select [(value)]="CafIcTeam" [compareWith]="compareTeams" (selectionChange)="onCafIcChange($event.value)">
-                <mat-option *ngFor="let t of CafPlayoffTeamList" [value]="t">{{ t.name }}</mat-option>
-              </mat-select>
-              
-            </mat-form-field>
-          </div>
+          
         </div>
       </div>
     </form>
@@ -243,44 +229,37 @@
         <mat-icon color="primary">help_outline</mat-icon></button>
       </mat-panel-title>
     </mat-expansion-panel-header>
-  
-    <br><br>
     <form [formGroup]="ConcacafQualifiersForm">
       <div class="groups-grid">
         <div *ngFor="let letter of ConcacafGroupLetters" class="group" [formGroupName]="'group' + letter">
-          <mat-form-field appearance="outline" class="group-field">
-            <mat-label>Group {{ letter }} — 1st place</mat-label>
-            <mat-select formControlName="pos1">
-              <mat-option *ngFor="let t of ConcacafGroupedTeams[letter]"
-                          [value]="t.name"
-                          >
-                {{ t.name }}
-              </mat-option>
-            </mat-select>
-            <mat-error *ngIf="ConcacafQualifiersForm.get('group' + letter + '.pos1')?.hasError('required') && (ConcacafQualifiersForm.get('group' + letter + '.pos1')?.touched || ConcacafQualifiersForm.touched)">
-              Select the 1st place team.
-            </mat-error>
-          </mat-form-field>
-          <mat-form-field appearance="outline" class="group-field">
-            <mat-label>Group {{ letter }} — 2nd place</mat-label>
-            <mat-select formControlName="pos2">
-              <mat-option *ngFor="let t of ConcacafGroupedTeams[letter]"
-                          [value]="t.name">
-                {{ t.name }}
-              </mat-option>
-            </mat-select>
-            <mat-error *ngIf="ConcacafQualifiersForm.get('group' + letter + '.pos2')?.hasError('required') && (ConcacafQualifiersForm.get('group' + letter + '.pos2')?.touched || ConcacafQualifiersForm.touched)">
-              Select the 2nd place team.
-            </mat-error>
-            <mat-error *ngIf="ConcacafQualifiersForm.get('group' + letter)?.errors?.['positionsSame'] && (ConcacafQualifiersForm.get('group' + letter + '.pos2')?.touched || ConcacafQualifiersForm.touched)">
-              1st and 2nd cannot be the same team.
-            </mat-error>
-          </mat-form-field>
+          <div cdkDropList [cdkDropListData]="ConcacafGroupedTeams[letter]" (cdkDropListDropped)="onConcacafDrop($event, letter)">
+            <div *ngFor="let t of ConcacafGroupedTeams[letter]; let idx = index; trackBy: trackByTeam"
+                 cdkDrag
+                 [cdkDragDisabled]="t.qualified"
+                 (cdkDragStarted)="onDragStarted(ConcacafGroupedTeams, 'CONCACAF', letter)">
+              <div
+                class="team-card"
+                [ngClass]="{
+                  'top-team': idx === 0,
+                  'second-team': idx === 1,
+                  'qualified-team': t.qualified
+                }">
+                <mat-icon *ngIf="!t.qualified" drag-icon aria-label="Drag team">drag_handle</mat-icon>
+                <mat-icon *ngIf="t.qualified" class="qualified-icon" aria-label="Qualified">check_circle</mat-icon>
+              
+                <span>{{ t.name }}</span>
+              </div>
+            </div>
+          </div>
+          <mat-error *ngIf="ConcacafQualifiersForm.get('group' + letter)?.errors?.['positionsSame'] && ConcacafQualifiersForm.touched">
+            1st and 2nd cannot be the same team.
+          </mat-error>
         </div>
       </div>
+      <mat-divider></mat-divider>
+      <br>
       <div class="groups-grid playoff-grid">
-        <div class="interconf-playoff-choice mat-elevation-z2">
-          <mat-form-field appearance="outline" class="group-field">
+         <mat-form-field appearance="outline" class="group-field">
             <mat-label>
               Inter-confederation Play-off
               
@@ -290,7 +269,6 @@
             </mat-select>
             <mat-hint>Select two 2nd place teams to progress</mat-hint>
           </mat-form-field>
-        </div>
       </div>
     </form>
   </mat-expansion-panel>
