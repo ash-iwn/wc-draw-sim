@@ -199,18 +199,6 @@
     "points": 1234.04,
     "flag": "🇲🇿"
   }, {
-    "name": "Guinea",
-    "qGroup":"G",
-    "confederation": "CAF",
-    "points": 1299.49,
-    "flag": "🇬🇳"
-  },  {
-    "name": "Botswana",
-    "qGroup":"G",
-    "confederation": "CAF",
-    "points": 1087.27,
-    "flag": "🇧🇼"
-  },{
     "name": "Tunisia",
     "qGroup":"H",
     "confederation": "CAF",
@@ -222,25 +210,7 @@
     "confederation": "CAF",
     "points": 1183.8,
     "flag": "🇳🇦"
-  }, {
-    "name": "Liberia",
-    "qGroup":"H",
-    "confederation": "CAF",
-    "points": 1065.62,
-    "flag": "🇹🇳"
-  }, {
-    "name": "Malawi",
-    "qGroup":"H",
-    "confederation": "CAF",
-    "points": 1133.6,
-    "flag": "🇲🇼"
-  }, {
-    "name": "Equatorial Guinea",
-    "qGroup":"H",
-    "confederation": "CAF",
-    "points": 1248.68,
-    "flag": "🇬🇶"
-  }, {
+  },  {
     "name": "Ghana",
     "qGroup":"I",
     "confederation": "CAF",
