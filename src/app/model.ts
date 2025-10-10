@@ -64,6 +64,7 @@ export interface PlayoffPath {
   semiFinals: PlayoffMatchResult[]; // Always an array for consistency
   final: PlayoffMatchResult;
   winner: Team;
+  seededTeam?: Team;
 }
 
 // Main playoff results structure

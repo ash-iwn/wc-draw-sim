@@ -29,7 +29,7 @@ import { SimulatorService } from '../../sim-service';
 })
 export class PlayoffsComponent {
 
-  constructor(public simService: SimulatorService) {}
+  constructor(public simService: SimulatorService, public playoffService: PlayoffSimulatorService) {}
 
   
  

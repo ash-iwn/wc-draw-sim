@@ -177,12 +177,14 @@ export class PlayoffSimulatorService {
       participants: playoffTeams,
       bracket1: {
         pathName: bracket1Seed.name,
+        seededTeam: bracket1Seed,
         semiFinals: [bracket1SemiResult],
         final: bracket1FinalResult,
         winner: winner1
       },
       bracket2: {
         pathName: bracket2Seed.name,
+        seededTeam: bracket2Seed,
         semiFinals: [bracket2SemiResult],
         final: bracket2FinalResult,
         winner: winner2

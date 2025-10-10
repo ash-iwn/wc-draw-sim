@@ -2,61 +2,76 @@
   <div class="playoffs-sections">
     <!-- UEFA Playoffs Section -->
     <section class="playoff-section uefa-playoff-section">
-      <h2 class="playoff-section-title">UEFA Playoffs (4 Winners)</h2>
+      <h2 class="playoff-section-title">UEFA Playoffs</h2>
       <div *ngFor="let path of simService.playoffResults.uefa" class="playoff-path">
         <h3>Playoff {{ path.pathName }}</h3>
         <div class="playoff-sf-container">
           <div class="playoff-sf-card">
-            <strong>Semifinal 1</strong><br>
-            <div>{{ path.semiFinals[0].matchup }}</div><br>
-            <strong>{{ path.semiFinals[0].result }}</strong>
+            <div>Semifinal 1: {{ path.semiFinals[0].matchup }} </div>
+            <br>
+            <strong class="result">{{ path.semiFinals[0].result }}</strong>
           </div>
           <div class="playoff-sf-card">
-            <strong>Semifinal 2</strong><br>
-            <div>{{ path.semiFinals[1].matchup }}</div><br>
-            <strong>{{ path.semiFinals[1].result }}</strong>
+            <div>Semifinal 2: {{ path.semiFinals[1].matchup }} </div>
+            <br>
+            <strong class="result">{{ path.semiFinals[1].result }}</strong>
           </div>
         </div>
         <div class="playoff-final-card">
-          <div><strong>Final: </strong> <br> {{ path.final.matchup }}</div>
-          <strong>{{ path.final.result }}</strong>
-        </div> <br>
-        <div class="playoff-winner-card">
-          <span>{{ path.winner.flag }} </span> {{ path.winner.name }} progresses to the World Cup
+          <div>Final: {{ path.final.matchup }} </div>
+          <strong class="result">{{ path.final.result }}</strong>
         </div>
-        <hr>
+        <div class="playoff-winner-card">
+          <span>{{ path.winner.flag }} </span> {{ path.winner.name }} qualifies as a Pot 4 team.
+        </div>
+        <br>
+        <mat-divider></mat-divider>
       </div>
     </section>
 
     <!-- Inter-confederation Playoffs Section -->
     <section class="playoff-section interconf-playoff-section">
+      <h2 class="playoff-section-title">Inter-confederation Playoffs</h2>
+
       <div>
-          <h3>Participants</h3>
-          <div *ngFor="let team of simService.playoffResults.intercontinental.participants">
-            <span>{{ team.flag }}</span> {{ team.name }}
-          </div>
+        <h3>Participants</h3>
+        <div *ngFor="let team of simService.playoffResults.intercontinental.participants">
+          <span
+            [ngClass]="{
+              'seeded-team-wrapper': team === simService.playoffResults.intercontinental.bracket1.seededTeam ||
+                                     team === simService.playoffResults.intercontinental.bracket2.seededTeam
+            }"
+          >
+            {{ team.flag }} {{ team.name }}
+            <span *ngIf="team === simService.playoffResults.intercontinental.bracket1.seededTeam ||
+                         team === simService.playoffResults.intercontinental.bracket2.seededTeam"
+                  class="seeded-team-label">
+              - Seeded Team
+            </span>
+          </span>
+        </div>
       </div>
+      <br>
       <mat-divider></mat-divider>
-      <h2 class="playoff-section-title">Inter-confederation Playoffs (2 Winners)</h2>
       <div *ngIf="simService.playoffResults.intercontinental">
         <div *ngFor="let bracket of [simService.playoffResults.intercontinental.bracket1, simService.playoffResults.intercontinental.bracket2]; let i = index" class="playoff-path">
           <h3>Playoff Bracket {{ i + 1 }}</h3>
           <div class="playoff-sf-container">
             <div *ngFor="let sf of bracket.semiFinals; let j = index" class="playoff-sf-card">
-              <strong>Semifinal {{ j + 1 }}</strong><br>
-              <div>{{ sf.matchup }}</div><br>
+              <div>Semifinal {{ j + 1 }}: {{ sf.matchup }} </div>
               <strong>{{ sf.result }}</strong>
             </div>
           </div>
           <div class="playoff-final-card">
-            <div>Final: <br> <strong>{{ bracket.final.result }}</strong></div>
+            <div>Final: {{ bracket.final.matchup }}</div>
+            <strong>{{ bracket.final.result }}</strong>
           </div>
           <div class="playoff-winner-card">
-            <span>{{ bracket.winner.flag }} </span> {{ bracket.winner.name }} progresses to the World Cup
+            <span>{{ bracket.winner.flag }} </span> {{ bracket.winner.name }} qualifies as a Pot 4 team.
           </div>
-          <hr>
+          <br>
+          <mat-divider></mat-divider>
         </div>
-       
       </div>
     </section>
   </div>
