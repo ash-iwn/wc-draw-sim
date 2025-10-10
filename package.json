@@ -6,8 +6,9 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
+    "postbuild": "node src/replace-ga-id.js",
     "watch": "ng build --watch --configuration development",
-    "deploy": "ng deploy --base-href=/wc-draw-sim/",
+    "deploy": "npm run build && node src/replace-ga-id.js && ng deploy --base-href=/wc-draw-sim/",
     "test": "ng test"
   },
   "private": true,
