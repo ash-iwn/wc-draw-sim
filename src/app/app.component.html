@@ -1,214 +1,221 @@
-
-
 <div class="mat-app-background">
-<div class="container">
-  <header class="header">
-    <h1 class="main-heading">FIFA World Cup 2026</h1>
-    <h2 class="sub-heading">Group Stage Draw Simulator</h2>
-  </header>
-
-  <div class="main-content">
-    <section *ngIf="dataService.QUALIFIED_TEAMS.length > 0" class="qualifiers-section">
-      <h2>Introduction</h2>
-      <div>
-        This application allows you to generate the seeded pots and simulate the upcoming FIFA World Cup 2026 draw on 5th December, 2025.
-        The tournament runs from 11th June 2026 to 12th July 2026.
+  <div class="container">
+    <header class="header">
+      <h1 class="main-heading">FIFA World Cup 2026</h1>
+      <h2 class="sub-heading">Group Stage Draw Simulator</h2>
+      <div class="dedication">
+        <span>
+          Inspired by
+          <a href="https://vibedatascience.github.io/world-cup-group-visualization/" target="_blank" rel="noopener">
+            vibedatascience's simulator
+          </a>
+        </span>
       </div>
-      <br>
-      <h2>Process</h2>
-      <div class="intro-text">
-        48 teams will compete in the FIFA World cup, split into 12 groups of 4.<br>
-        <ul>
-          <li>3 host nations (Canada, Mexico, USA)</li>
-          <li>39 teams through confederation qualification
-            <ul>
-              <li>AFC (Asia): 8 teams</li>
-              <li>CAF (Africa): 9 teams</li>
-              <li>CONCACAF (North, Central America & Caribbean): 3 teams</li>
-              <li>CONMEBOL (South America): 6 teams</li>
-              <li>OFC (Oceania): 1 team</li>
-              <li>UEFA (Europe): 12 teams</li>
-            </ul>
-          </li>
-          <li>4 teams through UEFA playoffs (March 2026)</li>
-          <li>2 teams through Inter-confederation playoffs (March 2026)</li>
-        </ul>
+    </header>
+
+    <div *ngIf="dataService.QUALIFIED_TEAMS.length === 0" class="loading-spinner-container">
+      <div class="loading-spinner-inner">
+        <mat-progress-spinner
+          color="accent"
+          mode="indeterminate"
+          diameter="60">
+        </mat-progress-spinner>
+        <div class="loading-text">Loading qualified teams data...</div>
       </div>
-
-      <mat-accordion >
-        <mat-expansion-panel>
-          <mat-expansion-panel-header>
-            <mat-panel-title>
-              Click to View Current Qualification Status & Projections
-            </mat-panel-title>
-          </mat-expansion-panel-header>
-          <div class="status-grid">
-            <div class="qualified-teams">
-              <strong>✅ Qualified ({{ dataService.QUALIFIED_TEAMS.length }})</strong><br>
-              <br>
-              <strong>AFC {{ getQualifiedTeamsForConf('AFC').length }}/8 </strong>
-              <div *ngFor="let team of getQualifiedTeamsForConf('AFC')">
-                <ng-container *ngIf="team">
-                <li>{{ team.name }}</li>
-                </ng-container>
-              </div>
-              <br>
-              <strong>CAF {{ getQualifiedTeamsForConf('CAF').length }}/9 </strong>
-              <div *ngFor="let team of getQualifiedTeamsForConf('CAF')">
-                <ng-container *ngIf="team">
-                <li>{{ team.name }}</li>
-                </ng-container>
-              </div>
-              <br>
-              <strong>CONCACAF 3 Hosts + {{ getQualifiedTeamsForConf('CONCACAF').length - 3 }}/3</strong>
-              <div *ngFor="let team of getQualifiedTeamsForConf('CONCACAF')">
-                <ng-container *ngIf="team">
-                <li>{{ team.name }}</li>
-                </ng-container>
-              </div>
-              <br>
-              <strong>CONMEBOL {{ getQualifiedTeamsForConf('CONMEBOL').length }}/6 </strong>
-              <div *ngFor="let team of getQualifiedTeamsForConf('CONMEBOL')">
-                <ng-container *ngIf="team">
-                 <li>{{ team.name }}</li>
-                </ng-container>
-              </div>
-              <br>
-              <strong>OFC {{ getQualifiedTeamsForConf('OFC').length }}/1</strong>
-              <div *ngFor="let team of getQualifiedTeamsForConf('OFC')">
-                <ng-container *ngIf="team">
-                <li>{{ team.name }}</li>
-                </ng-container>
-              </div>
-              <br>
-              <strong>UEFA {{ getQualifiedTeamsForConf('UEFA').length }}/12 </strong>
-              <div *ngFor="let team of getQualifiedTeamsForConf('UEFA')">
-                <ng-container *ngIf="team">
-                <li>{{ team.name }}</li>
-                </ng-container>
-              </div>
-              <br>
-            </div>
-            <div class="projected-teams">
-              <strong>🔮 Projected (28)</strong>
-              <br><br>
-              <strong *ngIf="getProjectedTeamsForConf('AFC').length > 0">AFC</strong>
-              <div *ngFor="let team of getProjectedTeamsForConf('AFC')">
-                <ng-container *ngIf="team">
-                 <li>{{ team.name }}</li>
-                </ng-container>
-              </div>
-              <br>
-              <strong *ngIf="getProjectedTeamsForConf('CAF').length>0">CAF</strong>
-              <div *ngFor="let team of getProjectedTeamsForConf('CAF')">
-                <ng-container *ngIf="team">
-                 <li>{{ team.name }}</li>
-                </ng-container>
-              </div>
-              <br>
-              <strong *ngIf="getProjectedTeamsForConf('CONCACAF').length > 0">CONCACAF</strong>
-              <div *ngFor="let team of getProjectedTeamsForConf('CONCACAF')">
-                <ng-container *ngIf="team">
-                 <li>{{ team.name }}</li>
-                </ng-container>
-              </div>
-              <br>
-              <strong *ngIf="getProjectedTeamsForConf('UEFA').length > 0">UEFA</strong>
-              <div *ngFor="let team of getProjectedTeamsForConf('UEFA')">
-                <ng-container *ngIf="team">
-                 <li>{{ team.name }}</li>
-                </ng-container>
-              </div>
-              <br>
-            </div>
-            <div class="playoff-teams">
-              <strong>🏳️ Projected Playoffs ({{ dataService.UEFA_PLAYOFF_TEAMS.length + dataService.INTERCONTINENTAL_PLAYOFF_TEAMS.length }})</strong>
-              <br>
-              <br>
-              <strong>UEFA Playoffs</strong>
-              <div *ngFor="let team of dataService.UEFA_PLAYOFF_TEAMS">
-                <ng-container *ngIf="team">
-                  <li>{{ team.name }}</li>
-                </ng-container>
-              </div>
-              <br>
-              <strong>Intercontinental Playoff Teams</strong>
-              <div *ngFor="let team of dataService.INTERCONTINENTAL_PLAYOFF_TEAMS">
-                <ng-container *ngIf="team">
-                 <li>{{ team.name }}</li>
-                </ng-container>
-              </div>
-            </div>
-          </div>
-          <div class="status-note">
-            *Final list of qualified teams will be determined as more games are played.
-          </div>
-        </mat-expansion-panel>
-      </mat-accordion>
-
-      <div class="app-description">
-        <br>
-        <br>
-        For simplicity the app uses current qualifying standings to generate the projections, but you can manually pick any combination of
-        uneliminated teams to make your own projections.
-        <strong>Some stronger UEFA teams are currently in playoff positions due to fewer games played,
-          so you may want to adjust those to reflect realistic standings.</strong>
-      </div>
-
-      <div class="competition-info">
-        Expand the following sections for each confederation to <strong>change</strong> which teams you want to project as
-        qualifiers or playoff contenders.
-      </div>
-
-      <span class="simulate-instruction">
-        Once ready, click <strong> "Simulate Complete Draw"</strong>
-        to simulate the UEFA and Inter-confederation playoffs, and then the World Cup draw!
-      </span>
-      
-      <hr>
-      <app-qualifiers *ngIf="qualifiersReady"></app-qualifiers>
-
-      <div class="draw-button-row">
-        <button mat-raised-button color="accent" (click)="performCompleteDraw()" [disabled]="drawInProgress" class="draw-button">
-          <span *ngIf="drawInProgress" class="loading"></span>
-          {{ drawInProgress ? drawButtonText : 'Simulate Complete Draw' }}
-        </button>
-      </div>
-    </section>
-
-    <!-- <section *ngIf="!drawInProgress && simulator.playoffResults" class="playoffs-section">
-      <app-playoffs [results]="simulator.playoffResults"></app-playoffs>
-    </section>
-
-    <section *ngIf="!drawInProgress" class="pots-section">
-      <app-pots ></app-pots>
-    </section>
-
-    <section *ngIf="!drawInProgress" class="matches-section">
-      <app-matches ></app-matches>
-    </section> -->
-
-
-    <mat-tab-group class="simulated-section" *ngIf="!drawInProgress && simulator.playoffResults" #simulationTabs [selectedIndex]="2">
-      <mat-tab class='simulated-section-tab-label' label="Playoffs">
-        <app-playoffs></app-playoffs>
-      </mat-tab>
-      <mat-tab class='simulated-section-tab-label' label="Pots">
-        <app-pots></app-pots>
-      </mat-tab>
-      <mat-tab class='simulated-section-tab-label' label="Groups">
-        <app-groups></app-groups>
-      </mat-tab>
-      <mat-tab class='simulated-section-tab-label' label="Matches">
-        <app-matches></app-matches>
-      </mat-tab>
-  </mat-tab-group>
-
-  </div>
-
-  <footer class="footer">
-    <div class="footer-text">
-      Educational simulation for entertainment purposes
     </div>
-  </footer>
+
+    <div *ngIf="dataService.QUALIFIED_TEAMS.length > 0" class="main-content">
+      <section class="qualifiers-section">
+        <h2>Introduction</h2>
+        <div>
+          This application allows you to generate the seeded pots and simulate the upcoming FIFA World Cup 2026 draw on 5th December, 2025.
+          The tournament runs from 11th June 2026 to 12th July 2026.
+        </div>
+        <br>
+        <h2>Process</h2>
+        <div class="intro-text">
+          48 teams will compete in the FIFA World cup, split into 12 groups of 4.<br>
+          <ul>
+            <li>3 host nations (Canada, Mexico, USA)</li>
+            <li>39 teams through confederation qualification
+              <ul>
+                <li>AFC (Asia): 8 teams</li>
+                <li>CAF (Africa): 9 teams</li>
+                <li>CONCACAF (North, Central America & Caribbean): 3 teams</li>
+                <li>CONMEBOL (South America): 6 teams</li>
+                <li>OFC (Oceania): 1 team</li>
+                <li>UEFA (Europe): 12 teams</li>
+              </ul>
+            </li>
+            <li>4 teams through UEFA playoffs (March 2026)</li>
+            <li>2 teams through Inter-confederation playoffs (March 2026)</li>
+          </ul>
+        </div>
+
+        <mat-accordion>
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                Click to View Current Qualification Status & Projections
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <div class="status-grid">
+              <div class="qualified-teams">
+                <strong>✅ Qualified ({{ dataService.QUALIFIED_TEAMS.length }})</strong><br><br>
+                <strong>AFC {{ getQualifiedTeamsForConf('AFC').length }}/8 </strong>
+                <ul>
+                  <ng-container *ngFor="let team of getQualifiedTeamsForConf('AFC')">
+                    <li class="status-grid-list-item" *ngIf="team">{{ team.name }}</li>
+                  </ng-container>
+                </ul>
+                <br>
+                <strong>CAF {{ getQualifiedTeamsForConf('CAF').length }}/9 </strong>
+                <ul>
+                  <ng-container *ngFor="let team of getQualifiedTeamsForConf('CAF')">
+                    <li class="status-grid-list-item" *ngIf="team">{{ team.name }}</li>
+                  </ng-container>
+                </ul>
+                <br>
+                <strong>CONCACAF 3 Hosts + {{ getQualifiedTeamsForConf('CONCACAF').length - 3 }}/3</strong>
+                <ul>
+                  <ng-container *ngFor="let team of getQualifiedTeamsForConf('CONCACAF')">
+                    <li class="status-grid-list-item" *ngIf="team">{{ team.name }}</li>
+                  </ng-container>
+                </ul>
+                <br>
+                <strong>CONMEBOL {{ getQualifiedTeamsForConf('CONMEBOL').length }}/6 </strong>
+                <ul>
+                  <ng-container *ngFor="let team of getQualifiedTeamsForConf('CONMEBOL')">
+                    <li class="status-grid-list-item" *ngIf="team">{{ team.name }}</li>
+                  </ng-container>
+                </ul>
+                <br>
+                <strong>OFC {{ getQualifiedTeamsForConf('OFC').length }}/1</strong>
+                <ul>
+                  <ng-container *ngFor="let team of getQualifiedTeamsForConf('OFC')">
+                    <li class="status-grid-list-item" *ngIf="team">{{ team.name }}</li>
+                  </ng-container>
+                </ul>
+                <br>
+                <strong>UEFA {{ getQualifiedTeamsForConf('UEFA').length }}/12 </strong>
+                <ul>
+                  <ng-container *ngFor="let team of getQualifiedTeamsForConf('UEFA')">
+                    <li class="status-grid-list-item" *ngIf="team">{{ team.name }}</li>
+                  </ng-container>
+                </ul>
+                <br>
+              </div>
+              <div class="projected-teams">
+                <strong>🔮 Projected (28)</strong>
+                <br><br>
+                <strong *ngIf="getProjectedTeamsForConf('AFC').length > 0">AFC</strong>
+                <ul>
+                  <ng-container *ngFor="let team of getProjectedTeamsForConf('AFC')">
+                    <li class="status-grid-list-item" *ngIf="team">{{ team.name }}</li>
+                  </ng-container>
+                </ul>
+                <br>
+                <strong *ngIf="getProjectedTeamsForConf('CAF').length>0">CAF</strong>
+                <ul>
+                  <ng-container *ngFor="let team of getProjectedTeamsForConf('CAF')">
+                    <li class="status-grid-list-item" *ngIf="team">{{ team.name }}</li>
+                  </ng-container>
+                </ul>
+                <br>
+                <strong *ngIf="getProjectedTeamsForConf('CONCACAF').length > 0">CONCACAF</strong>
+                <ul>
+                  <ng-container *ngFor="let team of getProjectedTeamsForConf('CONCACAF')">
+                    <li class="status-grid-list-item" *ngIf="team">{{ team.name }}</li>
+                  </ng-container>
+                </ul>
+                <br>
+                <strong *ngIf="getProjectedTeamsForConf('UEFA').length > 0">UEFA</strong>
+                <ul>
+                  <ng-container *ngFor="let team of getProjectedTeamsForConf('UEFA')">
+                    <li class="status-grid-list-item" *ngIf="team">{{ team.name }}</li>
+                  </ng-container>
+                </ul>
+                <br>
+              </div>
+              <div class="playoff-teams">
+                <strong>🏳️ Projected Playoffs ({{ dataService.UEFA_PLAYOFF_TEAMS.length + dataService.INTERCONTINENTAL_PLAYOFF_TEAMS.length }})</strong>
+                <br><br>
+                <strong>UEFA Playoffs</strong>
+                <ul>
+                  <ng-container *ngFor="let team of dataService.UEFA_PLAYOFF_TEAMS">
+                    <li class="status-grid-list-item" *ngIf="team">{{ team.name }}</li>
+                  </ng-container>
+                </ul>
+                <br>
+                <strong>Intercontinental Playoff Teams</strong>
+                <ul>
+                  <ng-container *ngFor="let team of dataService.INTERCONTINENTAL_PLAYOFF_TEAMS">
+                    <li class="status-grid-list-item" *ngIf="team">{{ team.name }}</li>
+                  </ng-container>
+                </ul>
+              </div>
+            </div>
+            <div class="wiki-reference" style="margin-top: 1rem;">
+              <span>
+                Qualification data source from&nbsp;
+                <a href="https://en.wikipedia.org/wiki/2026_FIFA_World_Cup_qualification#Current_stage_(first_round)"
+                  target="_blank" rel="noopener">
+                  Wikipedia
+                </a>
+              </span>
+            </div>
+          </mat-expansion-panel>
+        </mat-accordion>
+
+        <div class="app-description">
+          <br><br>
+          For simplicity the app uses current qualifying standings to generate the projections, but you can manually pick any combination of
+          uneliminated teams to make your own projections.
+          <strong>Some stronger UEFA teams are currently in playoff positions due to fewer games played,
+            so you may want to adjust those to reflect realistic standings.</strong>
+        </div>
+
+        <div class="competition-info">
+          Expand the following sections for each confederation to <strong>change</strong> which teams you want to project as
+          qualifiers or playoff contenders.
+        </div>
+
+        <span class="simulate-instruction">
+          Once ready, click <strong> "Simulate Complete Draw"</strong>
+          to simulate the UEFA and Inter-confederation playoffs, and then the World Cup draw!
+        </span>
+        
+        <hr>
+        <app-qualifiers *ngIf="qualifiersReady"></app-qualifiers>
+
+        <div class="draw-button-row">
+          <button mat-raised-button color="accent" (click)="performCompleteDraw()" [disabled]="drawInProgress" class="draw-button">
+            <span *ngIf="drawInProgress" class="loading"></span>
+            {{ drawInProgress ? drawButtonText : 'Simulate Complete Draw' }}
+          </button>
+        </div>
+      </section>
+
+      <mat-tab-group class="simulated-section" *ngIf="!drawInProgress && simulator.playoffResults" #simulationTabs [selectedIndex]="2">
+        <mat-tab class='simulated-section-tab-label' label="Playoffs">
+          <app-playoffs></app-playoffs>
+        </mat-tab>
+        <mat-tab class='simulated-section-tab-label' label="Pots">
+          <app-pots></app-pots>
+        </mat-tab>
+        <mat-tab class='simulated-section-tab-label' label="Groups">
+          <app-groups></app-groups>
+        </mat-tab>
+        <mat-tab class='simulated-section-tab-label' label="Matches">
+          <app-matches></app-matches>
+        </mat-tab>
+      </mat-tab-group>
+    </div>
+
+    <footer class="footer">
+      <div class="footer-text">
+        Educational simulation for entertainment purposes
+      </div>
+    </footer>
+  </div>
 </div>

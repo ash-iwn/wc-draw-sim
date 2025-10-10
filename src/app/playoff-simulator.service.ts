@@ -120,7 +120,7 @@ export class PlayoffSimulatorService {
       const semi1 = this.simulateMatch(potTeams[0], potTeams[3]);
       const semi2 = this.simulateMatch(potTeams[1], potTeams[2]);
       const final = this.simulateMatch(semi1.winner, semi2.winner);
-      const winner: Team = { ...final.winner, playoffWinner: true, playoffPath: `UEFA Path ${String.fromCharCode(65 + i)}` };
+      const winner: Team = { ...final.winner, playoffWinner: true, playoffPath: `UEFA Playoff Path ${String.fromCharCode(65 + i)}` };
       this.uefaWinners.push(winner);
       paths.push({
         pathName: `Path ${String.fromCharCode(65 + i)}`,

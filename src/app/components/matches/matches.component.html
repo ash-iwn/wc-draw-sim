@@ -31,12 +31,12 @@
             </td>
           </ng-container>
           <!-- VS Column -->
-          <ng-container matColumnDef="vs">
+          <!-- <ng-container matColumnDef="vs">
             <th mat-header-cell *matHeaderCellDef></th>
             <td mat-cell *matCellDef="let match">
               <span class="vs-text">vs</span>
             </td>
-          </ng-container>
+          </ng-container> -->
           <!-- Team 2 Column -->
           <ng-container matColumnDef="team2">
             <th mat-header-cell *matHeaderCellDef>Away</th>
@@ -49,13 +49,13 @@
             <th mat-header-cell *matHeaderCellDef>Venue</th>
             <td mat-cell *matCellDef="let match">
               <span class="match-venue mat-caption">
-                {{ match.venueInfo?.city }}, {{ match.venueInfo?.country }}
+                {{ match.venueInfo?.city }}
               </span>
             </td>
           </ng-container>
 
-          <tr mat-header-row *matHeaderRowDef="['match', 'date', 'team1', 'vs', 'team2', 'venue']"></tr>
-          <tr mat-row *matRowDef="let row; columns: ['match', 'date', 'team1', 'vs', 'team2', 'venue'];"></tr>
+          <tr mat-header-row *matHeaderRowDef="['match', 'date', 'team1',  'team2', 'venue']"></tr>
+          <tr mat-row *matRowDef="let row; columns: ['match', 'date', 'team1',  'team2', 'venue'];"></tr>
         </table>
       </div>
       <div *ngIf="groupMatches(group).length === 0" class="mat-body-2" style="padding: 16px; color: #888;">
@@ -76,7 +76,7 @@
     <table mat-table [dataSource]="getMatchesForVenue(venue)" class="venue-matches-table" multiTemplateDataRows>
       <!-- Match Number Column -->
       <ng-container matColumnDef="match">
-        <th mat-header-cell *matHeaderCellDef>Match #</th>
+        <th mat-header-cell *matHeaderCellDef>Match</th>
         <td mat-cell *matCellDef="let match">{{ match.match }}</td>
       </ng-container>
       <!-- Date Column -->
@@ -86,22 +86,18 @@
       </ng-container>
       <!-- Team 1 Column -->
       <ng-container matColumnDef="team1">
-        <th mat-header-cell *matHeaderCellDef>Team 1</th>
-        <td mat-cell *matCellDef="let match">{{ match.team1 }}</td>
+        <th mat-header-cell *matHeaderCellDef>Home</th>
+        <td mat-cell *matCellDef="let match"><span class="team-with-flag">{{ getTeamFlag(match.team1) }} {{ match.team1 }}</span></td>
       </ng-container>
-      <!-- VS Column -->
-      <ng-container matColumnDef="vs">
-        <th mat-header-cell *matHeaderCellDef></th>
-        <td mat-cell *matCellDef="let match">vs</td>
-      </ng-container>
+      
       <!-- Team 2 Column -->
       <ng-container matColumnDef="team2">
-        <th mat-header-cell *matHeaderCellDef>Team 2</th>
-        <td mat-cell *matCellDef="let match">{{ match.team2 }}</td>
+        <th mat-header-cell *matHeaderCellDef>Away</th>
+        <td mat-cell *matCellDef="let match"><span class="team-with-flag">{{ getTeamFlag(match.team2) }} {{ match.team2 }}</span></td>
       </ng-container>
 
-      <tr mat-header-row *matHeaderRowDef="['match', 'date', 'team1', 'vs', 'team2']"></tr>
-      <tr mat-row *matRowDef="let row; columns: ['match', 'date', 'team1', 'vs', 'team2'];"></tr>
+      <tr mat-header-row *matHeaderRowDef="['match', 'date', 'team1', 'team2']"></tr>
+      <tr mat-row *matRowDef="let row; columns: ['match', 'date', 'team1', 'team2'];"></tr>
     </table>
     <div *ngIf="getMatchesForVenue(venue).length === 0" class="mat-body-2" style="padding: 16px; color: #888;">
       No matches at this venue.

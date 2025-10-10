@@ -1,16 +1,20 @@
 import { Component, OnInit, ViewChild, ChangeDetectorRef, ElementRef } from '@angular/core';
 import { SimulatorService } from './sim-service';
 import { Team, PlayoffResults, SimulationLogEntry, Match } from './model';
-import { ReactiveFormsModule } from '@angular/forms';
-import { CommonModule } from '@angular/common';
+
 import { WikipediaService } from './services/http-service';
 import { DataService } from './services/data-service';
 import { QualifiersComponent } from './components/qualifiers/qualifiers.component'; // adjust path if needed
+
+import { ReactiveFormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { MatOptionModule } from '@angular/material/core';
 import { MatExpansionModule } from '@angular/material/expansion';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner'; 
+
 import { PlayoffsComponent } from './components/playoffs/playoffs.component';
 import { PotsComponent } from './components/pots/pots.component';
 import { GroupsComponent } from './components/groups/groups.component';
@@ -37,6 +41,7 @@ import {MatTabsModule} from '@angular/material/tabs';
     MatOptionModule,
     MatExpansionModule,
 	MatTabsModule,
+	MatProgressSpinnerModule,
     CommonModule,
     QualifiersComponent,
     PlayoffsComponent,
