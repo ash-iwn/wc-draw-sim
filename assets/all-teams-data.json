@@ -194,13 +194,6 @@
     "points": 1340.84,
     "flag": "🇬🇭"
   }, {
-    "name": "Madagascar",
-    "abbreviation": "MAD",
-    "qGroup":"I",
-    "confederation": "CAF",
-    "points": 1187.59,
-    "flag": "🇲🇬"
-  },  {
     "name": "Mexico",
     "abbreviation": "MEX",
     "confederation": "CONCACAF",
@@ -375,28 +368,20 @@
     "flag": "🇩🇪"
   },
   {
-    "name": "Northern Ireland",
-    "abbreviation": "NIR",
-    "confederation": "UEFA",
-    "qGroup": "A",
-    "points": 1355.98,
-    "flag": "🇳🇮"
-  }, 
-  {
     "name": "Slovakia",
     "abbreviation": "SVK",
     "confederation": "UEFA",
     "qGroup": "A",
     "points": 1491.87,
     "flag": "🇸🇰"
-  }, 
+  },
   {
-    "name": "Luxembourg",
-    "abbreviation": "LUX",
+    "name": "Northern Ireland",
+    "abbreviation": "NIR",
     "confederation": "UEFA",
     "qGroup": "A",
-    "points": 1242.61,
-    "flag": "🇱🇺"
+    "points": 1355.98,
+    "flag": "🇳🇮"
   }, 
   {
     "name": "Switzerland",
@@ -446,22 +431,7 @@
     "points": 1485.08,
     "qGroup": "C",
     "flag": "🏴"
-  }, {
-    "name": "Greece",
-    "abbreviation": "GRE",
-    "confederation": "UEFA",
-    "points": 1494.72,
-    "qGroup": "C",
-    "flag": "🇬🇷"
-  }, 
-  {
-    "name": "Belarus",
-    "abbreviation": "BLR",
-    "confederation": "UEFA",
-    "points": 1223.54,
-    "qGroup": "C",
-    "flag": "🇧🇾"
-  },  
+  },
   {
     "name": "France",
     "abbreviation": "FRA",
@@ -486,7 +456,6 @@
     "qGroup": "D",
     "flag": "🇮🇸"
   }, 
- 
   {
     "name": "Azerbaijan",
     "abbreviation": "AZE",
@@ -519,7 +488,6 @@
     "points": 1377.32,
     "flag": "🇬🇪"
   },
- 
   {
     "name": "Bulgaria",
     "abbreviation": "BUL",
@@ -647,20 +615,20 @@
     "flag": "🇲🇩"
   },
   {
-    "name": "North Macedonia",
-    "abbreviation": "MKD",
-    "confederation": "UEFA",
-    "points": 1388.5,
-    "qGroup": "J",
-    "flag": "🇲🇰"
-  },
-  {
     "name": "Belgium",
     "abbreviation": "BEL",
     "confederation": "UEFA",
     "points": 1739.54,
     "qGroup": "J",
     "flag": "🇧🇪"
+  },
+  {
+    "name": "North Macedonia",
+    "abbreviation": "MKD",
+    "confederation": "UEFA",
+    "points": 1388.5,
+    "qGroup": "J",
+    "flag": "🇲🇰"
   },
   {
     "name": "Wales",
@@ -670,14 +638,6 @@
     "qGroup": "J",
     "flag": "🏴"
   },
-  {
-    "name": "Kazakhstan",
-    "abbreviation": "KAZ",
-    "confederation": "UEFA",
-    "points": 1158.06,
-    "qGroup": "J",
-    "flag": "🇰🇿"
-  }, 
   {
     "name": "England",
     "abbreviation": "ENG",
