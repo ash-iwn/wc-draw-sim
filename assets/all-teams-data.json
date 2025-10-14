@@ -63,27 +63,13 @@
     "points": 1379.86,
     "qGroup": "A",
     "flag": "🇦🇪"
-  }, {
-    "name": "Oman",
-    "abbreviation": "OMA",
-    "confederation": "AFC",
-    "points": 1320.34,
-    "qGroup": "A",
-    "flag": "🇴🇲"
-  }, {
+  },  {
     "name": "Egypt",
     "abbreviation": "EGY",
     "qGroup":"A",
     "confederation": "CAF",
     "points": 1519.18,
     "flag": "🇪🇬"
-  }, {
-    "name": "Burkina Faso",
-    "abbreviation": "BFA",
-      "qGroup":"A",
-    "confederation": "CAF",
-    "points": 1385.37,
-    "flag": "🇧🇫"
   }, {
     "name": "Senegal",
     "abbreviation": "SEN",
@@ -100,14 +86,6 @@
     "points": 1407.6,
     "flag": "🇨🇩"
   },
-  {
-    "name": "Benin",
-    "abbreviation": "BEN",
-    "qGroup":"C",
-    "confederation": "CAF",
-    "points": 1257.3,
-    "flag": "🇧🇯"
-  },  
   {
     "name": "South Africa",
     "abbreviation": "RSA",
@@ -145,13 +123,6 @@
     "points": 1706.27,
     "flag": "🇲🇦"
   }, {
-    "name": "Niger",
-    "abbreviation": "NIG",
-    "qGroup":"E",
-    "confederation": "CAF",
-    "points": 1160.33,
-    "flag": "🇳🇪"
-  }, {
     "name": "Ivory Coast",
     "abbreviation": "CIV",
     "qGroup":"F",
@@ -172,13 +143,6 @@
     "confederation": "CAF",
     "points": 1500.74,
     "flag": "🇩🇿"
-  }, {
-    "name": "Uganda",
-    "abbreviation": "UGA",
-    "qGroup":"G",
-    "confederation": "CAF",
-    "points": 1287.61,
-    "flag": "🇺🇬"
   }, {
     "name": "Tunisia",
     "abbreviation": "TUN",
