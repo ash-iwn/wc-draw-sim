@@ -317,14 +317,6 @@
     "flag": "🇽🇰"
   },
   {
-    "name": "Slovenia",
-    "abbreviation": "SVN",
-    "confederation": "UEFA",
-    "points": 1462.96,
-    "qGroup": "B",
-    "flag": "🇸🇮"
-  },
-  {
     "name": "Sweden",
     "abbreviation": "SWE",
     "confederation": "UEFA",
@@ -390,14 +382,6 @@
     "flag": "🇹🇷"
   }, 
   {
-    "name": "Georgia",
-    "abbreviation": "GEO",
-    "confederation": "UEFA",
-    "qGroup": "E",
-    "points": 1377.32,
-    "flag": "🇬🇪"
-  },
-  {
     "name": "Portugal",
     "abbreviation": "POR",
     "confederation": "UEFA",
@@ -461,14 +445,6 @@
     "flag": "🇷🇴"
   }, 
   {
-    "name": "San Marino",
-    "abbreviation": "SMR",
-    "confederation": "UEFA",
-    "points": 733.23,
-    "qGroup": "H",
-    "flag": "🇸🇲"
-  }, 
-  {
     "name": "Norway",
     "abbreviation": "NOR",
     "confederation": "UEFA",
@@ -483,14 +459,6 @@
     "points": 1710.06,
     "qGroup": "I",
     "flag": "🇮🇹"
-  },
-  {
-    "name": "Moldova",
-    "abbreviation": "MDA",
-    "confederation": "UEFA",
-    "points": 1127.2,
-    "qGroup": "I",
-    "flag": "🇲🇩"
   },
   {
     "name": "Belgium",
@@ -530,13 +498,6 @@
     "points": 1380.66,
     "qGroup": "K",
     "flag": "🇦🇱"
-  }, {
-    "name": "Serbia",
-    "abbreviation": "SRB",
-    "confederation": "UEFA",
-    "points": 1520.9,
-    "qGroup": "K",
-    "flag": "🇷🇸"
   }, {
     "name": "Croatia",
     "abbreviation": "CRO",
