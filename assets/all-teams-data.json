@@ -2,13 +2,13 @@
     "name": "Japan",
     "abbreviation": "JPN",
     "confederation": "AFC",
-    "points": 1645,
+    "points": 1648,
     "flag": "🇯🇵"
   }, {
     "name": "Iran",
     "abbreviation": "IRN",
     "confederation": "AFC",
-    "points": 1618,
+    "points": 1619,
     "flag": "🇮🇷"
   }, {
     "name": "South Korea",
@@ -20,32 +20,32 @@
     "name": "Australia",
     "abbreviation": "AUS",
     "confederation": "AFC",
-    "points": 1584,
+    "points": 1578,
     "flag": "🇦🇺"
   }, {
     "name": "Uzbekistan",
     "abbreviation": "UZB",
     "confederation": "AFC",
-    "points": 1452,
+    "points": 1458,
     "flag": "🇺🇿"
   }, {
     "name": "Jordan",
     "abbreviation": "JOR",
     "confederation": "AFC",
-    "points": 1381,
+    "points": 1377,
     "flag": "🇯🇴"
   }, {
     "name": "Saudi Arabia",
     "abbreviation": "KSA",
     "confederation": "AFC",
-    "points": 1427,
+    "points": 1433,
     "qGroup": "B",
     "flag": "🇸🇦"
   }, {
     "name": "Iraq",
     "abbreviation": "IRQ",
     "confederation": "AFC",
-    "points": 1422.20,
+    "points": 1428,
     "qGroup": "B",
     "flag": "🇮🇶"
   },
@@ -68,14 +68,14 @@
     "abbreviation": "EGY",
     "qGroup":"A",
     "confederation": "CAF",
-    "points": 1525,
+    "points": 1520,
     "flag": "🇪🇬"
   }, {
     "name": "Senegal",
     "abbreviation": "SEN",
       "qGroup":"B",
     "confederation": "CAF",
-    "points": 1651,
+    "points": 1647,
     "flag": "🇸🇳"
   },
   {
@@ -91,14 +91,14 @@
     "abbreviation": "RSA",
     "qGroup":"C",
     "confederation": "CAF",
-    "points": 1428,
+    "points": 1427,
     "flag": "🇿🇦"
   }, {
     "name": "Nigeria",
     "abbreviation": "NGA",
     "qGroup":"C",
     "confederation": "CAF",
-    "points": 1483.86,
+    "points": 1504,
     "flag": "🇳🇬"
   },
   {
@@ -106,7 +106,7 @@
     "abbreviation": "CPV",
     "qGroup":"D",
     "confederation": "CAF",
-    "points": 1364,
+    "points": 1367,
     "flag": "🇨🇻"
   },
   
@@ -115,35 +115,35 @@
     "abbreviation": "MAR",
     "qGroup":"E",
     "confederation": "CAF",
-    "points": 1710,
+    "points": 1711,
     "flag": "🇲🇦"
   }, {
     "name": "Ivory Coast",
     "abbreviation": "CIV",
     "qGroup":"F",
     "confederation": "CAF",
-    "points": 1492,
+    "points": 1486,
     "flag": "🇨🇮"
   }, {
     "name": "Algeria",
     "abbreviation": "ALG",
     "qGroup":"G",
     "confederation": "CAF",
-    "points": 1510,
+    "points": 1512,
     "flag": "🇩🇿"
   }, {
     "name": "Tunisia",
     "abbreviation": "TUN",
     "qGroup":"H",
     "confederation": "CAF",
-    "points": 1491,
+    "points": 1495,
     "flag": "🇹🇳"
   }, {
     "name": "Ghana",
     "abbreviation": "GHA",
     "qGroup":"I",
     "confederation": "CAF",
-    "points": 1356,
+    "points": 1354,
     "flag": "🇬🇭"
   }, {
     "name": "Mexico",
@@ -180,7 +180,7 @@
     "abbreviation": "PAN",
     "confederation": "CONCACAF",
     "qGroup": "A",
-    "points": 1528,
+    "points": 1534,
     "flag": "🇵🇦"
   },
  {
@@ -195,7 +195,7 @@
     "abbreviation": "JAM",
     "confederation": "CONCACAF",
     "qGroup": "B",
-    "points": 1367,
+    "points": 1364,
     "flag": "🇯🇲"
   },
   {
@@ -210,7 +210,7 @@
     "name": "Haiti",
     "abbreviation": "HAI",
     "confederation": "CONCACAF",
-    "points": 1269.24,
+    "points": 1286,
     "qGroup": "C",
     "flag": "🇭🇹"
   },  {
@@ -224,19 +224,19 @@
     "name": "Argentina",
     "abbreviation": "ARG",
     "confederation": "CONMEBOL",
-    "points": 1872,
+    "points": 1873,
     "flag": "🇦🇷"
   }, {
     "name": "Brazil",
     "abbreviation": "BRA",
     "confederation": "CONMEBOL",
-    "points": 1759,
+    "points": 1763,
     "flag": "🇧🇷"
   }, {
     "name": "Colombia",
     "abbreviation": "COL",
     "confederation": "CONMEBOL",
-    "points": 1696,
+    "points": 1697,
     "flag": "🇨🇴"
   }, {
     "name": "Uruguay",
@@ -248,13 +248,13 @@
     "name": "Ecuador",
     "abbreviation": "ECU",
     "confederation": "CONMEBOL",
-    "points": 1590,
+    "points": 1589,
     "flag": "🇪🇨"
   }, {
     "name": "Paraguay",
     "abbreviation": "PAR",
     "confederation": "CONMEBOL",
-    "points": 1498,
+    "points": 1494,
     "flag": "🇵🇾"
   }, {
     "name": "Bolivia",
@@ -266,7 +266,7 @@
     "name": "New Zealand",
     "abbreviation": "NZL",
     "confederation": "OFC",
-    "points": 1283,
+    "points": 1282,
     "flag": "🇳🇿"
   },
   {
@@ -281,7 +281,7 @@
     "abbreviation": "GER",
     "confederation": "UEFA",
     "qGroup": "A",
-    "points": 1713,
+    "points": 1717,
     "flag": "🇩🇪"
   },
   {
@@ -304,7 +304,7 @@
     "name": "Switzerland",
     "abbreviation": "SUI",
     "confederation": "UEFA",
-    "points": 1653,
+    "points": 1662,
     "qGroup": "B",
     "flag": "🇨🇭"
   },
@@ -329,7 +329,7 @@
     "name": "Denmark",
     "abbreviation": "DEN",
     "confederation": "UEFA",
-    "points": 1641,
+    "points": 1633,
     "qGroup": "C",
     "flag": "🇩🇰"
   },
@@ -345,7 +345,7 @@
     "name": "France",
     "abbreviation": "FRA",
     "confederation": "UEFA",
-    "points": 1863,
+    "points": 1869,
     "qGroup": "D",
     "flag": "🇫🇷"
   },
@@ -361,7 +361,7 @@
     "name": "Ukraine",
     "abbreviation": "UKR",
     "confederation": "UEFA",
-    "points": 1543.06,
+    "points": 1549,
     "qGroup": "D",
     "flag": "🇺🇦"
   },
@@ -369,7 +369,7 @@
     "name": "Spain",
     "abbreviation": "ESP",
     "confederation": "UEFA",
-    "points": 1881,
+    "points": 1884,
     "qGroup": "E",
     "flag": "🇪🇸"
   },
@@ -378,14 +378,14 @@
     "abbreviation": "TUR",
     "confederation": "UEFA",
     "qGroup": "E",
-    "points": 1555.72,
+    "points": 1576,
     "flag": "🇹🇷"
   }, 
   {
     "name": "Portugal",
     "abbreviation": "POR",
     "confederation": "UEFA",
-    "points": 1779.55,
+    "points": 1758,
     "qGroup": "F",
     "flag": "🇵🇹"
   },
@@ -401,14 +401,14 @@
     "name": "Netherlands",
     "abbreviation": "NED",
     "confederation": "UEFA",
-    "points": 1760,
+    "points": 1755,
     "qGroup": "G",
     "flag": "🇳🇱"
   },  {
     "name": "Poland",
     "abbreviation": "POL",
     "confederation": "UEFA",
-    "points": 1517.3,
+    "points": 1529,
     "qGroup": "G",
     "flag": "🇵🇱"
   }, 
@@ -416,7 +416,7 @@
     "name": "Austria",
     "abbreviation": "AUT",
     "confederation": "UEFA",
-    "points": 1587,
+    "points": 1591,
     "qGroup": "H",
     "flag": "🇦🇹"
   },
@@ -440,7 +440,7 @@
     "name": "Norway",
     "abbreviation": "NOR",
     "confederation": "UEFA",
-    "points": 1532,
+    "points": 1536,
     "qGroup": "I",
     "flag": "🇳🇴"
   },
@@ -448,7 +448,7 @@
     "name": "Italy",
     "abbreviation": "ITA",
     "confederation": "UEFA",
-    "points": 1710.06,
+    "points": 1719,
     "qGroup": "I",
     "flag": "🇮🇹"
   },
@@ -456,7 +456,7 @@
     "name": "Belgium",
     "abbreviation": "BEL",
     "confederation": "UEFA",
-    "points": 1740,
+    "points": 1730,
     "qGroup": "J",
     "flag": "🇧🇪"
   },
@@ -480,7 +480,7 @@
     "name": "England",
     "abbreviation": "ENG",
     "confederation": "UEFA",
-    "points": 1824,
+    "points": 1830,
     "qGroup": "K",
     "flag": "🏴󠁧󠁢󠁥󠁮󠁧󠁿"
   }, {
@@ -494,7 +494,7 @@
     "name": "Croatia",
     "abbreviation": "CRO",
     "confederation": "UEFA",
-    "points": 1710,
+    "points": 1713,
     "qGroup": "L",
     "flag": "🇭🇷"
   },
