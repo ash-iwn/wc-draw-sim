@@ -95,7 +95,7 @@
     "abbreviation": "COD",
     "qGroup":"B",
     "confederation": "CAF",
-    "points": 1407.6,
+    "points": 1439,
     "flag": "🇨🇩",
     "isoCode": "cd"
   },
@@ -290,7 +290,7 @@
     "name": "Paraguay",
     "abbreviation": "PAR",
     "confederation": "CONMEBOL",
-    "points": 1494,
+    "points": 1495,
     "flag": "🇵🇾",
     "isoCode": "py"
   }, {
@@ -321,7 +321,7 @@
     "abbreviation": "GER",
     "confederation": "UEFA",
     "qGroup": "A",
-    "points": 1717,
+    "points": 1724,
     "flag": "🇩🇪",
     "isoCode": "de"
   },
@@ -370,16 +370,6 @@
     "flag": "🇸🇪",
     "isoCode": "se"
   },
-  
-  {
-    "name": "Denmark",
-    "abbreviation": "DEN",
-    "confederation": "UEFA",
-    "points": 1633,
-    "qGroup": "C",
-    "flag": "🇩🇰",
-    "isoCode": "dk"
-  },
   {
     "name": "Scotland",
     "abbreviation": "SCO",
@@ -390,28 +380,28 @@
     "isoCode": "gb-sct"
   },
   {
+    "name": "Denmark",
+    "abbreviation": "DEN",
+    "confederation": "UEFA",
+    "points": 1633,
+    "qGroup": "C",
+    "flag": "🇩🇰",
+    "isoCode": "dk"
+  },
+  {
     "name": "France",
     "abbreviation": "FRA",
     "confederation": "UEFA",
-    "points": 1869,
+    "points": 1870,
     "qGroup": "D",
     "flag": "🇫🇷",
     "isoCode": "fr"
   },
   {
-    "name": "Iceland",
-    "abbreviation": "ISL",
-    "confederation": "UEFA",
-    "points": 1343.09,
-    "qGroup": "D",
-    "flag": "🇮🇸",
-    "isoCode": "is"
-  },
-  {
     "name": "Ukraine",
     "abbreviation": "UKR",
     "confederation": "UEFA",
-    "points": 1549,
+    "points": 1557,
     "qGroup": "D",
     "flag": "🇺🇦",
     "isoCode": "ua"
@@ -438,7 +428,7 @@
     "name": "Portugal",
     "abbreviation": "POR",
     "confederation": "UEFA",
-    "points": 1758,
+    "points": 1760,
     "qGroup": "F",
     "flag": "🇵🇹",
     "isoCode": "pt"
@@ -509,7 +499,7 @@
     "name": "Italy",
     "abbreviation": "ITA",
     "confederation": "UEFA",
-    "points": 1719,
+    "points": 1702,
     "qGroup": "I",
     "flag": "🇮🇹",
     "isoCode": "it"
@@ -524,15 +514,6 @@
     "isoCode": "be"
   },
   {
-    "name": "North Macedonia",
-    "abbreviation": "MKD",
-    "confederation": "UEFA",
-    "points": 1388.5,
-    "qGroup": "J",
-    "flag": "🇲🇰",
-    "isoCode": "mk"
-  },
-  {
     "name": "Wales",
     "abbreviation": "WAL",
     "confederation": "UEFA",
@@ -542,10 +523,19 @@
     "isoCode": "gb-wls"
   },
   {
+    "name": "North Macedonia",
+    "abbreviation": "MKD",
+    "confederation": "UEFA",
+    "points": 1388.5,
+    "qGroup": "J",
+    "flag": "🇲🇰",
+    "isoCode": "mk"
+  },
+  {
     "name": "England",
     "abbreviation": "ENG",
     "confederation": "UEFA",
-    "points": 1830,
+    "points": 1834,
     "qGroup": "K",
     "flag": "🏴󠁧󠁢󠁥󠁮󠁧󠁿",
     "isoCode": "gb-eng"
@@ -561,7 +551,7 @@
     "name": "Croatia",
     "abbreviation": "CRO",
     "confederation": "UEFA",
-    "points": 1713,
+    "points": 1717,
     "qGroup": "L",
     "flag": "🇭🇷",
     "isoCode": "hr"
