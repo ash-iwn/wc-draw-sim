@@ -2,49 +2,49 @@
     "name": "Japan",
     "abbreviation": "JPN",
     "confederation": "AFC",
-    "points": 1648,
+    "points": 1650,
     "flag": "🇯🇵",
     "isoCode": "jp"
   }, {
     "name": "Iran",
     "abbreviation": "IRN",
     "confederation": "AFC",
-    "points": 1619,
+    "points": 1617,
     "flag": "🇮🇷",
     "isoCode": "ir"
   }, {
     "name": "South Korea",
     "abbreviation": "KOR",
     "confederation": "AFC",
-    "points": 1594,
+    "points": 1599,
     "flag": "🇰🇷",
     "isoCode": "kr"
   }, {
     "name": "Australia",
     "abbreviation": "AUS",
     "confederation": "AFC",
-    "points": 1578,
+    "points": 1574,
     "flag": "🇦🇺",
     "isoCode": "au"
   }, {
     "name": "Uzbekistan",
     "abbreviation": "UZB",
     "confederation": "AFC",
-    "points": 1458,
+    "points": 1462,
     "flag": "🇺🇿",
     "isoCode": "uz"
   }, {
     "name": "Jordan",
     "abbreviation": "JOR",
     "confederation": "AFC",
-    "points": 1377,
+    "points": 1378,
     "flag": "🇯🇴",
     "isoCode": "jo"
   }, {
     "name": "Saudi Arabia",
     "abbreviation": "KSA",
     "confederation": "AFC",
-    "points": 1433,
+    "points": 1429,
     "qGroup": "B",
     "flag": "🇸🇦",
     "isoCode": "sa"
@@ -52,7 +52,7 @@
     "name": "Iraq",
     "abbreviation": "IRQ",
     "confederation": "AFC",
-    "points": 1428,
+    "points": 1439,
     "qGroup": "B",
     "flag": "🇮🇶",
     "isoCode": "iq"
@@ -61,7 +61,7 @@
     "name": "Qatar",
     "abbreviation": "QAT",
     "confederation": "AFC",
-    "points": 1462,
+    "points": 1454,
     "qGroup": "A",
     "flag": "🇶🇦",
     "isoCode": "qa"
@@ -70,7 +70,7 @@
     "abbreviation": "EGY",
     "qGroup":"A",
     "confederation": "CAF",
-    "points": 1520,
+    "points": 1521,
     "flag": "🇪🇬",
     "isoCode": "eg"
   }, {
@@ -78,7 +78,7 @@
     "abbreviation": "SEN",
       "qGroup":"B",
     "confederation": "CAF",
-    "points": 1647,
+    "points": 1648,
     "flag": "🇸🇳",
     "isoCode": "sn"
   },
@@ -87,7 +87,7 @@
     "abbreviation": "COD",
     "qGroup":"B",
     "confederation": "CAF",
-    "points": 1439,
+    "points": 1443,
     "flag": "🇨🇩",
     "isoCode": "cd"
   },
@@ -113,7 +113,7 @@
     "abbreviation": "CPV",
     "qGroup":"D",
     "confederation": "CAF",
-    "points": 1367,
+    "points": 1368,
     "flag": "🇨🇻",
     "isoCode": "cv"
   },
@@ -123,7 +123,7 @@
     "abbreviation": "MAR",
     "qGroup":"E",
     "confederation": "CAF",
-    "points": 1711,
+    "points": 1713,
     "flag": "🇲🇦",
     "isoCode": "ma"
   }, {
@@ -131,7 +131,7 @@
     "abbreviation": "CIV",
     "qGroup":"F",
     "confederation": "CAF",
-    "points": 1486,
+    "points": 1490,
     "flag": "🇨🇮",
     "isoCode": "ci"
   }, {
@@ -139,7 +139,7 @@
     "abbreviation": "ALG",
     "qGroup":"G",
     "confederation": "CAF",
-    "points": 1512,
+    "points": 1516,
     "flag": "🇩🇿",
     "isoCode": "dz"
   }, {
@@ -147,7 +147,7 @@
     "abbreviation": "TUN",
     "qGroup":"H",
     "confederation": "CAF",
-    "points": 1495,
+    "points": 1497,
     "flag": "🇹🇳",
     "isoCode": "tn"
   }, {
@@ -155,7 +155,7 @@
     "abbreviation": "GHA",
     "qGroup":"I",
     "confederation": "CAF",
-    "points": 1354,
+    "points": 1351,
     "flag": "🇬🇭",
     "isoCode": "gh"
   }, {
@@ -188,7 +188,7 @@
     "abbreviation": "PAN",
     "confederation": "CONCACAF",
     "qGroup": "A",
-    "points": 1534,
+    "points": 1540,
     "flag": "🇵🇦",
     "isoCode": "pa"
   },
@@ -206,7 +206,7 @@
     "abbreviation": "CUW",
     "qGroup": "B",
     "confederation": "CONCACAF",
-    "points": 1282.42,
+    "points": 1303,
     "flag": "🇨🇼",
     "isoCode": "cw"
   },
@@ -223,7 +223,7 @@
     "name": "Haiti",
     "abbreviation": "HAI",
     "confederation": "CONCACAF",
-    "points": 1286,
+    "points": 1294,
     "qGroup": "C",
     "flag": "🇭🇹",
     "isoCode": "ht"
@@ -246,28 +246,28 @@
     "name": "Colombia",
     "abbreviation": "COL",
     "confederation": "CONMEBOL",
-    "points": 1697,
+    "points": 1701,
     "flag": "🇨🇴",
     "isoCode": "co"
   }, {
     "name": "Uruguay",
     "abbreviation": "URU",
     "confederation": "CONMEBOL",
-    "points": 1678,
+    "points": 1673,
     "flag": "🇺🇾",
     "isoCode": "uy"
   }, {
     "name": "Ecuador",
     "abbreviation": "ECU",
     "confederation": "CONMEBOL",
-    "points": 1589,
+    "points": 1592,
     "flag": "🇪🇨",
     "isoCode": "ec"
   }, {
     "name": "Paraguay",
     "abbreviation": "PAR",
     "confederation": "CONMEBOL",
-    "points": 1495,
+    "points": 1502,
     "flag": "🇵🇾",
     "isoCode": "py"
   }, {
@@ -281,7 +281,7 @@
     "name": "New Zealand",
     "abbreviation": "NZL",
     "confederation": "OFC",
-    "points": 1282,
+    "points": 1279,
     "flag": "🇳🇿",
     "isoCode": "nz"
   },
@@ -324,7 +324,7 @@
     "name": "Switzerland",
     "abbreviation": "SUI",
     "confederation": "UEFA",
-    "points": 1662,
+    "points": 1655,
     "qGroup": "B",
     "flag": "🇨🇭",
     "isoCode": "ch"
@@ -351,7 +351,7 @@
     "name": "Scotland",
     "abbreviation": "SCO",
     "confederation": "UEFA",
-    "points": 1485.08,
+    "points": 1507,
     "qGroup": "C",
     "flag": "🏴󠁧󠁢󠁳󠁣󠁴󠁿",
     "isoCode": "gb-sct"
@@ -360,7 +360,7 @@
     "name": "Denmark",
     "abbreviation": "DEN",
     "confederation": "UEFA",
-    "points": 1633,
+    "points": 1617,
     "qGroup": "C",
     "flag": "🇩🇰",
     "isoCode": "dk"
@@ -397,7 +397,7 @@
     "abbreviation": "TUR",
     "confederation": "UEFA",
     "qGroup": "E",
-    "points": 1576,
+    "points": 1583,
     "flag": "🇹🇷",
     "isoCode": "tr"
   }, 
@@ -440,7 +440,7 @@
     "name": "Austria",
     "abbreviation": "AUT",
     "confederation": "UEFA",
-    "points": 1591,
+    "points": 1586,
     "qGroup": "H",
     "flag": "🇦🇹",
     "isoCode": "at"
@@ -467,7 +467,7 @@
     "name": "Norway",
     "abbreviation": "NOR",
     "confederation": "UEFA",
-    "points": 1536,
+    "points": 1553,
     "qGroup": "I",
     "flag": "🇳🇴",
     "isoCode": "no"
