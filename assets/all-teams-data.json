@@ -65,14 +65,6 @@
     "qGroup": "A",
     "flag": "🇶🇦",
     "isoCode": "qa"
-  }, {
-    "name": "UAE",
-    "abbreviation": "UAE",
-    "confederation": "AFC",
-    "points": 1379.86,
-    "qGroup": "A",
-    "flag": "🇦🇪",
-    "isoCode": "ae"
   },  {
     "name": "Egypt",
     "abbreviation": "EGY",
@@ -192,6 +184,15 @@
     "isoCode": "ca"
   }, 
   {
+    "name": "Panama",
+    "abbreviation": "PAN",
+    "confederation": "CONCACAF",
+    "qGroup": "A",
+    "points": 1534,
+    "flag": "🇵🇦",
+    "isoCode": "pa"
+  },
+  {
     "name": "Suriname",
     "abbreviation": "SUR",
     "confederation": "CONCACAF",
@@ -201,15 +202,6 @@
     "isoCode": "sr"
   }, 
   {
-    "name": "Panama",
-    "abbreviation": "PAN",
-    "confederation": "CONCACAF",
-    "qGroup": "A",
-    "points": 1534,
-    "flag": "🇵🇦",
-    "isoCode": "pa"
-  },
- {
     "name": "Curaçao",
     "abbreviation": "CUW",
     "qGroup": "B",
@@ -217,7 +209,8 @@
     "points": 1282.42,
     "flag": "🇨🇼",
     "isoCode": "cw"
-  },  {
+  },
+  {
     "name": "Jamaica",
     "abbreviation": "JAM",
     "confederation": "CONCACAF",
@@ -227,15 +220,6 @@
     "isoCode": "jm"
   },
   {
-    "name": "Honduras",
-    "abbreviation": "HON",
-    "confederation": "CONCACAF",
-    "points": 1396,
-    "qGroup": "C",
-    "flag": "🇭🇳",
-    "isoCode": "hn"
-  },
-  {
     "name": "Haiti",
     "abbreviation": "HAI",
     "confederation": "CONCACAF",
@@ -243,15 +227,8 @@
     "qGroup": "C",
     "flag": "🇭🇹",
     "isoCode": "ht"
-  },  {
-    "name": "Costa Rica",
-    "abbreviation": "CRC",
-    "confederation": "CONCACAF",
-    "qGroup": "C",
-    "points": 1481.13,
-    "flag": "🇨🇷",
-    "isoCode": "cr"
-  },   {
+  }, 
+  {
     "name": "Argentina",
     "abbreviation": "ARG",
     "confederation": "CONMEBOL",
